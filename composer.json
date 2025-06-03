@@ -22,5 +22,15 @@
         "phpstan/phpstan": "^2.1",
         "prestashop/header-stamp": "^2.6",
         "prestashop/autoindex": "^2.1"
+    },
+    "scripts": {
+        "fix": [
+            "@fix:index",
+            "@fix:headers",
+            "@fix:cs"
+        ],
+        "fix:index": "vendor/bin/autoindex --exclude=vendor",
+        "fix:headers": "vendor/bin/header-stamp --license=assets/header-stamp.txt --exclude=vendor --extensions=php,html.twig,tpl,css,js",
+        "fix:cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix"
     }
 }

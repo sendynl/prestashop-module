@@ -1,0 +1,26 @@
+{
+    "name": "sendynl/prestashop-module",
+    "description": "A PrestaShop module that connects your store to the Sendy platform",
+    "type": "prestashop-module",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sendy\\PrestaShop\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.4",
+        "sendynl/php-sdk": "3.x-dev"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "prepend-autoloader": false
+    },
+    "require-dev": {
+        "prestashop/php-dev-tools": "^5.0",
+        "friendsofphp/php-cs-fixer": "^3.75",
+        "phpstan/phpstan": "^2.1",
+        "prestashop/header-stamp": "^2.6",
+        "prestashop/autoindex": "^2.1"
+    }
+}

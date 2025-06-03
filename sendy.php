@@ -50,7 +50,7 @@ class Sendy extends CarrierModule
         $this->displayName = $this->l('Sendy');
         $this->description = $this->l('A PrestaShop module that connects your store to the Sendy platform');
 
-        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.7.8', 'max' => _PS_VERSION_);
     }
 
     /**

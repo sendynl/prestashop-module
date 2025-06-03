@@ -7,3 +7,5 @@ parameters:
     - ../../src
   reportUnmatchedIgnoredErrors: false
   level: max
+  scanDirectories:
+    - /var/www/html/classes

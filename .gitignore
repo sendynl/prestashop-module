@@ -1,2 +1,6 @@
 /vendor/
 .php-cs-fixer.cache
+
+/prestashop-1.7/
+/prestashop-8/
+/prestashop-latest/

@@ -18,7 +18,8 @@ services:
     ports:
       - 8017:80
     volumes:
-      - prestashop-1.7-data:/var/www/html
+      - ./prestashop-1.7:/var/www/html
+      - ./:/var/www/html/modules/sendy
     environment:
       DB_SERVER: sendy-prestashop-1.7-mysql
       DB_NAME: prestashop

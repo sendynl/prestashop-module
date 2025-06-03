@@ -31,6 +31,20 @@
         ],
         "fix:index": "vendor/bin/autoindex --exclude=vendor",
         "fix:headers": "vendor/bin/header-stamp --license=assets/header-stamp.txt --exclude=vendor --extensions=php,html.twig,tpl,css,js",
-        "fix:cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix"
+        "fix:cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix",
+        "analyse": [
+            "@analyse:1.7",
+            "@analyse:8",
+            "@analyse:latest"
+        ],
+        "analyse:1.7": [
+            "docker run --rm -v prestashop-1.7-data -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.neon"
+        ],
+        "analyse:8": [
+            "docker run --rm -v prestashop-8-data -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.neon"
+        ],
+        "analyse:latest": [
+            "docker run --rm -v prestashop-latest-data -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.neon"
+        ]
     }
 }

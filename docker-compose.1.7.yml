@@ -1,0 +1,35 @@
+name: sendy-prestashop-1.7
+services:
+  mysql:
+    container_name: sendy-prestashop-1.7-mysql
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: prestashop
+    networks:
+      - prestashop_network
+  prestashop:
+    container_name: sendy-prestashop-1.7-prestashop
+    image: prestashop/prestashop:1.7.8
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 8017:80
+    volumes:
+      - prestashop-1.7-data:/var/www/html
+    environment:
+      DB_SERVER: sendy-prestashop-1.7-mysql
+      DB_NAME: prestashop
+      DB_USER: root
+      DB_PASSWD: admin
+      PS_INSTALL_AUTO: 1
+      PS_DOMAIN: localhost:8017
+      PS_FOLDER_ADMIN: admin7639
+    networks:
+      - prestashop_network
+networks:
+  prestashop_network:
+volumes:
+  prestashop-1.7-data:

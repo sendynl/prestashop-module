@@ -28,9 +28,8 @@ services:
       PS_INSTALL_AUTO: 1
       PS_DOMAIN: localhost:8080
       PS_FOLDER_ADMIN: admin7639
+      PS_DEV_MODE: 1
     networks:
       - prestashop_network
 networks:
   prestashop_network:
-volumes:
-    prestashop-8-data:

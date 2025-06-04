@@ -15,7 +15,7 @@ PrestaShop 1.7, 8 and 9 can run alongside each other using Docker:
 ```shell
 docker compose --file docker-compose.1.7.yml up -d
 docker compose --file docker-compose.8.yml up -d
-docker compose --file docker-compose.yml up -d
+docker compose --file docker-compose.9.yml up -d
 ```
 
 You can log in to the PrestaShop back office with email `demo@prestashop.com` and password `prestashop_demo` at the following URLs:

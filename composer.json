@@ -35,16 +35,19 @@
         "analyse": [
             "@analyse:1.7",
             "@analyse:8",
-            "@analyse:latest"
+            "@analyse:9"
         ],
         "analyse:1.7": [
-            "docker run --rm -v ./prestashop-1.7:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.neon"
+            "docker run --rm -v ./prestashop-1.7:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.1.7.neon"
         ],
         "analyse:8": [
-            "docker run --rm -v ./prestashop-8:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.neon"
+            "docker run --rm -v ./prestashop-8:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.8.neon"
         ],
-        "analyse:latest": [
-            "docker run --rm -v ./prestashop-latest:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.neon"
-        ]
+        "analyse:9": [
+            "docker run --rm -v ./prestashop-9:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.9.neon"
+        ],
+        "analyse:1.7:baseline": "@analyse:1.7 --generate-baseline=tests/phpstan/phpstan-baseline.1.7.neon",
+        "analyse:8:baseline": "@analyse:8 --generate-baseline=tests/phpstan/phpstan-baseline.8.neon",
+        "analyse:9:baseline": "@analyse:9 --generate-baseline=tests/phpstan/phpstan-baseline.9.neon"
     }
 }

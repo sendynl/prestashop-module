@@ -1,7 +1,7 @@
-name: sendy-prestashop-latest
+name: sendy-prestashop-9
 services:
   mysql:
-    container_name: sendy-prestashop-latest-mysql
+    container_name: sendy-prestashop-9-mysql
     image: mysql:latest
     restart: unless-stopped
     environment:
@@ -10,28 +10,26 @@ services:
     networks:
       - prestashop_network
   prestashop:
-    container_name: sendy-prestashop-latest-prestashop
-    image: prestashop/prestashop:latest
+    container_name: sendy-prestashop-9-prestashop
+    image: prestashop/prestashop:nightly
     restart: unless-stopped
     depends_on:
       - mysql
     ports:
       - 8090:80
     volumes:
-      - ./prestashop-latest:/var/www/html
+      - ./prestashop-9:/var/www/html
       - ./:/var/www/html/modules/sendy
     environment:
-      DB_SERVER: sendy-prestashop-latest-mysql
+      DB_SERVER: sendy-prestashop-9-mysql
       DB_NAME: prestashop
       DB_USER: root
       DB_PASSWD: admin
       PS_INSTALL_AUTO: 1
-      PS_DOMAIN: localhost:8080
+      PS_DOMAIN: localhost:8090
       PS_FOLDER_ADMIN: admin7639
+      PS_DEV_MODE: 1
     networks:
       - prestashop_network
 networks:
   prestashop_network:
-volumes:
-  prestashop-latest-data:
-

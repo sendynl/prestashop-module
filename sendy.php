@@ -11,13 +11,16 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+
+use PrestaShop\PrestaShop\Core\Context\LegacyControllerContext;
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 class Sendy extends CarrierModule
 {
-    protected $config_form = false;
+    protected bool $config_form = false;
 
     public function __construct()
     {
@@ -44,7 +47,7 @@ class Sendy extends CarrierModule
      * Don't forget to create update methods if needed:
      * http://doc.prestashop.com/display/PS16/Enabling+the+Auto-Update
      */
-    public function install()
+    public function install(): bool
     {
         if (extension_loaded('curl') == false) {
             $this->_errors[] = $this->l('You have to enable the cURL extension on your server to install this module');
@@ -74,7 +77,7 @@ class Sendy extends CarrierModule
             && $this->registerHook('displayOrderConfirmation');
     }
 
-    public function uninstall()
+    public function uninstall(): bool
     {
         Configuration::deleteByName('SENDY_LIVE_MODE');
 
@@ -84,7 +87,7 @@ class Sendy extends CarrierModule
     /**
      * Load the configuration form
      */
-    public function getContent()
+    public function getContent(): string
     {
         /*
          * If values have been submitted in the form, process.
@@ -103,7 +106,7 @@ class Sendy extends CarrierModule
     /**
      * Create the form that will be displayed in the configuration of your module.
      */
-    protected function renderForm()
+    protected function renderForm(): string
     {
         $helper = new HelperForm();
 
@@ -130,8 +133,10 @@ class Sendy extends CarrierModule
 
     /**
      * Create the structure of your form.
+     *
+     * @return array<string, mixed>
      */
-    protected function getConfigForm()
+    protected function getConfigForm(): array
     {
         return [
             'form' => [
@@ -182,8 +187,10 @@ class Sendy extends CarrierModule
 
     /**
      * Set values for the inputs.
+     *
+     * @return array<string, mixed>
      */
-    protected function getConfigFormValues()
+    protected function getConfigFormValues(): array
     {
         return [
             'SENDY_LIVE_MODE' => Configuration::get('SENDY_LIVE_MODE', true),
@@ -195,7 +202,7 @@ class Sendy extends CarrierModule
     /**
      * Save form data.
      */
-    protected function postProcess()
+    protected function postProcess(): void
     {
         $form_values = $this->getConfigFormValues();
 
@@ -204,27 +211,31 @@ class Sendy extends CarrierModule
         }
     }
 
-    public function getOrderShippingCost($params, $shipping_cost)
+    /**
+     * @param mixed $params
+     * @param mixed $shipping_cost
+     *
+     * @return float
+     */
+    public function getOrderShippingCost($params, $shipping_cost): float
     {
-        if (Context::getContext()->customer->logged == true) {
-            $id_address_delivery = Context::getContext()->cart->id_address_delivery;
-            $address = new Address($id_address_delivery);
-
-            /*
-             * Send the details through the API
-             * Return the price sent by the API
-             */
-            return 10;
-        }
-
-        return $shipping_cost;
+        return 0.0;
     }
 
-    public function getOrderShippingCostExternal($params)
+    /**
+     * @param mixed $params
+     */
+    public function getOrderShippingCostExternal($params): bool
     {
-        return true;
+        return false;
     }
 
+    /**
+     * @return Carrier|false
+     *
+     * @throws PrestaShopDatabaseException
+     * @throws PrestaShopException
+     */
     protected function addCarrier()
     {
         $carrier = new Carrier();
@@ -253,7 +264,7 @@ class Sendy extends CarrierModule
         return false;
     }
 
-    protected function addGroups($carrier)
+    protected function addGroups(Carrier $carrier): void
     {
         $groups_ids = [];
         $groups = Group::getGroups(Context::getContext()->language->id);
@@ -264,7 +275,7 @@ class Sendy extends CarrierModule
         $carrier->setGroups($groups_ids);
     }
 
-    protected function addRanges($carrier)
+    protected function addRanges(Carrier $carrier): void
     {
         $range_price = new RangePrice();
         $range_price->id_carrier = $carrier->id;
@@ -279,7 +290,7 @@ class Sendy extends CarrierModule
         $range_weight->add();
     }
 
-    protected function addZones($carrier)
+    protected function addZones(Carrier $carrier): void
     {
         $zones = Zone::getZones();
 
@@ -291,7 +302,7 @@ class Sendy extends CarrierModule
     /**
      * Add the CSS & JavaScript files you want to be loaded in the BO.
      */
-    public function hookDisplayBackOfficeHeader()
+    public function hookDisplayBackOfficeHeader(): void
     {
         if (Tools::getValue('configure') == $this->name) {
             $this->context->controller->addJS($this->_path . 'views/js/back.js');
@@ -302,66 +313,58 @@ class Sendy extends CarrierModule
     /**
      * Add the CSS & JavaScript files you want to be added on the FO.
      */
-    public function hookHeader()
+    public function hookHeader(): void
     {
         $this->context->controller->addJS($this->_path . '/views/js/front.js');
         $this->context->controller->addCSS($this->_path . '/views/css/front.css');
     }
 
-    public function hookUpdateCarrier($params)
-    {
-        /*
-         * Not needed since 1.5
-         * You can identify the carrier by the id_reference
-         */
-    }
-
-    public function hookActionCarrierProcess()
+    public function hookActionCarrierProcess(): void
     {
         /* Place your code here. */
     }
 
-    public function hookActionCarrierUpdate()
+    public function hookActionCarrierUpdate(): void
     {
         /* Place your code here. */
     }
 
-    public function hookActionObjectOrderAddAfter()
+    public function hookActionObjectOrderAddAfter(): void
     {
         /* Place your code here. */
     }
 
-    public function hookActionOrderStatusPostUpdate()
+    public function hookActionOrderStatusPostUpdate(): void
     {
         /* Place your code here. */
     }
 
-    public function hookActionOrderStatusUpdate()
+    public function hookActionOrderStatusUpdate(): void
     {
         /* Place your code here. */
     }
 
-    public function hookActionValidateOrder()
+    public function hookActionValidateOrder(): void
     {
         /* Place your code here. */
     }
 
-    public function hookDisplayBeforeCarrier()
+    public function hookDisplayBeforeCarrier(): void
     {
         /* Place your code here. */
     }
 
-    public function hookDisplayCarrierExtraContent()
+    public function hookDisplayCarrierExtraContent(): void
     {
         /* Place your code here. */
     }
 
-    public function hookDisplayCarrierList()
+    public function hookDisplayCarrierList(): void
     {
         /* Place your code here. */
     }
 
-    public function hookDisplayOrderConfirmation()
+    public function hookDisplayOrderConfirmation(): void
     {
         /* Place your code here. */
     }

@@ -1,0 +1,127 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Call to an undefined method AdminController\|FrontController\:\:getLanguages\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Cannot access offset ''id_group'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Cannot access offset ''id_lang'' on array\|int\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Cannot access offset ''id_zone'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Cannot access property \$language on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Cannot assign offset mixed to string\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Method Sendy\:\:renderForm\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Parameter \#1 \$carrier of method Sendy\:\:addGroups\(\) expects Carrier, Carrier\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Parameter \#1 \$carrier of method Sendy\:\:addRanges\(\) expects Carrier, Carrier\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Parameter \#1 \$carrier of method Sendy\:\:addZones\(\) expects Carrier, Carrier\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Parameter \#2 \$idLang of static method ConfigurationCore\:\:get\(\) expects int\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Parameter \#2 \$idLang of static method ConfigurationCore\:\:get\(\) expects int\|null, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property CarrierCore\:\:\$active \(bool\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property CarrierCore\:\:\$need_range \(bool\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property RangePriceCore\:\:\$delimiter1 \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property RangePriceCore\:\:\$delimiter2 \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property RangePriceCore\:\:\$id_carrier \(int\) does not accept int\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property RangeWeightCore\:\:\$delimiter1 \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property RangeWeightCore\:\:\$delimiter2 \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php
+
+		-
+			message: '#^Property RangeWeightCore\:\:\$id_carrier \(int\) does not accept int\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../sendy.php

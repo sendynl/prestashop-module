@@ -12,8 +12,6 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-use PrestaShop\PrestaShop\Core\Context\LegacyControllerContext;
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }

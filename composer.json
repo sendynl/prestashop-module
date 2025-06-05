@@ -20,18 +20,19 @@
         "prestashop/php-dev-tools": "^5.0",
         "friendsofphp/php-cs-fixer": "^3.75",
         "phpstan/phpstan": "^2.1",
-        "prestashop/header-stamp": "^2.6",
         "prestashop/autoindex": "^2.1"
     },
     "scripts": {
+        "post-install-cmd": [
+            "lefthook install || true"
+        ],
         "fix": [
             "@fix:index",
             "@fix:headers",
             "@fix:cs"
         ],
-        "fix:index": "vendor/bin/autoindex --exclude=vendor",
-        "fix:headers": "vendor/bin/header-stamp --license=assets/header-stamp.txt --exclude=vendor --extensions=php,html.twig,tpl,css,js",
-        "fix:cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix",
+        "fix:index": "vendor/bin/autoindex --exclude=vendor,prestashop-1.7,prestashop-8,prestashop-9 --quiet",
+        "fix:cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "analyse": [
             "@analyse:1.7",
             "@analyse:8",

@@ -7,6 +7,7 @@ To set up a development environment for the Sendy PrestaShop module, make sure t
 - PHP CLI
 - Composer
 - Docker
+- Lefthook
 
 ### Prestashop installation
 

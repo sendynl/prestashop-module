@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    php-cs-fixer:
+      run: composer run fix:cs -- {staged_files}
+      glob: "*.php"
+      stage_fixed: true
+post-commit:
+  commands:
+    # This command cannot run on pre-commit because it creates new files which
+    # have to be fixed by php-cs-fixer
+    autoindex:
+      run: |
+        composer run fix:index
+        git ls-files --others --exclude-standard "**/index.php"

@@ -11,6 +11,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }

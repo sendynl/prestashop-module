@@ -14,7 +14,10 @@
     },
     "config": {
         "preferred-install": "dist",
-        "prepend-autoloader": false
+        "prepend-autoloader": false,
+        "platform": {
+            "php": "7.4"
+        }
     },
     "require-dev": {
         "prestashop/php-dev-tools": "^5.0",
@@ -25,6 +28,39 @@
     "scripts": {
         "post-install-cmd": [
             "lefthook install || true"
+        ],
+        "start": [
+            "@start:1.7",
+            "@start:8",
+            "@start:9"
+        ],
+        "start:1.7": "docker compose --file docker-compose.1.7.yml up -d",
+        "start:8": "docker compose --file docker-compose.8.yml up -d",
+        "start:9": "docker compose --file docker-compose.9.yml up -d",
+        "stop": [
+            "@stop:1.7",
+            "@stop:8",
+            "@stop:9"
+        ],
+        "stop:1.7": "docker compose --file docker-compose.1.7.yml down",
+        "stop:8": "docker compose --file docker-compose.8.yml down",
+        "stop:9": "docker compose --file docker-compose.9.yml down",
+        "clean": [
+            "@clean:1.7",
+            "@clean:8",
+            "@clean:9"
+        ],
+        "clean:1.7": [
+            "docker compose --file docker-compose.1.7.yml down --volumes --remove-orphans",
+            "rm -rf prestashop-1.7"
+        ],
+        "clean:8": [
+            "docker compose --file docker-compose.8.yml down --volumes --remove-orphans",
+            "rm -rf prestashop-8"
+        ],
+        "clean:9": [
+            "docker compose --file docker-compose.9.yml down --volumes --remove-orphans",
+            "rm -rf prestashop-9"
         ],
         "fix": [
             "@fix:index",
@@ -38,6 +74,13 @@
             "@analyse:8",
             "@analyse:9"
         ],
+        "analyze": "@analyse",
+        "analyse:baseline": [
+            "@analyse:1.7:baseline",
+            "@analyse:8:baseline",
+            "@analyse:9:baseline"
+        ],
+        "analyze:baseline": "@analyse:baseline",
         "analyse:1.7": [
             "docker run --rm -v ./prestashop-1.7:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.1.7.neon"
         ],
@@ -47,8 +90,14 @@
         "analyse:9": [
             "docker run --rm -v ./prestashop-9:/var/www/html -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.9.neon"
         ],
+        "analyze:1.7": "@analyse:1.7",
+        "analyze:8": "@analyse:8",
+        "analyze:9": "@analyse:9",
         "analyse:1.7:baseline": "@analyse:1.7 --generate-baseline=tests/phpstan/phpstan-baseline.1.7.neon",
         "analyse:8:baseline": "@analyse:8 --generate-baseline=tests/phpstan/phpstan-baseline.8.neon",
-        "analyse:9:baseline": "@analyse:9 --generate-baseline=tests/phpstan/phpstan-baseline.9.neon"
+        "analyse:9:baseline": "@analyse:9 --generate-baseline=tests/phpstan/phpstan-baseline.9.neon",
+        "analyze:1.7:baseline": "@analyse:1.7:baseline",
+        "analyze:8:baseline": "@analyse:8:baseline",
+        "analyze:9:baseline": "@analyse:9:baseline"
     }
 }

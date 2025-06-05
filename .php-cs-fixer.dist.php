@@ -18,6 +18,7 @@ $config = new class extends PrestaShop\CodingStandards\CsFixer\Config {
         return [
             ...parent::getRules(),
             'declare_strict_types' => true,
+            'global_namespace_import' => true,
             'header_comment' => [
                 'comment_type' => 'PHPDoc',
                 'header' => <<<'HEADER'
@@ -30,12 +31,16 @@ $config = new class extends PrestaShop\CodingStandards\CsFixer\Config {
                     @see https://github.com/sendynl/prestashop-module
                     HEADER,
             ],
+            'trailing_comma_in_multiline' => [
+                // Only target arrays, as trailing commas in function calls are not supported in PHP 7.4.
+                'elements' => ['arrays'],
+            ],
         ];
     }
 };
 
 /** @var Symfony\Component\Finder\Finder $finder */
 $finder = $config->setUsingCache(true)->getFinder();
-$finder->in(__DIR__)->ignoreVCSIgnored(true);
+$finder->in(__DIR__)->append([__FILE__])->ignoreVCSIgnored(true);
 
 return $config;

@@ -12,6 +12,8 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
+use Sendy\PrestaShop\Settings\LegacySettingsForm;
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -87,126 +89,19 @@ class Sendy extends CarrierModule
      */
     public function getContent(): string
     {
-        /*
-         * If values have been submitted in the form, process.
-         */
-        if (((bool) Tools::isSubmit('submitSendyModule')) == true) {
-            $this->postProcess();
-        }
+        $form = new LegacySettingsForm(
+            $this->context->controller,
+            $this->context->language,
+            $this->context->smarty,
+            $this->context->link,
+            $this,
+            $this->_path,
+            $this->local_path,
+            $this->table,
+            $this->identifier
+        );
 
-        $this->context->smarty->assign('module_dir', $this->_path);
-
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/configure.tpl');
-
-        return $output . $this->renderForm();
-    }
-
-    /**
-     * Create the form that will be displayed in the configuration of your module.
-     */
-    protected function renderForm(): string
-    {
-        $helper = new HelperForm();
-
-        $helper->show_toolbar = false;
-        $helper->table = $this->table;
-        $helper->module = $this;
-        $helper->default_form_language = $this->context->language->id;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
-
-        $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitSendyModule';
-        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
-            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
-        $helper->token = Tools::getAdminTokenLite('AdminModules');
-
-        $helper->tpl_vars = [
-            'fields_value' => $this->getConfigFormValues(), /* Add values for your inputs */
-            'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id,
-        ];
-
-        return $helper->generateForm([$this->getConfigForm()]);
-    }
-
-    /**
-     * Create the structure of your form.
-     *
-     * @return array<string, mixed>
-     */
-    protected function getConfigForm(): array
-    {
-        return [
-            'form' => [
-                'legend' => [
-                    'title' => $this->l('Settings'),
-                    'icon' => 'icon-cogs',
-                ],
-                'input' => [
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Live mode'),
-                        'name' => 'SENDY_LIVE_MODE',
-                        'is_bool' => true,
-                        'desc' => $this->l('Use this module in live mode'),
-                        'values' => [
-                            [
-                                'id' => 'active_on',
-                                'value' => true,
-                                'label' => $this->l('Enabled'),
-                            ],
-                            [
-                                'id' => 'active_off',
-                                'value' => false,
-                                'label' => $this->l('Disabled'),
-                            ],
-                        ],
-                    ],
-                    [
-                        'col' => 3,
-                        'type' => 'text',
-                        'prefix' => '<i class="icon icon-envelope"></i>',
-                        'desc' => $this->l('Enter a valid email address'),
-                        'name' => 'SENDY_ACCOUNT_EMAIL',
-                        'label' => $this->l('Email'),
-                    ],
-                    [
-                        'type' => 'password',
-                        'name' => 'SENDY_ACCOUNT_PASSWORD',
-                        'label' => $this->l('Password'),
-                    ],
-                ],
-                'submit' => [
-                    'title' => $this->l('Save'),
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Set values for the inputs.
-     *
-     * @return array<string, mixed>
-     */
-    protected function getConfigFormValues(): array
-    {
-        return [
-            'SENDY_LIVE_MODE' => Configuration::get('SENDY_LIVE_MODE', true),
-            'SENDY_ACCOUNT_EMAIL' => Configuration::get('SENDY_ACCOUNT_EMAIL', 'contact@prestashop.com'),
-            'SENDY_ACCOUNT_PASSWORD' => Configuration::get('SENDY_ACCOUNT_PASSWORD', null),
-        ];
-    }
-
-    /**
-     * Save form data.
-     */
-    protected function postProcess(): void
-    {
-        $form_values = $this->getConfigFormValues();
-
-        foreach (array_keys($form_values) as $key) {
-            Configuration::updateValue($key, Tools::getValue($key));
-        }
+        return $form->getContent();
     }
 
     /**

@@ -9,6 +9,10 @@ services:
       MYSQL_DATABASE: prestashop
     networks:
       - prestashop_network
+    ports:
+      - 3309:3306
+    volumes:
+      - db_data:/var/lib/mysql
   prestashop:
     container_name: sendy-prestashop-9-prestashop
     image: prestashop/prestashop:9.0.0-1.0-classic
@@ -35,3 +39,6 @@ services:
       - prestashop_network
 networks:
   prestashop_network:
+volumes:
+  db_data:
+    driver: local

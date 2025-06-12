@@ -14,30 +14,60 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Settings;
 
+use LogicException;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
+use Sendy\PrestaShop\Factories\ApiConnectionFactory;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AuthenticateForm extends TranslatorAwareType
 {
+    private UrlGeneratorInterface $router;
+    private ApiConnectionFactory $apiConnectionFactory;
+
+    public function __construct(
+        \PrestaShopBundle\Translation\TranslatorInterface $translator,
+        array $locales,
+        UrlGeneratorInterface $router,
+        ApiConnectionFactory $apiConnectionFactory
+    ) {
+        parent::__construct($translator, $locales);
+        $this->router = $router;
+        $this->apiConnectionFactory = $apiConnectionFactory;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!($options['is_authenticated'] ?? false)) { // todo pass from controller
+        try {
+            $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
+            $authenticatedAs = $sendy->me->get()['name'];
+        } catch (\Sendy\Api\Exceptions\SendyException $e) {
+            // If the connection fails, we assume the user is not authenticated
+            $authenticatedAs = null;
+        } catch (LogicException $e) {
+            // If the connection cannot be built, we assume the user is not authenticated
+            $authenticatedAs = null;
+        }
+
+        if ($authenticatedAs) {
             $builder
-                ->setAction('sendy_login') // TODO create route
-                ->add('authenticate', SubmitType::class, [
-                    'label' => $this->trans('Login with Sendy', 'Modules.Sendy.Admin'),
+                ->setAction($this->router->generate('sendy_logout'))
+                ->add('unauthenticate', SubmitType::class, [
+                    'label' => $this->trans('Logout %name%', 'Modules.Sendy.Admin', [
+                        '%name%' => $authenticatedAs,
+                    ]),
                     'attr' => [
-                        'class' => 'btn btn-primary',
+                        'class' => 'btn btn-outline-danger',
                     ],
                 ]);
         } else {
             $builder
-                ->setAction('sendy_logout') // TODO create route
-                ->add('unauthenticate', SubmitType::class, [
-                    'label' => $this->trans('Logout from Sendy', 'Modules.Sendy.Admin'),
+                ->setAction($this->router->generate('sendy_login'))
+                ->add('authenticate', SubmitType::class, [
+                    'label' => $this->trans('Login with Sendy', 'Modules.Sendy.Admin'),
                     'attr' => [
-                        'class' => 'btn btn-outline-danger',
+                        'class' => 'btn btn-primary',
                     ],
                 ]);
         }

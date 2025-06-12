@@ -1,4 +1,4 @@
-sendy_prestashop_settings:
+sendy_settings:
   path: /sendy/settings
   methods: [GET, POST]
   defaults:
@@ -6,3 +6,21 @@ sendy_prestashop_settings:
     # Needed to work with tab system
     _legacy_controller: 'AdminSendySettings'
     _legacy_link: 'AdminSendySettings'
+
+sendy_login:
+  path: /sendy/login
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\AuthController::login'
+sendy_login_callback:
+  path: /sendy/login/callback
+  methods: [GET]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\AuthController::callback'
+    _anonymous_controller: true
+    _legacy_controller_anonymous: true
+sendy_logout:
+  path: /sendy/logout
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\AuthController::logout'

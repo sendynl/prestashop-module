@@ -41,6 +41,15 @@ class Sendy extends CarrierModule
         $this->description = $this->l('A PrestaShop module that connects your store to the Sendy platform');
 
         $this->ps_versions_compliancy = ['min' => '1.7.8', 'max' => _PS_VERSION_];
+
+        $this->tabs = [
+            [
+                'name' => 'Sendy',
+                'class_name' => 'AdminSendySettings',
+                'visible' => true,
+                'parent_class_name' => 'AdminParentShipping',
+            ],
+        ];
     }
 
     /**
@@ -93,12 +102,13 @@ class Sendy extends CarrierModule
      */
     public function getContent()
     {
-        if (_PS_VERSION_ >= 8) {
+        if (_PS_VERSION_ >= '1.7.8') {
             /** @var Symfony\Component\Routing\Router $router */
             $router = $this->get('router');
-            $route = $router->generate('sendy_prestashop_settings');
+            $route = $router->generate('sendy_settings');
             Tools::redirectAdmin($route);
         } else {
+            // TODO this can be removed along with any references to configuration values defined in this class
             $form = new LegacySettingsForm(
                 $this->context->controller,
                 $this->context->language,

@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Settings;
 
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
-use PrestaShop\PrestaShop\Core\ConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 use Sendy\PrestaShop\Enums\MarkOrderAsCompletedSetting;
 use Sendy\PrestaShop\Enums\ProcessingMethod;
+use Sendy\PrestaShop\Repositories\ConfigurationRepository;
 
 /**
  * Manages storage and retrieval of the settings for the Sendy module.
@@ -34,11 +34,11 @@ use Sendy\PrestaShop\Enums\ProcessingMethod;
  */
 class SettingsDataManager implements DataConfigurationInterface, FormDataProviderInterface
 {
-    private ConfigurationInterface $configuration;
+    private ConfigurationRepository $configurationRepository;
 
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(ConfigurationRepository $configurationRepository)
     {
-        $this->configuration = $configuration;
+        $this->configurationRepository = $configurationRepository;
     }
 
     /**
@@ -49,12 +49,12 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
     public function getConfiguration(): array
     {
         return [
-            'sendy_processing_method' => $this->configuration->get('sendy_processing_method') ?? ProcessingMethod::PrestaShop,
-            'sendy_processable_status' => $this->configuration->get('sendy_processable_status'),
-            'sendy_default_shop' => $this->configuration->get('sendy_default_shop'),
-            'sendy_import_products' => (bool) $this->configuration->get('sendy_import_products'),
-            'sendy_import_weight' => (bool) $this->configuration->get('sendy_import_weight'),
-            'sendy_mark_order_as_completed' => $this->configuration->get('sendy_mark_order_as_completed') ?? MarkOrderAsCompletedSetting::Manually,
+            'sendy_processing_method' => $this->configurationRepository->getProcessingMethod(),
+            'sendy_processable_status' => $this->configurationRepository->getProcessableStatus(),
+            'sendy_default_shop' => $this->configurationRepository->getDefaultShop(),
+            'sendy_import_products' => $this->configurationRepository->getImportProducts(),
+            'sendy_import_weight' => $this->configurationRepository->getImportWeight(),
+            'sendy_mark_order_as_completed' => $this->configurationRepository->getMarkOrderAsCompleted(),
         ];
     }
 
@@ -71,9 +71,12 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
             return $errors;
         }
 
-        foreach ($configuration as $key => $value) {
-            $this->configuration->set($key, $value);
-        }
+        $this->configurationRepository->setProcessingMethod($configuration['sendy_processing_method']);
+        $this->configurationRepository->setProcessableStatus($configuration['sendy_processable_status']);
+        $this->configurationRepository->setDefaultShop($configuration['sendy_default_shop']);
+        $this->configurationRepository->setImportProducts($configuration['sendy_import_products']);
+        $this->configurationRepository->setImportWeight($configuration['sendy_import_weight']);
+        $this->configurationRepository->setMarkOrderAsCompleted($configuration['sendy_mark_order_as_completed']);
 
         return [];
     }
@@ -106,7 +109,7 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
     /**
      * @param array<string, mixed> $configuration
      *
-     * @return array<string> Contains error messages if the configuration is invalid
+     * @return ($configuration is SendySettingsData ? [] : list<string>)
      */
     private function getValidationErrors($configuration): array
     {

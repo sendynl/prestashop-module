@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d7bc062054ec5acc9731719fbc66b2e",
+    "content-hash": "316681e184fd6fb4455247ef75f000bd",
     "packages": [
         {
             "name": "sendynl/php-sdk",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sendynl/php-sdk.git",
-                "reference": "d6d5939988a8feace642bd64268c78031fb65d58"
+                "reference": "9cb253c28292af5cb2b1d6741bc4ca24730d4f5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sendynl/php-sdk/zipball/d6d5939988a8feace642bd64268c78031fb65d58",
-                "reference": "d6d5939988a8feace642bd64268c78031fb65d58",
+                "url": "https://api.github.com/repos/sendynl/php-sdk/zipball/9cb253c28292af5cb2b1d6741bc4ca24730d4f5f",
+                "reference": "9cb253c28292af5cb2b1d6741bc4ca24730d4f5f",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "issues": "https://github.com/sendynl/php-sdk/issues",
                 "source": "https://github.com/sendynl/php-sdk/tree/3.x"
             },
-            "time": "2025-06-02T15:58:56+00:00"
+            "time": "2025-06-13T13:51:13+00:00"
         }
     ],
     "packages-dev": [
@@ -2822,5 +2822,8 @@
         "php": ">=7.4"
     },
     "platform-dev": {},
+    "platform-overrides": {
+        "php": "7.4"
+    },
     "plugin-api-version": "2.6.0"
 }

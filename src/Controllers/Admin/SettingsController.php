@@ -15,12 +15,23 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Controllers\Admin;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use Sendy\PrestaShop\Repositories\ConfigurationRepository;
 use Sendy\PrestaShop\Settings\AuthenticateForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SettingsController extends FrameworkBundleAdminController
 {
+    private ConfigurationRepository $configurationRepository;
+
+    public function __construct(ConfigurationRepository $configurationRepository)
+    {
+        if (method_exists(parent::class, '__construct')) {
+            parent::__construct();
+        }
+        $this->configurationRepository = $configurationRepository;
+    }
+
     public function index(Request $request): Response
     {
         /** @var \PrestaShop\PrestaShop\Core\Form\Handler $formHandler */
@@ -35,7 +46,7 @@ class SettingsController extends FrameworkBundleAdminController
             if (empty($errors)) {
                 $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
 
-                return $this->redirectToRoute('sendy_prestashop_settings');
+                return $this->redirectToRoute('sendy_settings');
             }
 
             $this->flashErrors($errors);
@@ -44,6 +55,7 @@ class SettingsController extends FrameworkBundleAdminController
         return $this->render('@Modules/sendy/views/templates/admin/settings.html.twig', [
             'settingsFormView' => $settingsForm->createView(),
             'authenticateFormView' => $this->createForm(AuthenticateForm::class)->createView(),
+            'shouldDisplaySettingsForm' => $this->configurationRepository->getAccessToken() !== null,
         ]);
     }
 }

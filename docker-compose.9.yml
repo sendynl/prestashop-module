@@ -11,7 +11,7 @@ services:
       - prestashop_network
   prestashop:
     container_name: sendy-prestashop-9-prestashop
-    image: prestashop/prestashop:nightly
+    image: prestashop/prestashop:9.0.0-1.0-classic
     restart: unless-stopped
     depends_on:
       - mysql
@@ -29,6 +29,8 @@ services:
       PS_DOMAIN: localhost:8090
       PS_FOLDER_ADMIN: admin7639
       PS_DEV_MODE: 1
+      PS_LANGUAGE: en
+      PS_COUNTRY: NL
     networks:
       - prestashop_network
 networks:

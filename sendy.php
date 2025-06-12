@@ -86,22 +86,33 @@ class Sendy extends CarrierModule
 
     /**
      * Load the configuration form
+     *
+     * @return string|void
+     *
+     * @throws Exception
      */
-    public function getContent(): string
+    public function getContent()
     {
-        $form = new LegacySettingsForm(
-            $this->context->controller,
-            $this->context->language,
-            $this->context->smarty,
-            $this->context->link,
-            $this,
-            $this->_path,
-            $this->local_path,
-            $this->table,
-            $this->identifier
-        );
+        if (_PS_VERSION_ >= 8) {
+            /** @var Symfony\Component\Routing\Router $router */
+            $router = $this->get('router');
+            $route = $router->generate('sendy_prestashop_settings');
+            Tools::redirectAdmin($route);
+        } else {
+            $form = new LegacySettingsForm(
+                $this->context->controller,
+                $this->context->language,
+                $this->context->smarty,
+                $this->context->link,
+                $this,
+                $this->_path,
+                $this->local_path,
+                $this->table,
+                $this->identifier
+            );
 
-        return $form->getContent();
+            return $form->getContent();
+        }
     }
 
     /**
@@ -212,53 +223,53 @@ class Sendy extends CarrierModule
         $this->context->controller->addCSS($this->_path . '/views/css/front.css');
     }
 
-    public function hookActionCarrierProcess(): void
+    public function hookActionCarrierProcess($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - ActionCarrierProcess hook - ' . print_r($params, true));
     }
 
-    public function hookActionCarrierUpdate(): void
+    public function hookActionCarrierUpdate($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - ActionCarrierUpdate hook - ' . print_r($params, true));
     }
 
-    public function hookActionObjectOrderAddAfter(): void
+    public function hookActionObjectOrderAddAfter($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - ActionObjectOrderAddAfter hook - ' . print_r($params, true));
     }
 
-    public function hookActionOrderStatusPostUpdate(): void
+    public function hookActionOrderStatusPostUpdate($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - ActionOrderStatusPostUpdate hook - ' . print_r($params, true));
     }
 
-    public function hookActionOrderStatusUpdate(): void
+    public function hookActionOrderStatusUpdate($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - ActionOrderStatusUpdate hook - ' . print_r($params, true));
     }
 
-    public function hookActionValidateOrder(): void
+    public function hookActionValidateOrder($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - ActionValidateOrder hook - ' . print_r($params, true));
     }
 
-    public function hookDisplayBeforeCarrier(): void
+    public function hookDisplayBeforeCarrier($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - DisplayBeforeCarrier hook - ' . print_r($params, true));
     }
 
-    public function hookDisplayCarrierExtraContent(): void
+    public function hookDisplayCarrierExtraContent($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - DisplayCarrierExtraContent hook - ' . print_r($params, true));
     }
 
-    public function hookDisplayCarrierList(): void
+    public function hookDisplayCarrierList($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - DisplayCarrierList hook - ' . print_r($params, true));
     }
 
-    public function hookDisplayOrderConfirmation(): void
+    public function hookDisplayOrderConfirmation($params): void
     {
-        /* Place your code here. */
+        PrestaShopLogger::addLog('Sendy - DisplayOrderConfirmation hook - ' . print_r($params, true));
     }
 }

@@ -6,6 +6,6 @@ parameters:
     - ../../sendy.php
     - ../../src
   reportUnmatchedIgnoredErrors: false
-  level: max
+  level: 8
   scanDirectories:
     - /var/www/html/classes

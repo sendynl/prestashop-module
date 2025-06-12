@@ -1,0 +1,77 @@
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+{% block content %}
+    {{ form_start(authenticateFormView) }}
+    <div class="card">
+        <h3 class="card-header">
+            <i class="material-icons">lock</i> {{ 'Authentication'|trans({}, 'Modules.Sendy.Admin') }}
+        </h3>
+        <div class="card-body">
+            <div class="form-wrapper">
+                {{ form_widget(authenticateFormView) }}
+            </div>
+        </div>
+    </div>
+    {{ form_end(authenticateFormView) }}
+
+    {{ form_start(settingsFormView) }}
+    <div class="card">
+        <h3 class="card-header">
+            <i class="material-icons">settings</i> {{ 'Settings'|trans({}, 'Modules.Sendy.Admin') }}
+        </h3>
+        <div class="card-body">
+            <div class="form-wrapper">
+                {{ form_widget(settingsFormView) }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary float-right" id="save-button">
+                    {{ 'Save'|trans({}, 'Admin.Actions') }}
+                </button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(settingsFormView) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Show/hide form fields based on the value of other fields
+        document.addEventListener('DOMContentLoaded', function () {
+            const conditionalElements = document.querySelectorAll('[data-conditional]');
+
+            function updateConditionalVisibility() {
+                conditionalElements.forEach(el => {
+                    const condition = el.dataset.conditional;
+                    const [fieldName, expectedValue] = condition.split('=');
+
+                    const controller = document.querySelector(`[name$="[${fieldName}]"]`);
+                    if (!controller) return;
+
+                    const shouldShow = controller.value === expectedValue;
+                    const wrapper = el.closest('.form-group.row');
+
+                    if (wrapper) {
+                        wrapper.style.display = shouldShow ? '' : 'none';
+                    }
+                });
+            }
+
+            const watchedFields = new Set();
+            conditionalElements.forEach(el => {
+                const [fieldName] = el.dataset.conditional.split('=');
+                if (watchedFields.has(fieldName)) return;
+
+                watchedFields.add(fieldName);
+                const input = document.querySelector(`[name$="[${fieldName}]"]`);
+                if (input) {
+                    input.addEventListener('change', updateConditionalVisibility);
+                }
+            });
+
+            updateConditionalVisibility();
+        });
+    </script>
+{% endblock %}

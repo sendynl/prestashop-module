@@ -1,0 +1,8 @@
+sendy_prestashop_settings:
+  path: /sendy/settings
+  methods: [GET, POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\SettingsController::index'
+    # Needed to work with tab system
+    _legacy_controller: 'AdminSendySettings'
+    _legacy_link: 'AdminSendySettings'

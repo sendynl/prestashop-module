@@ -1,0 +1,27 @@
+services:
+  _defaults:
+    public: true
+
+  sendy.prestashop.settings.settings_form:
+    class: 'Sendy\PrestaShop\Settings\SettingsForm'
+    parent: 'form.type.translatable.aware'
+    public: true
+    tags:
+      - { name: form.type }
+  sendy.prestashop.settings.authenticate_form:
+    class: 'Sendy\PrestaShop\Settings\AuthenticateForm'
+    parent: 'form.type.translatable.aware'
+    public: true
+    tags:
+      - { name: form.type }
+  sendy.prestashop.settings.settings_data_manager:
+    class: 'Sendy\PrestaShop\Settings\SettingsDataManager'
+    arguments: ['@prestashop.adapter.legacy.configuration']
+  sendy.prestashop.settings.settings_form_handler:
+    class: 'PrestaShop\PrestaShop\Core\Form\Handler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@sendy.prestashop.settings.settings_data_manager'
+      - 'Sendy\PrestaShop\Settings\SettingsForm'
+      - 'Sendy'

@@ -17,6 +17,7 @@ namespace Sendy\PrestaShop\Factories;
 use LogicException;
 use Sendy\PrestaShop\Repositories\ConfigurationRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ToolsCore;
 
 class ApiConnectionFactory
 {
@@ -37,7 +38,7 @@ class ApiConnectionFactory
             ->setOauthClient(true)
             ->setClientId($this->configurationRepository->ensureClientId())
             ->setClientSecret($this->configurationRepository->ensureClientSecret())
-            ->setRedirectUrl($this->router->generate('sendy_login_callback', [], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->setRedirectUrl($this->getRedirectUrl())
             ->setUserAgentAppendix('PrestaShop/' . _PS_VERSION_)
             ->setTokenUpdateCallback(function (\Sendy\Api\Connection $connection) {
                 $this->configurationRepository->setAccessToken($connection->getAccessToken());
@@ -67,5 +68,10 @@ class ApiConnectionFactory
             ->setAccessToken($accessToken)
             ->setRefreshToken($refreshToken)
             ->setTokenExpires($tokenExpires);
+    }
+
+    public function getRedirectUrl(): string
+    {
+        return ToolsCore::getShopDomainSsl(true) . $this->router->generate('sendy_login_callback');
     }
 }

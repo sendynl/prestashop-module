@@ -45,7 +45,7 @@ class AuthController extends FrameworkBundleAdminController
         return new RedirectResponse('https://app.sendy.nl/plugin/initialize?' . http_build_query([
             'client_id' => $this->configurationRepository->ensureClientId(),
             'client_secret' => $this->configurationRepository->ensureClientSecret(),
-            'redirect_uri' => $this->router->generate('sendy_login_callback', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'redirect_uri' => $this->apiConnectionFactory->getRedirectUrl(),
             'name' => Context::getContext()->shop->name,
             'type' => 'prestashop',
             'state' => $state,

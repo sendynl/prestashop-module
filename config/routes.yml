@@ -24,3 +24,14 @@ sendy_logout:
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controllers\Admin\AuthController::logout'
+
+sendy_orders_create_shipment:
+  path: /sendy/orders/create-shipment
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController'
+sendy_orders_generate_label:
+  path: /sendy/orders/generate-label
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\Orders\GenerateLabelController'

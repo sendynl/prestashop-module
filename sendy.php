@@ -12,6 +12,8 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
+use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\SubmitBulkAction;
+use PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinitionInterface;
 use Sendy\PrestaShop\Settings\LegacySettingsForm;
 
 if (!defined('_PS_VERSION_')) {
@@ -68,7 +70,8 @@ class Sendy extends CarrierModule
         $this->addZones($carrier);
         $this->addGroups($carrier);
         $this->addRanges($carrier);
-        Configuration::updateValue('SENDY_LIVE_MODE', false);
+
+        include dirname(__FILE__) . '/sql/install.php';
 
         return parent::install()
             && $this->registerHook('header')
@@ -83,12 +86,15 @@ class Sendy extends CarrierModule
             && $this->registerHook('displayBeforeCarrier')
             && $this->registerHook('displayCarrierExtraContent')
             && $this->registerHook('displayCarrierList')
-            && $this->registerHook('displayOrderConfirmation');
+            && $this->registerHook('displayOrderConfirmation')
+            && $this->registerHook('actionOrderGridDefinitionModifier');
     }
 
     public function uninstall(): bool
     {
         Configuration::deleteByName('SENDY_LIVE_MODE');
+
+        include dirname(__FILE__) . '/sql/uninstall.php';
 
         return parent::uninstall();
     }
@@ -169,7 +175,10 @@ class Sendy extends CarrierModule
         }
 
         if ($carrier->add() == true) {
-            @copy(dirname(__FILE__) . '/views/img/carrier_image.jpg', _PS_SHIP_IMG_DIR_ . '/' . (int) $carrier->id . '.jpg');
+            @copy(
+                dirname(__FILE__) . '/views/img/carrier_image.jpg',
+                _PS_SHIP_IMG_DIR_ . '/' . (int) $carrier->id . '.jpg'
+            );
             Configuration::updateValue('MYSHIPPINGMODULE_CARRIER_ID', (int) $carrier->id);
 
             return $carrier;
@@ -281,5 +290,27 @@ class Sendy extends CarrierModule
     public function hookDisplayOrderConfirmation($params): void
     {
         PrestaShopLogger::addLog('Sendy - DisplayOrderConfirmation hook - ' . print_r($params, true));
+    }
+
+    public function hookActionOrderGridDefinitionModifier(array $params)
+    {
+        /** @var GridDefinitionInterface $definition */
+        $definition = $params['definition'];
+
+        $definition->getBulkActions()
+            ->add(
+                (new SubmitBulkAction('sendy_create_shipment'))
+                    ->setName($this->l('Sendy - Create shipment'))
+                    ->setOptions([
+                        'submit_route' => 'sendy_orders_create_shipment',
+                    ])
+            )
+            ->add(
+                (new SubmitBulkAction('sendy_generate_label'))
+                    ->setName($this->l('Sendy - Generate shipping label'))
+                    ->setOptions([
+                        'submit_route' => 'sendy_orders_generate_label',
+                    ])
+            );
     }
 }

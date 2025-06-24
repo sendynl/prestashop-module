@@ -17,7 +17,10 @@ declare(strict_types=1);
  * Maybe the merchant will just try to reset the module
  * but does not want to loose all of the data associated to the module.
  */
-$sql = [];
+$sql = [
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_shipment`',
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_package`',
+];
 
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {

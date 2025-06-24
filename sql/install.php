@@ -12,12 +12,33 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
+$prefix = _DB_PREFIX_;
+$engine = _MYSQL_ENGINE_;
+
 $sql = [];
 
-$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'sendy` (
-    `id_sendy` int(11) NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY  (`id_sendy`)
-) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+$sql[] = <<<SQL
+CREATE TABLE IF NOT EXISTS `{$prefix}sendy_shipment` (
+    `id_sendy_shipment` CHAR(36) NOT NULL PRIMARY KEY,
+    `id_order` INT UNSIGNED NOT NULL
+) ENGINE={$engine} DEFAULT CHARSET=utf8;
+SQL;
+
+$sql[] = <<<SQL
+CREATE INDEX `order` ON `{$prefix}sendy_shipment` (`id_order`);
+SQL;
+
+$sql[] = <<<SQL
+CREATE TABLE IF NOT EXISTS `{$prefix}sendy_package` (
+    `id_sendy_package` CHAR(36) NOT NULL PRIMARY KEY,
+    `id_sendy_shipment` CHAR(36) NOT NULL,
+    `tracking_number` VARCHAR(255) NOT NULL
+) ENGINE={$engine} DEFAULT CHARSET=utf8;
+SQL;
+
+$sql[] = <<<SQL
+CREATE INDEX `shipment` ON `{$prefix}sendy_package` (`id_sendy_shipment`);
+SQL;
 
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {

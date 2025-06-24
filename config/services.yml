@@ -2,6 +2,12 @@ services:
   _defaults:
     public: true
 
+  Sendy\PrestaShop\Actions\CreateShipmentFromOrder:
+    class: 'Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
+    arguments:
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+
   Sendy\PrestaShop\Controllers\Admin\AuthController:
     class: 'Sendy\PrestaShop\Controllers\Admin\AuthController'
     arguments:
@@ -14,7 +20,9 @@ services:
     class: 'Sendy\PrestaShop\Controllers\Admin\SettingsController'
     arguments:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-
+  Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController:
+    arguments:
+      - '@Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
 
   Sendy\PrestaShop\Factories\ApiConnectionFactory:
     class: 'Sendy\PrestaShop\Factories\ApiConnectionFactory'
@@ -22,6 +30,13 @@ services:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
       - '@router'
 
+  Sendy\PrestaShop\Repositories\AbstractEntityRepository:
+    arguments:
+      - '@doctrine.orm.entity_manager'
+  Sendy\PrestaShop\Repositories\ShipmentRepository:
+    parent: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'
+  Sendy\PrestaShop\Repositories\PackageRepository:
+    parent: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'
   Sendy\PrestaShop\Repositories\ConfigurationRepository:
     class: 'Sendy\PrestaShop\Repositories\ConfigurationRepository'
     arguments:

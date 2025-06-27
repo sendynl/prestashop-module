@@ -43,4 +43,13 @@ class Str
 
         return $string;
     }
+
+    public static function startsWith($haystack, $needle): bool
+    {
+        if (is_string($haystack) && is_string($needle)) {
+            return strncmp($haystack, $needle, strlen($needle)) === 0;
+        }
+
+        return false;
+    }
 }

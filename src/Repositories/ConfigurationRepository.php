@@ -178,4 +178,24 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_REFRESH_TOKEN', null);
         $this->configuration->set('SENDY_TOKEN_EXPIRES', null);
     }
+
+    public function getDisplayTrackAndTraceColumn(): bool
+    {
+        return $this->configuration->getBoolean('SENDY_DISPLAY_TRACK_AND_TRACE_COLUMN', true);
+    }
+
+    public function setDisplayTrackAndTraceColumn(bool $displayTrackAndTraceColumn): void
+    {
+        $this->configuration->set('SENDY_DISPLAY_TRACK_AND_TRACE_COLUMN', $displayTrackAndTraceColumn);
+    }
+
+    public function getDisplayShippingMethodColumn(): bool
+    {
+        return $this->configuration->getBoolean('SENDY_DISPLAY_SHIPPING_METHOD_COLUMN', true);
+    }
+
+    public function setDisplayShippingMethodColumn(bool $displayShippingMethodColumn): void
+    {
+        $this->configuration->set('SENDY_DISPLAY_SHIPPING_METHOD_COLUMN', $displayShippingMethodColumn);
+    }
 }

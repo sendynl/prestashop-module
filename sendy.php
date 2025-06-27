@@ -12,8 +12,7 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\SubmitBulkAction;
-use PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinitionInterface;
+use Sendy\PrestaShop\Hooks;
 use Sendy\PrestaShop\Settings\LegacySettingsForm;
 
 if (!defined('_PS_VERSION_')) {
@@ -72,22 +71,10 @@ class Sendy extends CarrierModule
         $this->addRanges($carrier);
 
         include dirname(__FILE__) . '/sql/install.php';
+        require_once __DIR__ . '/src/Hooks/HookInstaller.php';
 
         return parent::install()
-            && $this->registerHook('header')
-            && $this->registerHook('displayBackOfficeHeader')
-            && $this->registerHook('updateCarrier')
-            && $this->registerHook('actionCarrierProcess')
-            && $this->registerHook('actionCarrierUpdate')
-            && $this->registerHook('actionObjectOrderAddAfter')
-            && $this->registerHook('actionOrderStatusPostUpdate')
-            && $this->registerHook('actionOrderStatusUpdate')
-            && $this->registerHook('actionValidateOrder')
-            && $this->registerHook('displayBeforeCarrier')
-            && $this->registerHook('displayCarrierExtraContent')
-            && $this->registerHook('displayCarrierList')
-            && $this->registerHook('displayOrderConfirmation')
-            && $this->registerHook('actionOrderGridDefinitionModifier');
+            && Hooks\HookInstaller::registerHooks($this);
     }
 
     public function uninstall(): bool
@@ -292,25 +279,13 @@ class Sendy extends CarrierModule
         PrestaShopLogger::addLog('Sendy - DisplayOrderConfirmation hook - ' . print_r($params, true));
     }
 
-    public function hookActionOrderGridDefinitionModifier(array $params)
+    public function hookActionOrderGridDefinitionModifier(array $params): void
     {
-        /** @var GridDefinitionInterface $definition */
-        $definition = $params['definition'];
+        $this->get(Hooks\ActionOrderGridDefinitionModifier::class)($params);
+    }
 
-        $definition->getBulkActions()
-            ->add(
-                (new SubmitBulkAction('sendy_create_shipment'))
-                    ->setName($this->l('Sendy - Create shipment'))
-                    ->setOptions([
-                        'submit_route' => 'sendy_orders_create_shipment',
-                    ])
-            )
-            ->add(
-                (new SubmitBulkAction('sendy_generate_label'))
-                    ->setName($this->l('Sendy - Generate shipping label'))
-                    ->setOptions([
-                        'submit_route' => 'sendy_orders_generate_label',
-                    ])
-            );
+    public function hookActionOrderGridQueryBuilderModifier(array $params): void
+    {
+        (new Hooks\ActionOrderGridQueryBuilderModifier())($params);
     }
 }

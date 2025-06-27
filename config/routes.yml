@@ -35,3 +35,13 @@ sendy_orders_generate_label:
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controllers\Admin\Orders\GenerateLabelController'
+sendy_orders_toggle_track_and_trace_column:
+  path: /sendy/orders/toggle-track-and-trace-column
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController::toggleTrackAndTraceColumn'
+sendy_orders_toggle_shipping_method_column:
+  path: /sendy/orders/toggle-shipping-method-column
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController::toggleShippingMethodColumn'

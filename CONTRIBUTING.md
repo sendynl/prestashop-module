@@ -19,7 +19,9 @@ docker compose --file docker-compose.8.yml up -d
 docker compose --file docker-compose.9.yml up -d
 ```
 
-You can log in to the PrestaShop back office with email `demo@prestashop.com` and password `prestashop_demo` at the following URLs:
+Wait for the containers to start and the PrestaShop installations to complete. This may take a few minutes.
+
+You can then log in to the PrestaShop back office with email `demo@prestashop.com` and password `prestashop_demo` at the following URLs:
 - http://localhost:8017/admin7639
 - http://localhost:8080/admin7639
 - http://localhost:8090/admin7639

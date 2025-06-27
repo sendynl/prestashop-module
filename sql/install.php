@@ -20,7 +20,8 @@ $sql = [];
 $sql[] = <<<SQL
 CREATE TABLE IF NOT EXISTS `{$prefix}sendy_shipment` (
     `id_sendy_shipment` CHAR(36) NOT NULL PRIMARY KEY,
-    `id_order` INT UNSIGNED NOT NULL
+    `id_order` INT UNSIGNED NOT NULL,
+    `shipping_method` VARCHAR(255) NOT NULL
 ) ENGINE={$engine} DEFAULT CHARSET=utf8;
 SQL;
 
@@ -32,7 +33,8 @@ $sql[] = <<<SQL
 CREATE TABLE IF NOT EXISTS `{$prefix}sendy_package` (
     `id_sendy_package` CHAR(36) NOT NULL PRIMARY KEY,
     `id_sendy_shipment` CHAR(36) NOT NULL,
-    `tracking_number` VARCHAR(255) NOT NULL
+    `tracking_number` VARCHAR(255) NOT NULL,
+    `tracking_url` VARCHAR(255) NULL
 ) ENGINE={$engine} DEFAULT CHARSET=utf8;
 SQL;
 

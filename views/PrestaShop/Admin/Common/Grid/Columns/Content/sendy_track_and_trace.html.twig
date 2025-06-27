@@ -1,0 +1,12 @@
+<div>
+{% if record.sendy_shipment_id %}
+    {% if record.sendy_package_id %}
+        Link to package page
+        {# TODO multiple packages #}
+    %{ else %}
+        Link to shipment edit page
+    {% endif %}
+{% else %}
+    No shipment
+{% endif %}
+</div>

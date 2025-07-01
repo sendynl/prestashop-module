@@ -288,4 +288,49 @@ class Sendy extends CarrierModule
     {
         (new Hooks\ActionOrderGridQueryBuilderModifier())($params);
     }
+
+    public function hookDisplayAdminOrderSide($params): string
+    {
+        return $this->get(Hooks\DisplayAdminOrderSide::class)($params);
+    }
+
+    public function hookDisplayAdminOrder($params): string
+    {
+        return '@@@displayAdminOrder@@@';
+    }
+
+    public function hookDisplayAdminOrderCreateExtraButtons($params): string
+    {
+        return '@@@displayAdminOrderCreateExtraButtons@@@';
+    }
+
+    public function hookDisplayAdminOrderMain($params): string
+    {
+        return '@@@displayAdminOrderMain@@@';
+    }
+
+    public function hookDisplayAdminOrderMainBottom($params): string
+    {
+        return '@@@displayAdminOrderMainBottom@@@';
+    }
+
+    public function hookDisplayAdminOrderSideBottom($params): string
+    {
+        return '@@@displayAdminOrderSideBottom@@@';
+    }
+
+    public function hookDisplayAdminOrderTabContent($params): string
+    {
+        return '@@@displayAdminOrderTabContent@@@';
+    }
+
+    public function hookDisplayAdminOrderTabLink($params): string
+    {
+        return '@@@displayAdminOrderTabLink@@@';
+    }
+
+    public function hookDisplayAdminOrderTop($params): string
+    {
+        return '@@@displayAdminOrderTop@@@';
+    }
 }

@@ -40,6 +40,10 @@ services:
     arguments:
       - '@translator'
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+  Sendy\PrestaShop\Hooks\DisplayAdminOrderSide:
+    class: 'Sendy\PrestaShop\Hooks\DisplayAdminOrderSide'
+    arguments:
+      - '@twig'
 
   Sendy\PrestaShop\Repositories\AbstractEntityRepository:
     class: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'

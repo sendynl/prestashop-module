@@ -59,17 +59,17 @@ final class ActionOrderGridDefinitionModifier
             );
 
         // Grid columns
-        if ($displayShippingMethodColumn) {
-            // The sendy_shipping_method column is joined in the ActionOrderGridQueryBuilderModifier hook
-            $definition->getColumns()->addBefore(
-                'actions',
-                (new DataColumn('sendy_shipping_method'))
-                    ->setName($this->translator->trans('Shipping method', [], 'Modules.Sendy.Admin'))
-                    ->setOptions([
-                        'field' => 'sendy_shipping_method',
-                    ]),
-            );
-        }
+        // if ($displayShippingMethodColumn) {
+        //    // The sendy_shipping_method column is joined in the ActionOrderGridQueryBuilderModifier hook
+        //    $definition->getColumns()->addBefore(
+        //        'actions',
+        //        (new DataColumn('sendy_shipping_method'))
+        //            ->setName($this->translator->trans('Shipping method', [], 'Modules.Sendy.Admin'))
+        //            ->setOptions([
+        //                'field' => 'sendy_shipping_method',
+        //            ]),
+        //    );
+        // }
 
         if ($displayTrackAndTraceColumn) {
             $definition->getColumns()->addBefore(

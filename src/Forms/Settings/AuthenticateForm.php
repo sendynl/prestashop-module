@@ -12,10 +12,11 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-namespace Sendy\PrestaShop\Settings;
+namespace Sendy\PrestaShop\Forms\Settings;
 
-use LogicException;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
+use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Exceptions\TokensMissingException;
 use Sendy\PrestaShop\Factories\ApiConnectionFactory;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,11 +43,8 @@ class AuthenticateForm extends TranslatorAwareType
         try {
             $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
             $authenticatedAs = $sendy->me->get()['name'];
-        } catch (\Sendy\Api\Exceptions\SendyException $e) {
-            // If the connection fails, we assume the user is not authenticated
-            $authenticatedAs = null;
-        } catch (LogicException $e) {
-            // If the connection cannot be built, we assume the user is not authenticated
+        } catch (SendyException|TokensMissingException $e) {
+            // Assume the user is not authenticated
             $authenticatedAs = null;
         }
 

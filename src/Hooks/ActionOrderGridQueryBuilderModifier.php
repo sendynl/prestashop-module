@@ -37,6 +37,7 @@ final class ActionOrderGridQueryBuilderModifier
             ->addSelect('ss.id_sendy_shipment AS sendy_shipment_id')
             ->addSelect('sp.id_sendy_package AS sendy_package_id')
             ->addSelect('sp.tracking_number AS sendy_tracking_number')
-            ->addSelect('ss.shipping_method AS sendy_shipping_method');
+            // ->addSelect('ss.shipping_method AS sendy_shipping_method')
+        ;
     }
 }

@@ -63,10 +63,18 @@ class CreateShipmentFromOrder
             'city' => $address->city,
             'email' => $order->getCustomer()->email,
             'reference' => $order->reference,
-            'weight' => $order->getTotalWeight(),
+            'weight' => $this->configurationRepository->getImportWeight() ? $order->getTotalWeight() : null,
             'amount' => $amount,
             'order_date' => (new DateTime($order->date_add))->format(DATE_RFC3339),
             'country' => Country::getIsoById((int) $address->id_country),
         ]);
+    }
+
+    private function convertProducts(Order $order): array
+    {
+        return array_map(fn ($product) => [
+            'sku' => $product['reference'] ?? null,
+            // todo description, quantity, unit weight, unit price
+        ], $order->getProducts());
     }
 }

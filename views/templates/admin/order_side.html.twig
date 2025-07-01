@@ -1,17 +1,64 @@
+{% import '@PrestaShop/Admin/macros.html.twig' as ps %}
+
 <div class="card mt-2">
     <div class="card-header">
         <h3 class="card-header-title">
+
             Sendy
         </h3>
     </div>
 
     <div class="card-body">
-        The sendy card.
+        {% if shipment %}
+            {% if packages|length == 0 %}
+                {# When the shipment has no packages, display a link to edit the shipment #}
+                <a href="{{ editShipmentUrl|format(shipment.id) }}" target="_blank">
+                    {{ 'Edit shipment'|trans({}, 'Modules.Sendy.Admin') }}
+                </a>
+            {% else %}
+                {# When the shipment has packages, display them in a list #}
+                <ul class="list-unstyled">
+                    {% for package in packages %}
+                        <li>
+                            <a href="{{ package.trackingUrl }}" target="_blank">{{ package.trackingNumber }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="text-right">
+                    <button class="btn btn-primary" type="button">
+                        <i class="material-icons" aria-hidden="true">print</i>
+                        {{ 'Print label'|trans({}, 'Modules.Sendy.Admin') }}
+                    </button>
+                </div>
+            {% endif %}
+        {% else %}
+            {# When there is no shipment, display a form to create one #}
+            {{ form_start(createShipmentFormView, {
+                action: path('sendy_orders_create_shipment', {'orderId': order.id}),
+            }) }}
 
-        If there is no shipment yet, this should display a form to create a new shipment.
+            <input type="hidden" name="order_orders_bulk[]" value="{{ order.id }}" />
 
-        If there is a shipment but no packages, this should show a link to the shipment edit page.
+            {{ ps.form_group_row(createShipmentFormView.shop_id, {}, {
+                label: 'Shop'|trans({}, 'Modules.Sendy.Admin'),
+                label_on_top: true,
+            }) }}
 
-        If there is a shipment and packages, this should show the tracking number and link to the tracking page.
+            {{ ps.form_group_row(createShipmentFormView.preference_id, {}, {
+                label: 'Shipping preference'|trans({}, 'Modules.Sendy.Admin'),
+                label_on_top: true,
+            }) }}
+
+            {{ ps.form_group_row(createShipmentFormView.amount, {}, {
+                label: 'Amount'|trans({}, 'Modules.Sendy.Admin'),
+                label_on_top: true,
+            }) }}
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">{{ 'Create shipment'|trans({}, 'Modules.Sendy.Admin') }}</button>
+            </div>
+
+            {{ form_end(createShipmentFormView) }}
+        {% endif %}
     </div>
 </div>

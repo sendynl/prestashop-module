@@ -2,12 +2,14 @@ services:
   _defaults:
     public: true
 
+  # Actions
   Sendy\PrestaShop\Actions\CreateShipmentFromOrder:
     class: 'Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
     arguments:
       - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
 
+  # Controllers
   Sendy\PrestaShop\Controllers\Admin\AuthController:
     class: 'Sendy\PrestaShop\Controllers\Admin\AuthController'
     arguments:
@@ -20,6 +22,7 @@ services:
     class: 'Sendy\PrestaShop\Controllers\Admin\SettingsController'
     arguments:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Forms\Settings\SettingsFormHandler'
   Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController:
     class: 'Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController'
     arguments:
@@ -29,12 +32,58 @@ services:
     arguments:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
 
+  # Factories
   Sendy\PrestaShop\Factories\ApiConnectionFactory:
     class: 'Sendy\PrestaShop\Factories\ApiConnectionFactory'
     arguments:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
       - '@router'
 
+  # Forms
+  Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentForm:
+    class: 'Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentForm'
+    arguments:
+      - '@translator'
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler:
+    class: 'Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormDataProvider'
+  Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormDataProvider:
+    class: 'Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormDataProvider'
+    arguments:
+      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+  Sendy\PrestaShop\Forms\Settings\AuthenticateForm:
+    class: Sendy\PrestaShop\Forms\Settings\AuthenticateForm
+    arguments:
+      - '@translator'
+      - "@=service('prestashop.adapter.legacy.context').getLanguages()"
+      - '@router'
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Forms\Settings\SettingsDataManager:
+    class: 'Sendy\PrestaShop\Forms\Settings\SettingsDataManager'
+    arguments:
+      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+  Sendy\PrestaShop\Forms\Settings\SettingsForm:
+    class: 'Sendy\PrestaShop\Forms\Settings\SettingsForm'
+    parent: 'form.type.translatable.aware'
+    public: true
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Forms\Settings\SettingsFormHandler:
+    class: 'Sendy\PrestaShop\Forms\Settings\SettingsFormHandler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@Sendy\PrestaShop\Forms\Settings\SettingsDataManager'
+
+  # Hooks
   Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier:
     class: 'Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier'
     arguments:
@@ -44,7 +93,11 @@ services:
     class: 'Sendy\PrestaShop\Hooks\DisplayAdminOrderSide'
     arguments:
       - '@twig'
+      - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
+      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
+      - '@Sendy\PrestaShop\Repositories\PackageRepository'
 
+  # Repositories
   Sendy\PrestaShop\Repositories\AbstractEntityRepository:
     class: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'
     arguments:
@@ -59,31 +112,3 @@ services:
     class: 'Sendy\PrestaShop\Repositories\ConfigurationRepository'
     arguments:
       - '@prestashop.adapter.legacy.configuration'
-
-  Sendy\PrestaShop\Settings\AuthenticateForm:
-    class: Sendy\PrestaShop\Settings\AuthenticateForm
-    arguments:
-      - '@translator'
-      - "@=service('prestashop.adapter.legacy.context').getLanguages()"
-      - '@router'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
-    tags:
-      - { name: form.type }
-  Sendy\PrestaShop\Settings\SettingsDataManager:
-    class: 'Sendy\PrestaShop\Settings\SettingsDataManager'
-    arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-  Sendy\PrestaShop\Settings\SettingsForm:
-    class: 'Sendy\PrestaShop\Settings\SettingsForm'
-    parent: 'form.type.translatable.aware'
-    public: true
-    tags:
-      - { name: form.type }
-  sendy.prestashop.settings.settings_form_handler:
-    class: 'PrestaShop\PrestaShop\Core\Form\Handler'
-    arguments:
-      - '@form.factory'
-      - '@prestashop.core.hook.dispatcher'
-      - '@Sendy\PrestaShop\Settings\SettingsDataManager'
-      - 'Sendy\PrestaShop\Settings\SettingsForm'
-      - 'Sendy'

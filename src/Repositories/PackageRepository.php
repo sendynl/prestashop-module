@@ -21,4 +21,13 @@ use Sendy\PrestaShop\Entity\SendyPackage;
  */
 class PackageRepository extends AbstractEntityRepository
 {
+    protected const ENTITY_CLASS = SendyPackage::class;
+
+    /**
+     * @return list<SendyPackage>
+     */
+    public function findPackagesByShipmentId(string $shipmentId): array
+    {
+        return $this->repository->findBy(['shipmentId' => $shipmentId]);
+    }
 }

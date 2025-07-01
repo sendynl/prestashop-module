@@ -40,11 +40,17 @@ class SendyPackage
      */
     private string $trackingNumber;
 
-    public function __construct(string $id, string $shipmentId, string $trackingNumber)
+    /**
+     * @ORM\Column(name="tracking_url", type="string", length=255)
+     */
+    private string $trackingUrl;
+
+    public function __construct(string $id, string $shipmentId, string $trackingNumber, string $trackingUrl)
     {
         $this->id = $id;
         $this->shipmentId = $shipmentId;
         $this->trackingNumber = $trackingNumber;
+        $this->trackingUrl = $trackingUrl;
     }
 
     public function getId(): string
@@ -60,5 +66,10 @@ class SendyPackage
     public function getTrackingNumber(): string
     {
         return $this->trackingNumber;
+    }
+
+    public function getTrackingUrl(): string
+    {
+        return $this->trackingUrl;
     }
 }

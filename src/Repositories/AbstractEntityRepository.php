@@ -15,17 +15,29 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Repositories;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * @template T of object
  */
 abstract class AbstractEntityRepository
 {
-    private EntityManagerInterface $entityManager;
+    protected EntityManagerInterface $entityManager;
+
+    /**
+     * @var EntityRepository<T>
+     */
+    protected EntityRepository $repository;
+
+    /**
+     * @var class-string<T>
+     */
+    protected const ENTITY_CLASS = '';
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->repository = $this->entityManager->getRepository(static::ENTITY_CLASS);
     }
 
     /**

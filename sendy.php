@@ -12,8 +12,8 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
+use Sendy\PrestaShop\Forms\Settings\LegacySettingsForm;
 use Sendy\PrestaShop\Hooks;
-use Sendy\PrestaShop\Settings\LegacySettingsForm;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -21,6 +21,9 @@ if (!defined('_PS_VERSION_')) {
 
 class Sendy extends CarrierModule
 {
+    public const EDIT_SHIPMENT_URL = 'https://app.sendy.nl/shipment/%s/edit';
+    public const VIEW_PACKAGE_URL = 'https://app.sendy.nl/packages/%s';
+
     protected bool $config_form = false;
 
     public function __construct()
@@ -292,45 +295,5 @@ class Sendy extends CarrierModule
     public function hookDisplayAdminOrderSide($params): string
     {
         return $this->get(Hooks\DisplayAdminOrderSide::class)($params);
-    }
-
-    public function hookDisplayAdminOrder($params): string
-    {
-        return '@@@displayAdminOrder@@@';
-    }
-
-    public function hookDisplayAdminOrderCreateExtraButtons($params): string
-    {
-        return '@@@displayAdminOrderCreateExtraButtons@@@';
-    }
-
-    public function hookDisplayAdminOrderMain($params): string
-    {
-        return '@@@displayAdminOrderMain@@@';
-    }
-
-    public function hookDisplayAdminOrderMainBottom($params): string
-    {
-        return '@@@displayAdminOrderMainBottom@@@';
-    }
-
-    public function hookDisplayAdminOrderSideBottom($params): string
-    {
-        return '@@@displayAdminOrderSideBottom@@@';
-    }
-
-    public function hookDisplayAdminOrderTabContent($params): string
-    {
-        return '@@@displayAdminOrderTabContent@@@';
-    }
-
-    public function hookDisplayAdminOrderTabLink($params): string
-    {
-        return '@@@displayAdminOrderTabLink@@@';
-    }
-
-    public function hookDisplayAdminOrderTop($params): string
-    {
-        return '@@@displayAdminOrderTop@@@';
     }
 }

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Factories;
 
-use LogicException;
+use Sendy\PrestaShop\Exceptions\TokensMissingException;
 use Sendy\PrestaShop\Repositories\ConfigurationRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ToolsCore;
@@ -54,6 +54,9 @@ class ApiConnectionFactory
         return $this->buildConnection()->setAuthorizationCode($code);
     }
 
+    /**
+     * @throws TokensMissingException
+     */
     public function buildConnectionUsingTokens(): \Sendy\Api\Connection
     {
         $accessToken = $this->configurationRepository->getAccessToken();
@@ -61,7 +64,7 @@ class ApiConnectionFactory
         $tokenExpires = $this->configurationRepository->getTokenExpires();
 
         if (!$accessToken || !$refreshToken || !$tokenExpires) {
-            throw new LogicException('Cannot build connection without access token, refresh token, or token expiration.');
+            throw new TokensMissingException('Cannot build connection without access token, refresh token, or token expiration.');
         }
 
         return $this->buildConnection()

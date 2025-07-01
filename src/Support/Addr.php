@@ -62,7 +62,7 @@ class Addr
      */
     public static function parseHouseNumber(string $number): array
     {
-        $addition = null;
+        $addition = '';
 
         if (!ctype_digit($number)) {
             $addition = ltrim($number, '0123456789');

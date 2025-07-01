@@ -15,33 +15,33 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Controllers\Admin;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use Sendy\PrestaShop\Forms\Settings\AuthenticateForm;
+use Sendy\PrestaShop\Forms\Settings\SettingsFormHandler;
 use Sendy\PrestaShop\Repositories\ConfigurationRepository;
-use Sendy\PrestaShop\Settings\AuthenticateForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SettingsController extends FrameworkBundleAdminController
 {
     private ConfigurationRepository $configurationRepository;
+    private SettingsFormHandler $settingsFormHandler;
 
-    public function __construct(ConfigurationRepository $configurationRepository)
+    public function __construct(ConfigurationRepository $configurationRepository, SettingsFormHandler $settingsFormHandler)
     {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
         }
         $this->configurationRepository = $configurationRepository;
+        $this->settingsFormHandler = $settingsFormHandler;
     }
 
     public function index(Request $request): Response
     {
-        /** @var \PrestaShop\PrestaShop\Core\Form\Handler $formHandler */
-        $formHandler = $this->get('sendy.prestashop.settings.settings_form_handler');
-
-        $settingsForm = $formHandler->getForm();
+        $settingsForm = $this->settingsFormHandler->getForm();
         $settingsForm->handleRequest($request);
 
         if ($settingsForm->isSubmitted() && $settingsForm->isValid()) {
-            $errors = $formHandler->save($settingsForm->getData());
+            $errors = $this->settingsFormHandler->save($settingsForm->getData());
 
             if (empty($errors)) {
                 $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));

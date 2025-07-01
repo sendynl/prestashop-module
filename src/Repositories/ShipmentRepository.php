@@ -21,8 +21,15 @@ use Sendy\PrestaShop\Entity\SendyShipment;
  */
 class ShipmentRepository extends AbstractEntityRepository
 {
+    protected const ENTITY_CLASS = SendyShipment::class;
+
     public function addShipmentToOrder(int $orderId, string $shipmentId): void
     {
         $this->save(new SendyShipment($shipmentId, $orderId));
+    }
+
+    public function findShipmentByOrderId(int $orderId): ?SendyShipment
+    {
+        return $this->repository->findOneBy(['orderId' => $orderId]);
     }
 }

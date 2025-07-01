@@ -79,31 +79,33 @@ final class ActionOrderGridDefinitionModifier
             );
         }
 
-        // Grid actions
-        $shippingMethodColumnLabel = $displayShippingMethodColumn
-            ? $this->translator->trans('Sendy - Hide shipping method column', [], 'Modules.Sendy.Admin')
-            : $this->translator->trans('Sendy - Show shipping method column', [], 'Modules.Sendy.Admin');
-        $shippingMethodColumnIcon = $displayShippingMethodColumn ? 'visibility_off' : 'visibility';
-        $trackAndTraceColumnLabel = $displayTrackAndTraceColumn
-            ? $this->translator->trans('Sendy - Hide track and trace column', [], 'Modules.Sendy.Admin')
-            : $this->translator->trans('Sendy - Show track and trace column', [], 'Modules.Sendy.Admin');
-        $trackAndTraceColumnIcon = $displayTrackAndTraceColumn ? 'visibility_off' : 'visibility';
-        $definition->getGridActions()
-            ->add(
-                (new SubmitGridAction('sendy_toggle_shipping_method_column'))
-                    ->setName($shippingMethodColumnLabel)
-                    ->setIcon($shippingMethodColumnIcon)
-                    ->setOptions([
-                        'submit_route' => 'sendy_orders_toggle_shipping_method_column',
-                    ]),
-            )
-            ->add(
-                (new SubmitGridAction('sendy_toggle_track_and_trace_column'))
-                    ->setName($trackAndTraceColumnLabel)
-                    ->setIcon($trackAndTraceColumnIcon)
-                    ->setOptions([
-                        'submit_route' => 'sendy_orders_toggle_track_and_trace_column',
-                    ]),
-            );
+        // Grid actions. Toggling the visibility only seems to work in PS 8.0.0 and later.
+        if (version_compare(_PS_VERSION_, '8.0.0', '>=')) {
+            $shippingMethodColumnLabel = $displayShippingMethodColumn
+                ? $this->translator->trans('Sendy - Hide shipping method column', [], 'Modules.Sendy.Admin')
+                : $this->translator->trans('Sendy - Show shipping method column', [], 'Modules.Sendy.Admin');
+            $shippingMethodColumnIcon = $displayShippingMethodColumn ? 'visibility_off' : 'visibility';
+            $trackAndTraceColumnLabel = $displayTrackAndTraceColumn
+                ? $this->translator->trans('Sendy - Hide track and trace column', [], 'Modules.Sendy.Admin')
+                : $this->translator->trans('Sendy - Show track and trace column', [], 'Modules.Sendy.Admin');
+            $trackAndTraceColumnIcon = $displayTrackAndTraceColumn ? 'visibility_off' : 'visibility';
+            $definition->getGridActions()
+                ->add(
+                    (new SubmitGridAction('sendy_toggle_shipping_method_column'))
+                        ->setName($shippingMethodColumnLabel)
+                        ->setIcon($shippingMethodColumnIcon)
+                        ->setOptions([
+                            'submit_route' => 'sendy_orders_toggle_shipping_method_column',
+                        ]),
+                )
+                ->add(
+                    (new SubmitGridAction('sendy_toggle_track_and_trace_column'))
+                        ->setName($trackAndTraceColumnLabel)
+                        ->setIcon($trackAndTraceColumnIcon)
+                        ->setOptions([
+                            'submit_route' => 'sendy_orders_toggle_track_and_trace_column',
+                        ]),
+                );
+        }
     }
 }

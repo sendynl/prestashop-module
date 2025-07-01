@@ -16,6 +16,7 @@ namespace Sendy\PrestaShop\Repositories;
 
 use InvalidArgumentException;
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
+use Sendy\PrestaShop\Enums\MarkOrderAsCompletedSetting;
 use Sendy\PrestaShop\Enums\ProcessingMethod;
 use Sendy\PrestaShop\Support\Str;
 
@@ -92,12 +93,18 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_IMPORT_WEIGHT', $importWeight);
     }
 
-    public function getMarkOrderAsCompleted(): bool
+    /**
+     * @return MarkOrderAsCompletedSetting::*
+     */
+    public function getMarkOrderAsCompleted(): string
     {
-        return $this->configuration->getBoolean('SENDY_MARK_ORDER_AS_COMPLETED', false);
+        return $this->configuration->get('SENDY_MARK_ORDER_AS_COMPLETED') ?: MarkOrderAsCompletedSetting::Manually;
     }
 
-    public function setMarkOrderAsCompleted(bool $markOrderAsCompleted): void
+    /**
+     * @param MarkOrderAsCompletedSetting::* $markOrderAsCompleted
+     */
+    public function setMarkOrderAsCompleted(string $markOrderAsCompleted): void
     {
         $this->configuration->set('SENDY_MARK_ORDER_AS_COMPLETED', $markOrderAsCompleted);
     }

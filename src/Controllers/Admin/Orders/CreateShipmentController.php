@@ -19,6 +19,7 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopLogger;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Actions\CreateShipmentFromOrder;
+use Sendy\PrestaShop\Repositories\PackageRepository;
 use Sendy\PrestaShop\Repositories\ShipmentRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,15 +29,20 @@ class CreateShipmentController extends FrameworkBundleAdminController
 {
     private CreateShipmentFromOrder $createShipmentFromOrder;
     private ShipmentRepository $shipmentRepository;
+    private PackageRepository $packageRepository;
 
-    public function __construct(CreateShipmentFromOrder $createShipmentFromOrder, ShipmentRepository $shipmentRepository)
-    {
+    public function __construct(
+        CreateShipmentFromOrder $createShipmentFromOrder,
+        ShipmentRepository $shipmentRepository,
+        PackageRepository $packageRepository
+    ) {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
         }
 
         $this->createShipmentFromOrder = $createShipmentFromOrder;
         $this->shipmentRepository = $shipmentRepository;
+        $this->packageRepository = $packageRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -49,11 +55,23 @@ class CreateShipmentController extends FrameworkBundleAdminController
 
                 $result = $this->createShipmentFromOrder->execute(
                     $order,
-                    '76e71dc0-a62f-11ec-9b8a-0050560104de', // TODO get from request
-                    'c371fe4c-7c84-48dc-ae76-e39afcf5a3bc' // TODO get from request
+                    $request->get('form')['shop_id'],
+                    $request->get('form')['preference_id'],
+                    (int) $request->get('form')['amount'] ?? 1
                 );
 
                 $this->shipmentRepository->addShipmentToOrder($order->id, $result['uuid']);
+
+                if (isset($result['packages'])) {
+                    foreach ($result['packages'] as $package) {
+                        $this->packageRepository->addPackageToShipment(
+                            $result['uuid'],
+                            $package['uuid'],
+                            $package['package_number'],
+                            $package['tracking_url']
+                        );
+                    }
+                }
             }
 
             $this->addFlash(

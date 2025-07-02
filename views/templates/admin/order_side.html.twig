@@ -34,7 +34,7 @@
         {% else %}
             {# When there is no shipment, display a form to create one #}
             {{ form_start(createShipmentFormView, {
-                action: path('sendy_orders_create_shipment', {'orderId': order.id}),
+                action: path('sendy_orders_create_shipment'),
             }) }}
 
             <input type="hidden" name="order_orders_bulk[]" value="{{ order.id }}" />

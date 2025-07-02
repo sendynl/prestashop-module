@@ -17,7 +17,9 @@ namespace Sendy\PrestaShop\Actions;
 use Address;
 use Country;
 use DateTime;
+use Language;
 use Order;
+use Product;
 use Sendy\Api\Connection;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Factories\ApiConnectionFactory;
@@ -50,7 +52,7 @@ class CreateShipmentFromOrder
 
         $parsedAddress = Addr::parseAddress($address->address1);
 
-        return $this->sendy->shipment->createFromPreference([
+        $data = [
             'shop_id' => $shopId,
             'preference_id' => $preferenceId,
             'company_name' => $order->getCustomer()->company,
@@ -63,18 +65,41 @@ class CreateShipmentFromOrder
             'city' => $address->city,
             'email' => $order->getCustomer()->email,
             'reference' => $order->reference,
-            'weight' => $this->configurationRepository->getImportWeight() ? $order->getTotalWeight() : null,
             'amount' => $amount,
             'order_date' => (new DateTime($order->date_add))->format(DATE_RFC3339),
             'country' => Country::getIsoById((int) $address->id_country),
-        ]);
+        ];
+
+        if ($this->configurationRepository->getImportWeight()) {
+            $data['weight'] = $order->getTotalWeight();
+        }
+
+        if ($this->configurationRepository->getImportProducts()) {
+            $data['products'] = $this->formatProducts($order);
+        }
+
+        return $this->sendy->shipment->createFromPreference($data, true);
     }
 
-    private function convertProducts(Order $order): array
+    private function formatProducts(Order $order): array
     {
-        return array_map(fn ($product) => [
-            'sku' => $product['reference'] ?? null,
-            // todo description, quantity, unit weight, unit price
-        ], $order->getProducts());
+        $english = Language::getIdByIso('en');
+
+        return array_map(function ($product) use ($english) {
+            $data = [
+                'description' => $product['product_name'],
+                'quantity' => $product['product_quantity'],
+                'sku' => $product['reference'],
+                'unit_price' => $product['unit_price_tax_incl'],
+                'unit_weight' => $product['weight'],
+            ];
+
+            $englishProduct = new Product((int) $product['id_product'], false, $english);
+            if (is_string($englishProduct->name) && trim($englishProduct->name) !== '') {
+                $data['description_en'] = $englishProduct->name;
+            }
+
+            return $data;
+        }, $order->getProducts());
     }
 }

@@ -30,4 +30,13 @@ class PackageRepository extends AbstractEntityRepository
     {
         return $this->repository->findBy(['shipmentId' => $shipmentId]);
     }
+
+    public function addPackageToShipment(
+        string $shipmentId,
+        string $packageId,
+        string $packageNumber,
+        string $trackingUrl
+    ): void {
+        $this->save(new SendyPackage($packageId, $shipmentId, $packageNumber, $trackingUrl));
+    }
 }

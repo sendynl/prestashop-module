@@ -21,6 +21,7 @@ use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Actions\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Repositories\PackageRepository;
 use Sendy\PrestaShop\Repositories\ShipmentRepository;
+use Sendy\PrestaShop\Support\Str;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +54,14 @@ class CreateShipmentController extends FrameworkBundleAdminController
             foreach ($request->get('order_orders_bulk') as $orderId) {
                 $order = new Order((int) $orderId);
 
+                if ($this->shipmentRepository->findShipmentByOrderId((int) $orderId)) {
+                    $this->addFlash('warning', $this->trans('Shipment already exists for order %order%.', 'Modules.Sendy.Admin', [
+                        '%order%' => $order->reference,
+                    ]));
+
+                    continue;
+                }
+
                 $result = $this->createShipmentFromOrder->execute(
                     $order,
                     $request->get('form')['shop_id'],
@@ -66,7 +75,7 @@ class CreateShipmentController extends FrameworkBundleAdminController
                     foreach ($result['packages'] as $package) {
                         $this->packageRepository->addPackageToShipment(
                             $result['uuid'],
-                            $package['uuid'],
+                            $package['uuid'] ?? Str::uuidv4(),
                             $package['package_number'],
                             $package['tracking_url']
                         );
@@ -82,7 +91,10 @@ class CreateShipmentController extends FrameworkBundleAdminController
             if (isset($order)) {
                 $this->addFlash(
                     'error',
-                    "Error creating shipment for order {$order->reference}: " . $exception->getMessage()
+                    $this->trans('Error creating shipment for order %order%: %message%', 'Modules.Sendy.Admin', [
+                        '%order%' => $order->reference,
+                        '%message%' => $exception->getMessage(),
+                    ]),
                 );
             } else {
                 $this->addFlash('error', $exception->getMessage());

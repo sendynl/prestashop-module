@@ -7,3 +7,6 @@
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+$(function() {
+    alert('Sendy checkout.js loaded successfully');
+});

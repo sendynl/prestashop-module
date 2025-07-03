@@ -212,24 +212,14 @@ class Sendy extends CarrierModule
         }
     }
 
-    /**
-     * Add the CSS & JavaScript files you want to be loaded in the BO.
-     */
-    public function hookDisplayBackOfficeHeader(): void
+    public function hookActionAdminControllerSetMedia()
     {
-        if (Tools::getValue('configure') == $this->name) {
-            $this->context->controller->addJS($this->_path . 'views/js/back.js');
-            $this->context->controller->addCSS($this->_path . 'views/css/back.css');
-        }
+        $this->get(Hooks\ActionAdminControllerSetMedia::class)($this);
     }
 
-    /**
-     * Add the CSS & JavaScript files you want to be added on the FO.
-     */
-    public function hookHeader(): void
+    public function hookActionFrontControllerSetMedia()
     {
-        $this->context->controller->addJS($this->_path . '/views/js/front.js');
-        $this->context->controller->addCSS($this->_path . '/views/css/front.css');
+        $this->get(Hooks\ActionFrontControllerSetMedia::class)($this);
     }
 
     public function hookActionCarrierProcess($params): void

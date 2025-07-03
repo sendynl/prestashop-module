@@ -27,6 +27,11 @@ services:
     class: 'Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController'
     arguments:
       - '@Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
+  Sendy\PrestaShop\Controllers\Admin\Orders\PrintLabelController:
+    class: 'Sendy\PrestaShop\Controllers\Admin\Orders\PrintLabelController'
+    arguments:
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
   Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController:
     class: 'Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController'
     arguments:
@@ -84,6 +89,12 @@ services:
       - '@Sendy\PrestaShop\Forms\Settings\SettingsDataManager'
 
   # Hooks
+  Sendy\PrestaShop\Hooks\ActionAdminControllerSetMedia:
+    class: 'Sendy\PrestaShop\Hooks\ActionAdminControllerSetMedia'
+    arguments:
+      - '@router'
+  Sendy\PrestaShop\Hooks\ActionFrontControllerSetMedia:
+    class: 'Sendy\PrestaShop\Hooks\ActionFrontControllerSetMedia'
   Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier:
     class: 'Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier'
     arguments:

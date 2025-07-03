@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hooks;
 
+use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\ButtonBulkAction;
 use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\SubmitBulkAction;
 use PrestaShop\PrestaShop\Core\Grid\Action\Type\SubmitGridAction;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
@@ -51,10 +52,10 @@ final class ActionOrderGridDefinitionModifier
                     ])
             )
             ->add(
-                (new SubmitBulkAction('sendy_generate_label'))
-                    ->setName($this->translator->trans('Sendy - Generate shipping label', [], 'Modules.Sendy.Admin'))
+                (new ButtonBulkAction('sendy_print_label'))
+                    ->setName($this->translator->trans('Sendy - Print label', [], 'Modules.Sendy.Admin'))
                     ->setOptions([
-                        'submit_route' => 'sendy_orders_generate_label',
+                        'class' => 'sendy-print-label-bulk-action-submit-btn',
                     ])
             );
 

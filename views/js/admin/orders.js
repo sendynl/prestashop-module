@@ -25,6 +25,14 @@ $(function() {
 
         printOrDownloadBase64FromUri(url.toString());
     });
+
+    $('.sendy-print-label-single-action-btn').on('click', function(e) {
+        const orderId = $(this).data('order-id');
+        const url = new URL(window.sendyRoutes.sendy_orders_print_label, window.location.origin);
+        url.searchParams.append('order_orders_bulk[]', orderId);
+
+        printOrDownloadBase64FromUri(url.toString());
+    });
 });
 
 

@@ -61,11 +61,14 @@ final class DisplayAdminOrderSide
             $packages = $this->packageRepository->findPackagesByShipmentId($shipment->getId());
         }
 
+        $form = $this->createShipmentFormHandler->getForm();
+        $form->get('order_ids')->setData([$params['id_order']]);
+
         return $this->twig->render('@Modules/sendy/views/templates/admin/order_side.html.twig', [
             'order' => new Order($params['id_order']),
             'shipment' => $shipment,
             'packages' => $packages,
-            'createShipmentFormView' => $this->createShipmentFormHandler->getForm()->createView(),
+            'createShipmentFormView' => $form->createView(),
             'editShipmentUrl' => Sendy::EDIT_SHIPMENT_URL,
             'viewPackageUrl' => Sendy::VIEW_PACKAGE_URL,
         ]);

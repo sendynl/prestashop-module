@@ -37,8 +37,6 @@
                 action: path('sendy_orders_create_shipment'),
             }) }}
 
-            <input type="hidden" name="order_orders_bulk[]" value="{{ order.id }}" />
-
             {{ ps.form_group_row(createShipmentFormView.shop_id, {}, {
                 label: 'Shop'|trans({}, 'Modules.Sendy.Admin'),
                 label_on_top: true,

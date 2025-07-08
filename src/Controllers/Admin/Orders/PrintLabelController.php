@@ -35,7 +35,7 @@ class PrintLabelController extends FrameworkBundleAdminController
     public function __invoke(Request $request): Response
     {
         $shipmentIds = [];
-        foreach ($request->get('order_orders_bulk', []) as $orderId) {
+        foreach ($request->get('order_ids', []) as $orderId) {
             $shipment = $this->shipmentRepository->findShipmentByOrderId((int) $orderId);
             if ($shipment) {
                 $shipmentIds[] = $shipment->getId();

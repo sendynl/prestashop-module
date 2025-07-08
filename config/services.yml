@@ -107,6 +107,11 @@ services:
       - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
       - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
       - '@Sendy\PrestaShop\Repositories\PackageRepository'
+  Sendy\PrestaShop\Hooks\DisplayAdminEndContent:
+    class: 'Sendy\PrestaShop\Hooks\DisplayAdminEndContent'
+    arguments:
+      - '@twig'
+      - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
 
   # Repositories
   Sendy\PrestaShop\Repositories\AbstractEntityRepository:

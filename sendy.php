@@ -286,4 +286,9 @@ class Sendy extends CarrierModule
     {
         return $this->get(Hooks\DisplayAdminOrderSide::class)($params);
     }
+
+    public function hookDisplayAdminEndContent($params): string
+    {
+        return $this->get(Hooks\DisplayAdminEndContent::class)($params);
+    }
 }

@@ -1,0 +1,25 @@
+{% embed '@PrestaShop/Admin/Helpers/bootstrap_popup.html.twig' with {
+    id: 'sendyCreateShipmentModal',
+    title: 'Create shipment'|trans({}, 'Modules.Sendy.Admin'),
+    closable: true,
+    actions: [{
+        type: 'button',
+        label: 'Create'|trans({}, 'Admin.Actions'),
+        class: 'btn btn-primary btn-lg js-submit-modal-form-btn',
+    }],
+} %}
+    {% block content %}
+        <div class="modal-body">
+            {{ form_start(createShipmentFormView, {
+                action: path('sendy_orders_create_shipment'),
+                attr: {
+                    'data-bulk-inputs-id': createShipmentFormView.order_ids.vars.id
+                }
+            }) }}
+
+            {{ form_widget(createShipmentFormView) }}
+
+            {{ form_end(createShipmentFormView) }}
+        </div>
+    {% endblock %}
+{% endembed %}

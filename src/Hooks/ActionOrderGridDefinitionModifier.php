@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Hooks;
 
 use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\ButtonBulkAction;
-use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\SubmitBulkAction;
+use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\ModalFormSubmitBulkAction;
 use PrestaShop\PrestaShop\Core\Grid\Action\Type\SubmitGridAction;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
 use PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinitionInterface;
@@ -45,10 +45,11 @@ final class ActionOrderGridDefinitionModifier
         // Grid bulk actions
         $definition->getBulkActions()
             ->add(
-                (new SubmitBulkAction('sendy_create_shipment'))
+                (new ModalFormSubmitBulkAction('sendy_create_shipment'))
                     ->setName($this->translator->trans('Sendy - Create shipment', [], 'Modules.Sendy.Admin'))
                     ->setOptions([
                         'submit_route' => 'sendy_orders_create_shipment',
+                        'modal_id' => 'sendyCreateShipmentModal',
                     ])
             )
             ->add(

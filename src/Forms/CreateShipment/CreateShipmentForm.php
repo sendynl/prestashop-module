@@ -19,6 +19,8 @@ use Sendy\PrestaShop\Exceptions\TokensMissingException;
 use Sendy\PrestaShop\Factories\ApiConnectionFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -57,6 +59,11 @@ class CreateShipmentForm extends AbstractType
             ])
             ->add('amount', NumberType::class, [
                 'label' => $this->translator->trans('Amount of packages', [], 'Modules.Sendy.Admin'),
+            ])
+            ->add('order_ids', CollectionType::class, [
+                'allow_add' => true,
+                'entry_type' => HiddenType::class,
+                'label' => false,
             ])
         ;
     }

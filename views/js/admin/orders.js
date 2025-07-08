@@ -20,7 +20,7 @@ $(function() {
     $('.sendy-print-label-bulk-action-submit-btn').on('click', function(e) {
         const url = new URL(window.sendyRoutes.sendy_orders_print_label, window.location.origin);
         for (const id of getSelectedOrderIds()) {
-            url.searchParams.append('order_orders_bulk[]', id);
+            url.searchParams.append('order_ids[]', id);
         }
 
         printOrDownloadBase64FromUri(url.toString());
@@ -29,7 +29,7 @@ $(function() {
     $('.sendy-print-label-single-action-btn').on('click', function(e) {
         const orderId = $(this).data('order-id');
         const url = new URL(window.sendyRoutes.sendy_orders_print_label, window.location.origin);
-        url.searchParams.append('order_orders_bulk[]', orderId);
+        url.searchParams.append('order_ids[]', orderId);
 
         printOrDownloadBase64FromUri(url.toString());
     });

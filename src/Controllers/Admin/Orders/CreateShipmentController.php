@@ -50,8 +50,10 @@ class CreateShipmentController extends FrameworkBundleAdminController
     {
         PrestaShopLogger::addLog('Sendy - CreateShipmentController');
 
+        $formData = $request->get('form');
+
         try {
-            foreach ($request->get('order_orders_bulk') as $orderId) {
+            foreach ($formData['order_ids'] as $orderId) {
                 $order = new Order((int) $orderId);
 
                 if ($this->shipmentRepository->findShipmentByOrderId((int) $orderId)) {
@@ -64,9 +66,9 @@ class CreateShipmentController extends FrameworkBundleAdminController
 
                 $result = $this->createShipmentFromOrder->execute(
                     $order,
-                    $request->get('form')['shop_id'],
-                    $request->get('form')['preference_id'],
-                    (int) $request->get('form')['amount'] ?? 1
+                    $formData['shop_id'],
+                    $formData['preference_id'],
+                    (int) $formData['amount'] ?? 1
                 );
 
                 $this->shipmentRepository->addShipmentToOrder($order->id, $result['uuid']);

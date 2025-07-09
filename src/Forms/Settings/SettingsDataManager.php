@@ -16,7 +16,6 @@ namespace Sendy\PrestaShop\Forms\Settings;
 
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
-use Sendy\PrestaShop\Enums\MarkOrderAsCompletedSetting;
 use Sendy\PrestaShop\Enums\ProcessingMethod;
 use Sendy\PrestaShop\Repositories\ConfigurationRepository;
 
@@ -54,7 +53,9 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
             'sendy_default_shop' => $this->configurationRepository->getDefaultShop(),
             'sendy_import_products' => $this->configurationRepository->getImportProducts(),
             'sendy_import_weight' => $this->configurationRepository->getImportWeight(),
-            'sendy_mark_order_as_completed' => $this->configurationRepository->getMarkOrderAsCompleted(),
+            'sendy_status_generated' => $this->configurationRepository->getStatusGenerated(),
+            'sendy_status_printed' => $this->configurationRepository->getStatusPrinted(),
+            'sendy_status_delivered' => $this->configurationRepository->getStatusDelivered(),
         ];
     }
 
@@ -76,7 +77,9 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
         $this->configurationRepository->setDefaultShop($configuration['sendy_default_shop']);
         $this->configurationRepository->setImportProducts($configuration['sendy_import_products']);
         $this->configurationRepository->setImportWeight($configuration['sendy_import_weight']);
-        $this->configurationRepository->setMarkOrderAsCompleted($configuration['sendy_mark_order_as_completed']);
+        $this->configurationRepository->setStatusGenerated($configuration['sendy_status_generated']);
+        $this->configurationRepository->setStatusPrinted($configuration['sendy_status_printed']);
+        $this->configurationRepository->setStatusDelivered($configuration['sendy_status_delivered']);
 
         return [];
     }
@@ -143,12 +146,6 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
             $errors[] = 'Import weight setting is required.';
         } elseif (!is_bool($configuration['sendy_import_weight'])) {
             $errors[] = 'Invalid value for import weight.';
-        }
-
-        if (!isset($configuration['sendy_mark_order_as_completed'])) {
-            $errors[] = 'Mark order as completed setting is required.';
-        } elseif (!in_array($configuration['sendy_mark_order_as_completed'], MarkOrderAsCompletedSetting::values(), true)) {
-            $errors[] = 'Invalid mark order as completed setting.';
         }
 
         return $errors;

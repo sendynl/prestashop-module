@@ -219,7 +219,7 @@ class Sendy extends CarrierModule
 
     public function hookActionFrontControllerSetMedia()
     {
-        $this->get(Hooks\ActionFrontControllerSetMedia::class)($this);
+        (new Hooks\ActionFrontControllerSetMedia())($this);
     }
 
     public function hookActionCarrierProcess($params): void

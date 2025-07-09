@@ -3,11 +3,34 @@ services:
     public: true
 
   # Actions
+  Sendy\PrestaShop\Actions\ApplyProcessingMethodChange:
+    class: 'Sendy\PrestaShop\Actions\ApplyProcessingMethodChange'
+    arguments:
+      - '@Sendy\PrestaShop\Actions\InstallWebhook'
+      - '@Sendy\PrestaShop\Actions\UninstallWebhook'
   Sendy\PrestaShop\Actions\CreateShipmentFromOrder:
     class: 'Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
     arguments:
       - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+  Sendy\PrestaShop\Actions\HandleShipmentWebhook:
+    class: 'Sendy\PrestaShop\Actions\HandleShipmentWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
+      - '@Sendy\PrestaShop\Repositories\PackageRepository'
+      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+  Sendy\PrestaShop\Actions\InstallWebhook:
+    class: 'Sendy\PrestaShop\Actions\InstallWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+      - '@router'
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+  Sendy\PrestaShop\Actions\UninstallWebhook:
+    class: 'Sendy\PrestaShop\Actions\UninstallWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
 
   # Controllers
   Sendy\PrestaShop\Controllers\Admin\AuthController:
@@ -36,6 +59,11 @@ services:
     class: 'Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController'
     arguments:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+  Sendy\PrestaShop\Controllers\Admin\WebhookController:
+    class: 'Sendy\PrestaShop\Controllers\Admin\WebhookController'
+    arguments:
+      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
+      - '@Sendy\PrestaShop\Actions\HandleShipmentWebhook'
 
   # Factories
   Sendy\PrestaShop\Factories\ApiConnectionFactory:
@@ -77,8 +105,9 @@ services:
       - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
   Sendy\PrestaShop\Forms\Settings\SettingsForm:
     class: 'Sendy\PrestaShop\Forms\Settings\SettingsForm'
-    parent: 'form.type.translatable.aware'
-    public: true
+    arguments:
+      - '@translator'
+      - '@PrestaShop\PrestaShop\Core\Form\ChoiceProvider\OrderStateByIdChoiceProvider'
     tags:
       - { name: form.type }
   Sendy\PrestaShop\Forms\Settings\SettingsFormHandler:
@@ -93,8 +122,6 @@ services:
     class: 'Sendy\PrestaShop\Hooks\ActionAdminControllerSetMedia'
     arguments:
       - '@router'
-  Sendy\PrestaShop\Hooks\ActionFrontControllerSetMedia:
-    class: 'Sendy\PrestaShop\Hooks\ActionFrontControllerSetMedia'
   Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier:
     class: 'Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier'
     arguments:

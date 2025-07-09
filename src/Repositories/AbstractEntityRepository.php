@@ -48,4 +48,23 @@ abstract class AbstractEntityRepository
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
     }
+
+    /**
+     * @param mixed $id
+     *
+     * @return T|null
+     */
+    public function find($id): ?object
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
+     * @param T $entity
+     */
+    public function delete(object $entity): void
+    {
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
+    }
 }

@@ -39,4 +39,14 @@ class PackageRepository extends AbstractEntityRepository
     ): void {
         $this->save(new SendyPackage($packageId, $shipmentId, $packageNumber, $trackingUrl));
     }
+
+    public function deleteByShipmentId(string $shipmentId): void
+    {
+        $this->repository->createQueryBuilder('p')
+            ->delete()
+            ->where('p.shipmentId = :shipmentId')
+            ->setParameter('shipmentId', $shipmentId)
+            ->getQuery()
+            ->execute();
+    }
 }

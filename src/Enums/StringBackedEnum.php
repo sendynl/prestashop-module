@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Enums;
 
+use InvalidArgumentException;
+use PrestaShop\PrestaShop\Core\Util\String\StringModifier;
 use ReflectionClass;
 
 abstract class StringBackedEnum
@@ -26,5 +28,35 @@ abstract class StringBackedEnum
         $reflection = new ReflectionClass(static::class);
 
         return array_values($reflection->getConstants());
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function choices(): array
+    {
+        $constants = (new ReflectionClass(static::class))->getConstants();
+        $choices = [];
+
+        foreach ($constants as $value) {
+            $choices[static::getDescription($value)] = $value;
+        }
+
+        return $choices;
+    }
+
+    public static function getDescription(string $value): string
+    {
+        $reflection = new ReflectionClass(static::class);
+        $constants = $reflection->getConstants();
+
+        foreach ($constants as $name => $constantValue) {
+            if ($constantValue === $value) {
+                // TODO: Get the description from the Modules.Sendy.Enum translation domain
+                return (new StringModifier())->splitByCamelCase($name);
+            }
+        }
+
+        throw new InvalidArgumentException(sprintf('Value "%s" is not a valid constant of %s', $value, static::class));
     }
 }

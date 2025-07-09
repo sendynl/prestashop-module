@@ -16,7 +16,6 @@ namespace Sendy\PrestaShop\Repositories;
 
 use InvalidArgumentException;
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
-use Sendy\PrestaShop\Enums\MarkOrderAsCompletedSetting;
 use Sendy\PrestaShop\Enums\ProcessingMethod;
 use Sendy\PrestaShop\Support\Str;
 
@@ -50,6 +49,9 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_PROCESSING_METHOD', $processingMethod);
     }
 
+    /**
+     * @todo set default value to PS_OS_PAYMENT when installing the module
+     */
     public function getProcessableStatus(): ?string
     {
         return $this->configuration->get('SENDY_PROCESSABLE_STATUS') ?: null;
@@ -91,22 +93,6 @@ class ConfigurationRepository
     public function setImportWeight(bool $importWeight): void
     {
         $this->configuration->set('SENDY_IMPORT_WEIGHT', $importWeight);
-    }
-
-    /**
-     * @return MarkOrderAsCompletedSetting::*
-     */
-    public function getMarkOrderAsCompleted(): string
-    {
-        return $this->configuration->get('SENDY_MARK_ORDER_AS_COMPLETED') ?: MarkOrderAsCompletedSetting::Manually;
-    }
-
-    /**
-     * @param MarkOrderAsCompletedSetting::* $markOrderAsCompleted
-     */
-    public function setMarkOrderAsCompleted(string $markOrderAsCompleted): void
-    {
-        $this->configuration->set('SENDY_MARK_ORDER_AS_COMPLETED', $markOrderAsCompleted);
     }
 
     public function ensureClientId(): string
@@ -204,5 +190,59 @@ class ConfigurationRepository
     public function setDisplayShippingMethodColumn(bool $displayShippingMethodColumn): void
     {
         $this->configuration->set('SENDY_DISPLAY_SHIPPING_METHOD_COLUMN', $displayShippingMethodColumn);
+    }
+
+    public function setWebserviceApiEnabled(bool $enabled): void
+    {
+        $this->configuration->set('PS_WEBSERVICE', (int) $enabled);
+    }
+
+    public function setWebhookId(?string $id)
+    {
+        $this->configuration->set('SENDY_WEBHOOK_ID', $id);
+    }
+
+    public function getWebhookId(): ?string
+    {
+        return $this->configuration->get('SENDY_WEBHOOK_ID') ?: null;
+    }
+
+    /**
+     * @todo set default value to PS_OS_PREPARATION when installing the module
+     */
+    public function getStatusGenerated(): ?int
+    {
+        return $this->configuration->getInt('SENDY_STATUS_GENERATED') ?: null;
+    }
+
+    public function setStatusGenerated(?int $statusId): void
+    {
+        $this->configuration->set('SENDY_STATUS_GENERATED', $statusId);
+    }
+
+    /**
+     * @todo set default value to PS_OS_SHIPPING when installing the module
+     */
+    public function getStatusPrinted(): ?int
+    {
+        return $this->configuration->getInt('SENDY_STATUS_PRINTED') ?: null;
+    }
+
+    public function setStatusPrinted(?int $statusId): void
+    {
+        $this->configuration->set('SENDY_STATUS_PRINTED', $statusId);
+    }
+
+    /**
+     * @todo set default value to PS_OS_DELIVERED when installing the module
+     */
+    public function getStatusDelivered(): ?int
+    {
+        return $this->configuration->getInt('SENDY_STATUS_DELIVERED') ?: null;
+    }
+
+    public function setStatusDelivered(?int $statusId): void
+    {
+        $this->configuration->set('SENDY_STATUS_DELIVERED', $statusId);
     }
 }

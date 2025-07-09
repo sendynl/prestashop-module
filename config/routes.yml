@@ -45,3 +45,10 @@ sendy_orders_toggle_shipping_method_column:
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController::toggleShippingMethodColumn'
+
+sendy_webhook:
+  path: /sendy/webhook
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controllers\Admin\WebhookController'
+    _anonymous_controller: true

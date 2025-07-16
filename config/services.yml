@@ -3,155 +3,155 @@ services:
     public: true
 
   # Actions
-  Sendy\PrestaShop\Actions\ApplyProcessingMethodChange:
-    class: 'Sendy\PrestaShop\Actions\ApplyProcessingMethodChange'
+  Sendy\PrestaShop\Action\ApplyProcessingMethodChange:
+    class: 'Sendy\PrestaShop\Action\ApplyProcessingMethodChange'
     arguments:
-      - '@Sendy\PrestaShop\Actions\InstallWebhook'
-      - '@Sendy\PrestaShop\Actions\UninstallWebhook'
-  Sendy\PrestaShop\Actions\CreateShipmentFromOrder:
-    class: 'Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
+      - '@Sendy\PrestaShop\Action\InstallWebhook'
+      - '@Sendy\PrestaShop\Action\UninstallWebhook'
+  Sendy\PrestaShop\Action\CreateShipmentFromOrder:
+    class: 'Sendy\PrestaShop\Action\CreateShipmentFromOrder'
     arguments:
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-  Sendy\PrestaShop\Actions\HandleShipmentWebhook:
-    class: 'Sendy\PrestaShop\Actions\HandleShipmentWebhook'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+  Sendy\PrestaShop\Action\HandleShipmentWebhook:
+    class: 'Sendy\PrestaShop\Action\HandleShipmentWebhook'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
-      - '@Sendy\PrestaShop\Repositories\PackageRepository'
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
-  Sendy\PrestaShop\Actions\InstallWebhook:
-    class: 'Sendy\PrestaShop\Actions\InstallWebhook'
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+      - '@Sendy\PrestaShop\Repository\PackageRepository'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+  Sendy\PrestaShop\Action\InstallWebhook:
+    class: 'Sendy\PrestaShop\Action\InstallWebhook'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@router'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
-  Sendy\PrestaShop\Actions\UninstallWebhook:
-    class: 'Sendy\PrestaShop\Actions\UninstallWebhook'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+  Sendy\PrestaShop\Action\UninstallWebhook:
+    class: 'Sendy\PrestaShop\Action\UninstallWebhook'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
 
   # Controllers
-  Sendy\PrestaShop\Controllers\Admin\AuthController:
-    class: 'Sendy\PrestaShop\Controllers\Admin\AuthController'
+  Sendy\PrestaShop\Controller\Admin\AuthController:
+    class: 'Sendy\PrestaShop\Controller\Admin\AuthController'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
       - '@router'
     parent: 'PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController'
     public: true
-  Sendy\PrestaShop\Controllers\Admin\SettingsController:
-    class: 'Sendy\PrestaShop\Controllers\Admin\SettingsController'
+  Sendy\PrestaShop\Controller\Admin\SettingsController:
+    class: 'Sendy\PrestaShop\Controller\Admin\SettingsController'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-      - '@Sendy\PrestaShop\Forms\Settings\SettingsFormHandler'
-  Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController:
-    class: 'Sendy\PrestaShop\Controllers\Admin\Orders\CreateShipmentController'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
+  Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
+    class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'
     arguments:
-      - '@Sendy\PrestaShop\Actions\CreateShipmentFromOrder'
-  Sendy\PrestaShop\Controllers\Admin\Orders\PrintLabelController:
-    class: 'Sendy\PrestaShop\Controllers\Admin\Orders\PrintLabelController'
+      - '@Sendy\PrestaShop\Action\CreateShipmentFromOrder'
+  Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController:
+    class: 'Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController'
     arguments:
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
-      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
-  Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController:
-    class: 'Sendy\PrestaShop\Controllers\Admin\Orders\ColumnsController'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+  Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController:
+    class: 'Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-  Sendy\PrestaShop\Controllers\Admin\WebhookController:
-    class: 'Sendy\PrestaShop\Controllers\Admin\WebhookController'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+  Sendy\PrestaShop\Controller\Admin\WebhookController:
+    class: 'Sendy\PrestaShop\Controller\Admin\WebhookController'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
-      - '@Sendy\PrestaShop\Actions\HandleShipmentWebhook'
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+      - '@Sendy\PrestaShop\Action\HandleShipmentWebhook'
 
   # Factories
-  Sendy\PrestaShop\Factories\ApiConnectionFactory:
-    class: 'Sendy\PrestaShop\Factories\ApiConnectionFactory'
+  Sendy\PrestaShop\Factory\ApiConnectionFactory:
+    class: 'Sendy\PrestaShop\Factory\ApiConnectionFactory'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@router'
 
   # Forms
-  Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentForm:
-    class: 'Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentForm'
+  Sendy\PrestaShop\Form\CreateShipment\CreateShipmentForm:
+    class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentForm'
     arguments:
       - '@translator'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
     tags:
       - { name: form.type }
-  Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler:
-    class: 'Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
+  Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler:
+    class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
     arguments:
       - '@form.factory'
       - '@prestashop.core.hook.dispatcher'
-      - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormDataProvider'
-  Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormDataProvider:
-    class: 'Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormDataProvider'
+      - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider'
+  Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider:
+    class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-  Sendy\PrestaShop\Forms\Settings\AuthenticateForm:
-    class: Sendy\PrestaShop\Forms\Settings\AuthenticateForm
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+  Sendy\PrestaShop\Form\Settings\AuthenticateForm:
+    class: Sendy\PrestaShop\Form\Settings\AuthenticateForm
     arguments:
       - '@translator'
       - "@=service('prestashop.adapter.legacy.context').getLanguages()"
       - '@router'
-      - '@Sendy\PrestaShop\Factories\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
     tags:
       - { name: form.type }
-  Sendy\PrestaShop\Forms\Settings\SettingsDataManager:
-    class: 'Sendy\PrestaShop\Forms\Settings\SettingsDataManager'
+  Sendy\PrestaShop\Form\Settings\SettingsDataManager:
+    class: 'Sendy\PrestaShop\Form\Settings\SettingsDataManager'
     arguments:
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-  Sendy\PrestaShop\Forms\Settings\SettingsForm:
-    class: 'Sendy\PrestaShop\Forms\Settings\SettingsForm'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+  Sendy\PrestaShop\Form\Settings\SettingsForm:
+    class: 'Sendy\PrestaShop\Form\Settings\SettingsForm'
     arguments:
       - '@translator'
       - '@PrestaShop\PrestaShop\Core\Form\ChoiceProvider\OrderStateByIdChoiceProvider'
     tags:
       - { name: form.type }
-  Sendy\PrestaShop\Forms\Settings\SettingsFormHandler:
-    class: 'Sendy\PrestaShop\Forms\Settings\SettingsFormHandler'
+  Sendy\PrestaShop\Form\Settings\SettingsFormHandler:
+    class: 'Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
     arguments:
       - '@form.factory'
       - '@prestashop.core.hook.dispatcher'
-      - '@Sendy\PrestaShop\Forms\Settings\SettingsDataManager'
+      - '@Sendy\PrestaShop\Form\Settings\SettingsDataManager'
 
   # Hooks
-  Sendy\PrestaShop\Hooks\ActionAdminControllerSetMedia:
-    class: 'Sendy\PrestaShop\Hooks\ActionAdminControllerSetMedia'
+  Sendy\PrestaShop\Hook\ActionAdminControllerSetMedia:
+    class: 'Sendy\PrestaShop\Hook\ActionAdminControllerSetMedia'
     arguments:
       - '@router'
-  Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier:
-    class: 'Sendy\PrestaShop\Hooks\ActionOrderGridDefinitionModifier'
+  Sendy\PrestaShop\Hook\ActionOrderGridDefinitionModifier:
+    class: 'Sendy\PrestaShop\Hook\ActionOrderGridDefinitionModifier'
     arguments:
       - '@translator'
-      - '@Sendy\PrestaShop\Repositories\ConfigurationRepository'
-  Sendy\PrestaShop\Hooks\DisplayAdminOrderSide:
-    class: 'Sendy\PrestaShop\Hooks\DisplayAdminOrderSide'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+  Sendy\PrestaShop\Hook\DisplayAdminOrderSide:
+    class: 'Sendy\PrestaShop\Hook\DisplayAdminOrderSide'
     arguments:
       - '@twig'
-      - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
-      - '@Sendy\PrestaShop\Repositories\ShipmentRepository'
-      - '@Sendy\PrestaShop\Repositories\PackageRepository'
-  Sendy\PrestaShop\Hooks\DisplayAdminEndContent:
-    class: 'Sendy\PrestaShop\Hooks\DisplayAdminEndContent'
+      - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+      - '@Sendy\PrestaShop\Repository\PackageRepository'
+  Sendy\PrestaShop\Hook\DisplayAdminEndContent:
+    class: 'Sendy\PrestaShop\Hook\DisplayAdminEndContent'
     arguments:
       - '@twig'
-      - '@Sendy\PrestaShop\Forms\CreateShipment\CreateShipmentFormHandler'
+      - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
 
   # Repositories
-  Sendy\PrestaShop\Repositories\AbstractEntityRepository:
-    class: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'
+  Sendy\PrestaShop\Repository\AbstractEntityRepository:
+    class: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
     arguments:
       - '@doctrine.orm.entity_manager'
-  Sendy\PrestaShop\Repositories\ShipmentRepository:
-    parent: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'
+  Sendy\PrestaShop\Repository\ShipmentRepository:
+    parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
     public: true
-  Sendy\PrestaShop\Repositories\PackageRepository:
-    parent: 'Sendy\PrestaShop\Repositories\AbstractEntityRepository'
+  Sendy\PrestaShop\Repository\PackageRepository:
+    parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
     public: true
-  Sendy\PrestaShop\Repositories\ConfigurationRepository:
-    class: 'Sendy\PrestaShop\Repositories\ConfigurationRepository'
+  Sendy\PrestaShop\Repository\ConfigurationRepository:
+    class: 'Sendy\PrestaShop\Repository\ConfigurationRepository'
     arguments:
       - '@prestashop.adapter.legacy.configuration'

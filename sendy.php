@@ -12,8 +12,8 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-use Sendy\PrestaShop\Forms\Settings\LegacySettingsForm;
-use Sendy\PrestaShop\Hooks;
+use Sendy\PrestaShop\Form\Settings\LegacySettingsForm;
+use Sendy\PrestaShop\Hook;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -74,10 +74,10 @@ class Sendy extends CarrierModule
         $this->addRanges($carrier);
 
         include dirname(__FILE__) . '/sql/install.php';
-        require_once __DIR__ . '/src/Hooks/HookInstaller.php';
+        require_once __DIR__ . '/src/Hook/HookInstaller.php';
 
         return parent::install()
-            && Hooks\HookInstaller::registerHooks($this);
+            && Hook\HookInstaller::registerHooks($this);
     }
 
     public function uninstall(): bool
@@ -214,12 +214,12 @@ class Sendy extends CarrierModule
 
     public function hookActionAdminControllerSetMedia()
     {
-        $this->get(Hooks\ActionAdminControllerSetMedia::class)($this);
+        $this->get(Hook\ActionAdminControllerSetMedia::class)($this);
     }
 
     public function hookActionFrontControllerSetMedia()
     {
-        (new Hooks\ActionFrontControllerSetMedia())($this);
+        (new Hook\ActionFrontControllerSetMedia())($this);
     }
 
     public function hookActionCarrierProcess($params): void
@@ -274,21 +274,21 @@ class Sendy extends CarrierModule
 
     public function hookActionOrderGridDefinitionModifier(array $params): void
     {
-        $this->get(Hooks\ActionOrderGridDefinitionModifier::class)($params);
+        $this->get(Hook\ActionOrderGridDefinitionModifier::class)($params);
     }
 
     public function hookActionOrderGridQueryBuilderModifier(array $params): void
     {
-        (new Hooks\ActionOrderGridQueryBuilderModifier())($params);
+        (new Hook\ActionOrderGridQueryBuilderModifier())($params);
     }
 
     public function hookDisplayAdminOrderSide($params): string
     {
-        return $this->get(Hooks\DisplayAdminOrderSide::class)($params);
+        return $this->get(Hook\DisplayAdminOrderSide::class)($params);
     }
 
     public function hookDisplayAdminEndContent($params): string
     {
-        return $this->get(Hooks\DisplayAdminEndContent::class)($params);
+        return $this->get(Hook\DisplayAdminEndContent::class)($params);
     }
 }

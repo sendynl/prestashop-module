@@ -12,8 +12,11 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 use Sendy\PrestaShop\Form\Settings\LegacySettingsForm;
 use Sendy\PrestaShop\Hook;
+use Sendy\PrestaShop\Installer;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -74,10 +77,11 @@ class Sendy extends CarrierModule
         $this->addRanges($carrier);
 
         include dirname(__FILE__) . '/sql/install.php';
-        require_once __DIR__ . '/src/Hook/HookInstaller.php';
 
         return parent::install()
-            && Hook\HookInstaller::registerHooks($this);
+            && Installer\ConfigurationDefaults::install()
+            && Installer\SystemUser::install()
+            && Installer\Hooks::install($this);
     }
 
     public function uninstall(): bool
@@ -86,7 +90,8 @@ class Sendy extends CarrierModule
 
         include dirname(__FILE__) . '/sql/uninstall.php';
 
-        return parent::uninstall();
+        return parent::uninstall()
+            && Installer\SystemUser::uninstall();
     }
 
     /**

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-	<name>sendy</name>
-	<displayName><![CDATA[Sendy]]></displayName>
-	<version><![CDATA[2.0.0]]></version>
-	<description><![CDATA[A PrestaShop module that connects your store to the Sendy platform]]></description>
-	<author><![CDATA[Sendy B.V.]]></author>
-	<tab><![CDATA[shipping_logistics]]></tab>
-	<is_configurable>1</is_configurable>
-	<need_instance>1</need_instance>
+    <name>sendy</name>
+    <displayName><![CDATA[Sendy]]></displayName>
+    <version><![CDATA[2.0.0]]></version>
+    <description><![CDATA[A PrestaShop module that connects your store to the Sendy platform]]></description>
+    <author><![CDATA[Sendy B.V.]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
 </module>

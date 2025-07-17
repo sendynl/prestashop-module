@@ -46,6 +46,7 @@ services:
     arguments:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
+      - '@Sendy\PrestaShop\Action\ApplyProcessingMethodChange'
   Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'
     arguments:
@@ -64,6 +65,7 @@ services:
     arguments:
       - '@Sendy\PrestaShop\Repository\ShipmentRepository'
       - '@Sendy\PrestaShop\Action\HandleShipmentWebhook'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
 
   # Factories
   Sendy\PrestaShop\Factory\ApiConnectionFactory:
@@ -107,7 +109,7 @@ services:
     class: 'Sendy\PrestaShop\Form\Settings\SettingsForm'
     arguments:
       - '@translator'
-      - '@PrestaShop\PrestaShop\Core\Form\ChoiceProvider\OrderStateByIdChoiceProvider'
+      - '@prestashop.core.form.choice_provider.order_state_by_id'
     tags:
       - { name: form.type }
   Sendy\PrestaShop\Form\Settings\SettingsFormHandler:

@@ -49,15 +49,12 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_PROCESSING_METHOD', $processingMethod);
     }
 
-    /**
-     * @todo set default value to PS_OS_PAYMENT when installing the module
-     */
-    public function getProcessableStatus(): ?string
+    public function getProcessableStatus(): ?int
     {
-        return $this->configuration->get('SENDY_PROCESSABLE_STATUS') ?: null;
+        return $this->configuration->getInt('SENDY_PROCESSABLE_STATUS') ?: null;
     }
 
-    public function setProcessableStatus(?string $processableStatus): void
+    public function setProcessableStatus(?int $processableStatus): void
     {
         $this->configuration->set('SENDY_PROCESSABLE_STATUS', $processableStatus);
     }
@@ -207,9 +204,6 @@ class ConfigurationRepository
         return $this->configuration->get('SENDY_WEBHOOK_ID') ?: null;
     }
 
-    /**
-     * @todo set default value to PS_OS_PREPARATION when installing the module
-     */
     public function getStatusGenerated(): ?int
     {
         return $this->configuration->getInt('SENDY_STATUS_GENERATED') ?: null;
@@ -220,9 +214,6 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_STATUS_GENERATED', $statusId);
     }
 
-    /**
-     * @todo set default value to PS_OS_SHIPPING when installing the module
-     */
     public function getStatusPrinted(): ?int
     {
         return $this->configuration->getInt('SENDY_STATUS_PRINTED') ?: null;
@@ -233,9 +224,6 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_STATUS_PRINTED', $statusId);
     }
 
-    /**
-     * @todo set default value to PS_OS_DELIVERED when installing the module
-     */
     public function getStatusDelivered(): ?int
     {
         return $this->configuration->getInt('SENDY_STATUS_DELIVERED') ?: null;
@@ -244,5 +232,10 @@ class ConfigurationRepository
     public function setStatusDelivered(?int $statusId): void
     {
         $this->configuration->set('SENDY_STATUS_DELIVERED', $statusId);
+    }
+
+    public function getSendySystemUserId(): ?int
+    {
+        return $this->configuration->getInt('SENDY_SYSTEM_USER_ID') ?: null;
     }
 }

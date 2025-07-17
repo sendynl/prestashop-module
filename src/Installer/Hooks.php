@@ -12,19 +12,22 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-namespace Sendy\PrestaShop\Hook;
+namespace Sendy\PrestaShop\Installer;
 
+use PrestaShopLogger;
 use Sendy;
 
-class HookInstaller
+class Hooks
 {
     /**
      * Registers all hooks defined as methods in the main module class.
      *
      * @param Sendy $module the Sendy module instance
      */
-    public static function registerHooks(Sendy $module): bool
+    public static function install(Sendy $module): bool
     {
+        PrestaShopLogger::addLog('Sendy - Installing hooks');
+
         foreach (get_class_methods($module) as $method) {
             if (substr($method, 0, 4) !== 'hook') {
                 continue;
@@ -34,6 +37,8 @@ class HookInstaller
                 return false;
             }
         }
+
+        PrestaShopLogger::addLog('Sendy - Installed hooks');
 
         return true;
     }

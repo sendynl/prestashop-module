@@ -14,8 +14,12 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
+use Context;
+use Employee;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\PrestaShop\Action\HandleShipmentWebhook;
+use Sendy\PrestaShop\Installer\SystemUser;
+use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShipmentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,14 +29,16 @@ class WebhookController extends FrameworkBundleAdminController
 {
     private ShipmentRepository $shipmentRepository;
     private HandleShipmentWebhook $handleShipmentWebhook;
+    private ConfigurationRepository $configurationRepository;
 
-    public function __construct(ShipmentRepository $shipmentRepository, HandleShipmentWebhook $handleShipmentWebhook)
+    public function __construct(ShipmentRepository $shipmentRepository, HandleShipmentWebhook $handleShipmentWebhook, ConfigurationRepository $configurationRepository)
     {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
         }
         $this->shipmentRepository = $shipmentRepository;
         $this->handleShipmentWebhook = $handleShipmentWebhook;
+        $this->configurationRepository = $configurationRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -47,6 +53,10 @@ class WebhookController extends FrameworkBundleAdminController
         if ($body['data']['resource'] !== 'shipment') {
             return $emptyResponse;
         }
+
+        // Set a system user which is needed when PrestaShop creates stock movements
+        SystemUser::ensureInstalled();
+        Context::getContext()->employee = new Employee($this->configurationRepository->getSendySystemUserId());
 
         $shipment = $this->shipmentRepository->find($body['data']['id']);
 

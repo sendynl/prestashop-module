@@ -44,7 +44,7 @@ class CreateShipmentFromOrder
      *
      * @throws SendyException
      */
-    public function execute(Order $order, string $shopId, string $preferenceId, int $amount = 1): array
+    public function execute(Order $order, string $shopId, ?string $preferenceId = null, int $amount = 1): array
     {
         $this->sendy ??= $this->apiConnectionFactory->buildConnectionUsingTokens();
 
@@ -78,7 +78,11 @@ class CreateShipmentFromOrder
             $data['products'] = $this->formatProducts($order);
         }
 
-        return $this->sendy->shipment->createFromPreference($data, true);
+        if ($preferenceId) {
+            return $this->sendy->shipment->createFromPreference($data, true);
+        } else {
+            return $this->sendy->shipment->createWithSmartRules($data);
+        }
     }
 
     private function formatProducts(Order $order): array

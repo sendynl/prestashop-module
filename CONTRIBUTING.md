@@ -1,5 +1,13 @@
 # Contributing to the Sendy PrestaShop module
 
+## PrestaShop documentation
+
+First, familiarize yourself with the [PrestaShop documentation](https://devdocs.prestashop.com/).
+
+- [Getting started](https://devdocs.prestashop-project.org/9/modules/creation/)
+- [List of hooks](https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/)
+- [Built-in translations](https://github.com/PrestaShop/PrestaShop/tree/develop/translations/default)
+
 ## Development
 
 To set up a development environment for the Sendy PrestaShop module, make sure the following programs are installed locally:

@@ -28,20 +28,23 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SettingsForm extends AbstractType
 {
     private TranslatorInterface $translator;
+    private OrderStateByIdChoiceProvider $orderStateByIdChoiceProvider;
+    private ShopChoiceProvider $shopChoiceProvider;
 
     public function __construct(
         TranslatorInterface $translator,
-        OrderStateByIdChoiceProvider $orderStateByIdChoiceProvider
+        OrderStateByIdChoiceProvider $orderStateByIdChoiceProvider,
+        ShopChoiceProvider $shopChoiceProvider
     ) {
         $this->translator = $translator;
         $this->orderStateByIdChoiceProvider = $orderStateByIdChoiceProvider;
+        $this->shopChoiceProvider = $shopChoiceProvider;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $orderStatuses = $this->orderStateByIdChoiceProvider->getChoices();
         $orderStatusAttributes = $this->orderStateByIdChoiceProvider->getChoicesAttributes();
-        $shops = [];
 
         $builder
             ->add('sendy_processing_method', ChoiceType::class, [
@@ -65,8 +68,8 @@ class SettingsForm extends AbstractType
                 ),
             ])
             ->add('sendy_default_shop', ChoiceType::class, [
-                'label' => $this->translator->trans('Default Sendy Shop', [], 'Modules.Sendy.Admin'),
-                'choices' => $shops,
+                'label' => $this->translator->trans('Default Sendy shop', [], 'Modules.Sendy.Admin'),
+                'choices' => $this->shopChoiceProvider->getChoices(),
                 'required' => false,
                 'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
             ])

@@ -37,7 +37,16 @@ class PackageRepository extends AbstractEntityRepository
         string $packageNumber,
         string $trackingUrl
     ): void {
-        $this->save(new SendyPackage($packageId, $shipmentId, $packageNumber, $trackingUrl));
+        $existingPackage = $this->find($packageId);
+
+        if ($existingPackage) {
+            $existingPackage->setShipmentId($shipmentId);
+            $existingPackage->setPackageNumber($packageNumber);
+            $existingPackage->setTrackingUrl($trackingUrl);
+            $this->save($existingPackage);
+        } else {
+            $this->save(new SendyPackage($packageId, $shipmentId, $packageNumber, $trackingUrl));
+        }
     }
 
     public function deleteByShipmentId(string $shipmentId): void

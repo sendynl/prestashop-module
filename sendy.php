@@ -14,9 +14,14 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
+use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
+use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Form\Settings\LegacySettingsForm;
 use Sendy\PrestaShop\Hook;
 use Sendy\PrestaShop\Installer;
+use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
+use Sendy\PrestaShop\Repository\ConfigurationRepository;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -244,7 +249,30 @@ class Sendy extends CarrierModule
 
     public function hookActionOrderStatusPostUpdate($params): void
     {
-        PrestaShopLogger::addLog('Sendy - ActionOrderStatusPostUpdate hook - ' . print_r($params, true));
+        // $container = SymfonyContainer::getInstance();
+        //
+        // // When this hook is triggered from the front office (after an order is placed), we need to boot the Symfony
+        // // kernel to get the container
+        // if (!$container) {
+        //    if (file_exists(_PS_ROOT_DIR_ . '/app/FrontKernel.php')) {
+        //        require_once _PS_ROOT_DIR_ . '/app/FrontKernel.php';
+        //        $kernel = new \FrontKernel('prod', false);
+        //    } else {
+        //        require_once _PS_ROOT_DIR_ . '/app/AppKernel.php';
+        //        $kernel = new \AppKernel('prod', false);
+        //    }
+        //
+        //    $kernel->boot();
+        //    $container = $kernel->getContainer();
+        // }
+        //
+        // $container->get(Hook\ActionOrderStatusPostUpdate::class)($params);
+
+        $configurationRepository = new ConfigurationRepository(new PrestaShop\PrestaShop\Adapter\Configuration());
+        $apiConnectionFactory = new ApiConnectionFactory($configurationRepository, new DummyUrlGenerator());
+        $createShipmentFromOrder = new CreateShipmentFromOrder($apiConnectionFactory, $configurationRepository);
+
+        (new Hook\ActionOrderStatusPostUpdate($createShipmentFromOrder, $configurationRepository))($params);
     }
 
     public function hookActionOrderStatusUpdate($params): void

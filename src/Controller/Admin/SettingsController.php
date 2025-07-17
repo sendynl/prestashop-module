@@ -48,16 +48,18 @@ class SettingsController extends FrameworkBundleAdminController
         $settingsForm->handleRequest($request);
 
         if ($settingsForm->isSubmitted() && $settingsForm->isValid()) {
-            $processingMethodChanged = $this->configurationRepository->getProcessingMethod()
-                !== $settingsForm->getData()['sendy_processing_method'];
+            $oldProcessingMethod = $this->configurationRepository->getProcessingMethod();
+            $newProcessingMethod = $settingsForm->getData()['sendy_processing_method'];
+            $processingMethodChanged = $oldProcessingMethod !== $newProcessingMethod;
 
             $errors = $this->settingsFormHandler->save($settingsForm->getData());
 
             if (empty($errors)) {
                 if ($processingMethodChanged) {
                     try {
-                        $this->applyProcessingMethodChange->execute($settingsForm->getData()['sendy_processing_method']);
+                        $this->applyProcessingMethodChange->execute($newProcessingMethod);
                     } catch (SendyException $e) {
+                        $this->configurationRepository->setProcessingMethod($oldProcessingMethod);
                         $this->addFlash('error', $this->trans(
                             'An error occurred while changing the processing method: %error%',
                             'Modules.Sendy.Admin',

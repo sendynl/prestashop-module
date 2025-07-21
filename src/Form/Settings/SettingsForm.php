@@ -91,6 +91,7 @@ class SettingsForm extends AbstractType
                     [],
                     'Modules.Sendy.Admin'
                 ),
+                'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
             ])
             ->add('sendy_status_printed', ChoiceType::class, [
                 'label' => $this->translator->trans('Status after label is printed', [], 'Modules.Sendy.Admin'),
@@ -113,6 +114,7 @@ class SettingsForm extends AbstractType
                     [],
                     'Modules.Sendy.Admin'
                 ),
+                'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
             ])
         ;
     }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Action;
 
 use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -40,7 +41,21 @@ class InstallWebhook
      */
     public function execute(): void
     {
+        if ($this->configurationRepository->getProcessingMethod() !== ProcessingMethod::Sendy) {
+            return;
+        }
+
         $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
+
+        $currentWebhookId = $this->configurationRepository->getWebhookId();
+
+        if ($currentWebhookId) {
+            $webhookIds = array_map(fn ($webhook) => $webhook['id'], $sendy->webhook->list());
+
+            if (in_array($currentWebhookId, $webhookIds, true)) {
+                return;
+            }
+        }
 
         $webhook = $sendy->webhook->create([
             'url' => $this->router->generate('sendy_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL),

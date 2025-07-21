@@ -122,19 +122,15 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
             $errors[] = 'Processing method is required.';
         } elseif (!in_array($configuration['sendy_processing_method'], ProcessingMethod::values(), true)) {
             $errors[] = 'Invalid processing method.';
-        }
+        } elseif ($configuration['sendy_processing_method'] === ProcessingMethod::Sendy) {
+            if (!isset($configuration['sendy_processable_status']) || !is_int($configuration['sendy_processable_status'])) {
+                $errors[] = 'Processable status is required when processing method is Sendy.';
+            }
 
-        // if (!isset($configuration['sendy_processable_status'])) {
-        //    $errors[] = 'Processable status is required.';
-        // } elseif (!is_string($configuration['sendy_processable_status'])) {
-        //    $errors[] = 'Invalid processable status.';
-        // }
-        //
-        // if (!isset($configuration['sendy_default_shop'])) {
-        //    $errors[] = 'Default shop is required.';
-        // } elseif (!is_string($configuration['sendy_default_shop'])) {
-        //    $errors[] = 'Invalid default shop.';
-        // }
+            if (!isset($configuration['sendy_default_shop']) || !is_string($configuration['sendy_default_shop'])) {
+                $errors[] = 'Default shop is required when processing method is Sendy.';
+            }
+        }
 
         if (!isset($configuration['sendy_import_products'])) {
             $errors[] = 'Import products setting is required.';

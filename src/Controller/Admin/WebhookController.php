@@ -31,8 +31,11 @@ class WebhookController extends FrameworkBundleAdminController
     private HandleShipmentWebhook $handleShipmentWebhook;
     private ConfigurationRepository $configurationRepository;
 
-    public function __construct(ShipmentRepository $shipmentRepository, HandleShipmentWebhook $handleShipmentWebhook, ConfigurationRepository $configurationRepository)
-    {
+    public function __construct(
+        ShipmentRepository $shipmentRepository,
+        HandleShipmentWebhook $handleShipmentWebhook,
+        ConfigurationRepository $configurationRepository
+    ) {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
         }

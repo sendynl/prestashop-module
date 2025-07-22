@@ -14,14 +14,12 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
-use InvalidArgumentException;
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
-use Sendy\PrestaShop\Enum\ProcessingMethod;
+use PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint;
 use Sendy\PrestaShop\Support\Str;
 
 /**
- * @todo multistore https://devdocs.prestashop-project.org/9/development/multistore/getting-started/
- *       authentication should be global, settings should be per shop
+ * This repository handles global configuration like OAuth data and UI preferences.
  */
 class ConfigurationRepository
 {
@@ -32,66 +30,6 @@ class ConfigurationRepository
         $this->configuration = $configuration;
     }
 
-    /**
-     * @return ProcessingMethod::*
-     */
-    public function getProcessingMethod(): string
-    {
-        return $this->configuration->get('SENDY_PROCESSING_METHOD', ProcessingMethod::PrestaShop);
-    }
-
-    public function setProcessingMethod(string $processingMethod): void
-    {
-        if (!in_array($processingMethod, ProcessingMethod::values(), true)) {
-            throw new InvalidArgumentException(sprintf('Invalid processing method: %s', $processingMethod));
-        }
-
-        $this->configuration->set('SENDY_PROCESSING_METHOD', $processingMethod);
-    }
-
-    public function getProcessableStatus(): ?int
-    {
-        return $this->configuration->getInt('SENDY_PROCESSABLE_STATUS') ?: null;
-    }
-
-    public function setProcessableStatus(?int $processableStatus): void
-    {
-        $this->configuration->set('SENDY_PROCESSABLE_STATUS', $processableStatus);
-    }
-
-    /**
-     * Get the UUID of the Sendy shop that should be used to create shipments.
-     */
-    public function getDefaultShop(): ?string
-    {
-        return $this->configuration->get('SENDY_DEFAULT_SHOP') ?: null;
-    }
-
-    public function setDefaultShop(?string $defaultShop): void
-    {
-        $this->configuration->set('SENDY_DEFAULT_SHOP', $defaultShop);
-    }
-
-    public function getImportProducts(): bool
-    {
-        return $this->configuration->getBoolean('SENDY_IMPORT_PRODUCTS', false);
-    }
-
-    public function setImportProducts(bool $importProducts): void
-    {
-        $this->configuration->set('SENDY_IMPORT_PRODUCTS', $importProducts);
-    }
-
-    public function getImportWeight(): bool
-    {
-        return $this->configuration->getBoolean('SENDY_IMPORT_WEIGHT', false);
-    }
-
-    public function setImportWeight(bool $importWeight): void
-    {
-        $this->configuration->set('SENDY_IMPORT_WEIGHT', $importWeight);
-    }
-
     public function ensureClientId(): string
     {
         $clientId = $this->configuration->get('SENDY_CLIENT_ID') ?: null;
@@ -99,7 +37,7 @@ class ConfigurationRepository
         if ($clientId === null) {
             $clientId = Str::uuidv4();
 
-            $this->configuration->set('SENDY_CLIENT_ID', $clientId);
+            $this->configuration->set('SENDY_CLIENT_ID', $clientId, ShopConstraint::allShops());
         }
 
         return $clientId;
@@ -112,7 +50,7 @@ class ConfigurationRepository
         if ($clientSecret === null) {
             $clientSecret = Str::random(40);
 
-            $this->configuration->set('SENDY_CLIENT_SECRET', $clientSecret);
+            $this->configuration->set('SENDY_CLIENT_SECRET', $clientSecret, ShopConstraint::allShops());
         }
 
         return $clientSecret;
@@ -125,7 +63,7 @@ class ConfigurationRepository
 
     public function setAccessToken(string $accessToken): void
     {
-        $this->configuration->set('SENDY_ACCESS_TOKEN', $accessToken);
+        $this->configuration->set('SENDY_ACCESS_TOKEN', $accessToken, ShopConstraint::allShops());
     }
 
     public function getRefreshToken(): ?string
@@ -135,7 +73,7 @@ class ConfigurationRepository
 
     public function setRefreshToken(string $refreshToken): void
     {
-        $this->configuration->set('SENDY_REFRESH_TOKEN', $refreshToken);
+        $this->configuration->set('SENDY_REFRESH_TOKEN', $refreshToken, ShopConstraint::allShops());
     }
 
     public function getTokenExpires(): ?int
@@ -145,28 +83,28 @@ class ConfigurationRepository
 
     public function setTokenExpires(int $expires): void
     {
-        $this->configuration->set('SENDY_TOKEN_EXPIRES', $expires);
+        $this->configuration->set('SENDY_TOKEN_EXPIRES', $expires, ShopConstraint::allShops());
     }
 
     public function pullOAuthState(): ?string
     {
         $state = $this->configuration->get('SENDY_OAUTH_STATE') ?: null;
 
-        $this->configuration->set('SENDY_OAUTH_STATE', null);
+        $this->configuration->set('SENDY_OAUTH_STATE', null, ShopConstraint::allShops());
 
         return $state;
     }
 
     public function setOAuthState(string $state): void
     {
-        $this->configuration->set('SENDY_OAUTH_STATE', $state);
+        $this->configuration->set('SENDY_OAUTH_STATE', $state, ShopConstraint::allShops());
     }
 
     public function forgetAccessToken(): void
     {
-        $this->configuration->set('SENDY_ACCESS_TOKEN', null);
-        $this->configuration->set('SENDY_REFRESH_TOKEN', null);
-        $this->configuration->set('SENDY_TOKEN_EXPIRES', null);
+        $this->configuration->set('SENDY_ACCESS_TOKEN', null, ShopConstraint::allShops());
+        $this->configuration->set('SENDY_REFRESH_TOKEN', null, ShopConstraint::allShops());
+        $this->configuration->set('SENDY_TOKEN_EXPIRES', null, ShopConstraint::allShops());
     }
 
     public function getDisplayTrackAndTraceColumn(): bool
@@ -176,7 +114,7 @@ class ConfigurationRepository
 
     public function setDisplayTrackAndTraceColumn(bool $displayTrackAndTraceColumn): void
     {
-        $this->configuration->set('SENDY_DISPLAY_TRACK_AND_TRACE_COLUMN', $displayTrackAndTraceColumn);
+        $this->configuration->set('SENDY_DISPLAY_TRACK_AND_TRACE_COLUMN', $displayTrackAndTraceColumn, ShopConstraint::allShops());
     }
 
     public function getDisplayShippingMethodColumn(): bool
@@ -186,52 +124,17 @@ class ConfigurationRepository
 
     public function setDisplayShippingMethodColumn(bool $displayShippingMethodColumn): void
     {
-        $this->configuration->set('SENDY_DISPLAY_SHIPPING_METHOD_COLUMN', $displayShippingMethodColumn);
-    }
-
-    public function setWebserviceApiEnabled(bool $enabled): void
-    {
-        $this->configuration->set('PS_WEBSERVICE', (int) $enabled);
+        $this->configuration->set('SENDY_DISPLAY_SHIPPING_METHOD_COLUMN', $displayShippingMethodColumn, ShopConstraint::allShops());
     }
 
     public function setWebhookId(?string $id)
     {
-        $this->configuration->set('SENDY_WEBHOOK_ID', $id);
+        $this->configuration->set('SENDY_WEBHOOK_ID', $id, ShopConstraint::allShops());
     }
 
     public function getWebhookId(): ?string
     {
         return $this->configuration->get('SENDY_WEBHOOK_ID') ?: null;
-    }
-
-    public function getStatusGenerated(): ?int
-    {
-        return $this->configuration->getInt('SENDY_STATUS_GENERATED') ?: null;
-    }
-
-    public function setStatusGenerated(?int $statusId): void
-    {
-        $this->configuration->set('SENDY_STATUS_GENERATED', $statusId);
-    }
-
-    public function getStatusPrinted(): ?int
-    {
-        return $this->configuration->getInt('SENDY_STATUS_PRINTED') ?: null;
-    }
-
-    public function setStatusPrinted(?int $statusId): void
-    {
-        $this->configuration->set('SENDY_STATUS_PRINTED', $statusId);
-    }
-
-    public function getStatusDelivered(): ?int
-    {
-        return $this->configuration->getInt('SENDY_STATUS_DELIVERED') ?: null;
-    }
-
-    public function setStatusDelivered(?int $statusId): void
-    {
-        $this->configuration->set('SENDY_STATUS_DELIVERED', $statusId);
     }
 
     public function getSendySystemUserId(): ?int

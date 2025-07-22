@@ -16,7 +16,9 @@ namespace Sendy\PrestaShop\Form\Settings;
 
 use PrestaShop\PrestaShop\Core\Form\ChoiceProvider\OrderStateByIdChoiceProvider;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
+use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,6 +48,12 @@ class SettingsForm extends AbstractType
         $orderStatuses = $this->orderStateByIdChoiceProvider->getChoices();
         $orderStatusAttributes = $this->orderStateByIdChoiceProvider->getChoicesAttributes();
 
+        try {
+            $shops = $this->shopChoiceProvider->getChoices();
+        } catch (TokensMissingException|SendyException $e) {
+            $shops = [];
+        }
+
         $builder
             ->add('sendy_processing_method', ChoiceType::class, [
                 'label' => $this->translator->trans('Processing method', [], 'Modules.Sendy.Admin'),
@@ -69,7 +77,7 @@ class SettingsForm extends AbstractType
             ])
             ->add('sendy_default_shop', ChoiceType::class, [
                 'label' => $this->translator->trans('Default Sendy shop', [], 'Modules.Sendy.Admin'),
-                'choices' => $this->shopChoiceProvider->getChoices(),
+                'choices' => $shops,
                 'required' => false,
                 'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
             ])

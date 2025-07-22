@@ -23,7 +23,7 @@ use Product;
 use Sendy\Api\Connection;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
-use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Addr;
 
 class CreateShipmentFromOrder
@@ -31,12 +31,12 @@ class CreateShipmentFromOrder
     private ApiConnectionFactory $apiConnectionFactory;
 
     private Connection $sendy;
-    private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $shopConfigurationRepository;
 
-    public function __construct(ApiConnectionFactory $apiConnectionFactory, ConfigurationRepository $configurationRepository)
+    public function __construct(ApiConnectionFactory $apiConnectionFactory, ShopConfigurationRepository $shopConfigurationRepository)
     {
         $this->apiConnectionFactory = $apiConnectionFactory;
-        $this->configurationRepository = $configurationRepository;
+        $this->shopConfigurationRepository = $shopConfigurationRepository;
     }
 
     /**
@@ -44,7 +44,7 @@ class CreateShipmentFromOrder
      *
      * @throws SendyException
      */
-    public function execute(Order $order, string $shopId, ?string $preferenceId = null, int $amount = 1): array
+    public function execute(Order $order, string $sendyShopId, ?string $preferenceId = null, int $amount = 1): array
     {
         $this->sendy ??= $this->apiConnectionFactory->buildConnectionUsingTokens();
 
@@ -53,7 +53,7 @@ class CreateShipmentFromOrder
         $parsedAddress = Addr::parseAddress($address->address1);
 
         $data = [
-            'shop_id' => $shopId,
+            'shop_id' => $sendyShopId,
             'preference_id' => $preferenceId,
             'company_name' => $order->getCustomer()->company,
             'contact' => $order->getCustomer()->firstname . ' ' . $order->getCustomer()->lastname,
@@ -70,11 +70,11 @@ class CreateShipmentFromOrder
             'country' => Country::getIsoById((int) $address->id_country),
         ];
 
-        if ($this->configurationRepository->getImportWeight()) {
+        if ($this->shopConfigurationRepository->getImportWeight($order->id_shop)) {
             $data['weight'] = $order->getTotalWeight();
         }
 
-        if ($this->configurationRepository->getImportProducts()) {
+        if ($this->shopConfigurationRepository->getImportProducts($order->id_shop)) {
             $data['products'] = $this->formatProducts($order);
         }
 

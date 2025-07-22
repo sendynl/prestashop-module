@@ -23,6 +23,9 @@ use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\PrestaShop\Grid\TrackAndTraceColumn;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 
+/**
+ * Modifies the order grid definition to add Sendy-specific actions and columns.
+ */
 final class ActionOrderGridDefinitionModifier
 {
     private TranslatorInterface $translator;

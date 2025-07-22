@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Controller\Admin;
 
 use Context;
+use PrestaShop\PrestaShop\Adapter\Shop\Context as ShopContext;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\InstallWebhook;
@@ -32,21 +33,30 @@ class AuthController extends FrameworkBundleAdminController
     private ApiConnectionFactory $apiConnectionFactory;
     private UrlGeneratorInterface $router;
     private InstallWebhook $installWebhook;
+    private ShopContext $shopContext;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
         ApiConnectionFactory $apiConnectionFactory,
         UrlGeneratorInterface $router,
-        InstallWebhook $installWebhook
+        InstallWebhook $installWebhook,
+        ShopContext $shopContext
     ) {
         $this->configurationRepository = $configurationRepository;
         $this->apiConnectionFactory = $apiConnectionFactory;
         $this->router = $router;
         $this->installWebhook = $installWebhook;
+        $this->shopContext = $shopContext;
     }
 
     public function login(Request $request): Response
     {
+        if (!$this->shopContext->isAllShopContext()) {
+            $this->addFlash('error', "You can only log in to Sendy from the 'All stores' context.");
+
+            return new RedirectResponse($this->router->generate('sendy_settings'));
+        }
+
         $this->configurationRepository->setOAuthState($state = Str::random(32));
 
         return new RedirectResponse('https://app.sendy.nl/plugin/initialize?' . http_build_query([

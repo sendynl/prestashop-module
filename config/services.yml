@@ -12,18 +12,20 @@ services:
     class: 'Sendy\PrestaShop\Action\CreateShipmentFromOrder'
     arguments:
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
-      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
   Sendy\PrestaShop\Action\HandleShipmentWebhook:
     class: 'Sendy\PrestaShop\Action\HandleShipmentWebhook'
     arguments:
       - '@Sendy\PrestaShop\Repository\ShipmentRepository'
       - '@Sendy\PrestaShop\Repository\PackageRepository'
-      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@prestashop.adapter.shop.context'
   Sendy\PrestaShop\Action\InstallWebhook:
     class: 'Sendy\PrestaShop\Action\InstallWebhook'
     arguments:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@router'
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
   Sendy\PrestaShop\Action\UninstallWebhook:
@@ -46,6 +48,7 @@ services:
     class: 'Sendy\PrestaShop\Controller\Admin\SettingsController'
     arguments:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
       - '@Sendy\PrestaShop\Action\ApplyProcessingMethodChange'
   Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
@@ -92,7 +95,7 @@ services:
   Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider:
     class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider'
     arguments:
-      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
   Sendy\PrestaShop\Form\Settings\AuthenticateForm:
     class: Sendy\PrestaShop\Form\Settings\AuthenticateForm
     arguments:
@@ -105,7 +108,7 @@ services:
   Sendy\PrestaShop\Form\Settings\SettingsDataManager:
     class: 'Sendy\PrestaShop\Form\Settings\SettingsDataManager'
     arguments:
-      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
   Sendy\PrestaShop\Form\Settings\SettingsForm:
     class: 'Sendy\PrestaShop\Form\Settings\SettingsForm'
     arguments:
@@ -163,3 +166,8 @@ services:
     class: 'Sendy\PrestaShop\Repository\ConfigurationRepository'
     arguments:
       - '@prestashop.adapter.legacy.configuration'
+  Sendy\PrestaShop\Repository\ShopConfigurationRepository:
+    class: 'Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+    arguments:
+      - '@prestashop.adapter.legacy.configuration'
+      - '@prestashop.adapter.shop.context'

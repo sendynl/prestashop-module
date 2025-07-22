@@ -17,7 +17,10 @@ namespace Sendy\PrestaShop\Hook;
 use Context;
 use Sendy;
 
-class ActionFrontControllerSetMedia
+/**
+ * Registers the JavaScript file for the front office.
+ */
+final class ActionFrontControllerSetMedia
 {
     public function __invoke(Sendy $module)
     {

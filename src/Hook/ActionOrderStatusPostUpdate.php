@@ -22,19 +22,22 @@ use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Legacy\SendyShipment;
-use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
-class ActionOrderStatusPostUpdate
+/**
+ * Creates a shipment in Sendy when an order reaches the processable status.
+ */
+final class ActionOrderStatusPostUpdate
 {
     private CreateShipmentFromOrder $createShipmentFromOrder;
-    private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $shopConfigurationRepository;
 
     public function __construct(
         CreateShipmentFromOrder $createShipmentFromOrder,
-        ConfigurationRepository $configurationRepository,
+        ShopConfigurationRepository $shopConfigurationRepository
     ) {
         $this->createShipmentFromOrder = $createShipmentFromOrder;
-        $this->configurationRepository = $configurationRepository;
+        $this->shopConfigurationRepository = $shopConfigurationRepository;
     }
 
     /**
@@ -48,13 +51,15 @@ class ActionOrderStatusPostUpdate
     {
         PrestaShopLogger::addLog('Sendy - ActionOrderStatusPostUpdate hook class - ' . print_r($params, true));
 
+        $order = new Order((int) $params['id_order']);
+
         // Only proceed if the processing method is Sendy
-        if ($this->configurationRepository->getProcessingMethod() !== ProcessingMethod::Sendy) {
+        if ($this->shopConfigurationRepository->getProcessingMethod($order->id_shop) !== ProcessingMethod::Sendy) {
             return;
         }
 
         // Only proceed if the new order status is the processable status
-        if ($params['newOrderStatus']->id !== $this->configurationRepository->getProcessableStatus()) {
+        if ($params['newOrderStatus']->id !== $this->shopConfigurationRepository->getProcessableStatus($order->id_shop)) {
             return;
         }
 
@@ -67,10 +72,9 @@ class ActionOrderStatusPostUpdate
         }
 
         try {
-            $order = new Order((int) $params['id_order']);
             $result = $this->createShipmentFromOrder->execute(
                 $order,
-                $this->configurationRepository->getDefaultShop(),
+                $this->shopConfigurationRepository->getDefaultShop($order->id_shop),
                 null
             );
 

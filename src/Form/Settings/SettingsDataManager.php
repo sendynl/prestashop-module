@@ -17,7 +17,7 @@ namespace Sendy\PrestaShop\Form\Settings;
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
-use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
 /**
  * Manages storage and retrieval of the settings for the Sendy module.
@@ -33,9 +33,9 @@ use Sendy\PrestaShop\Repository\ConfigurationRepository;
  */
 class SettingsDataManager implements DataConfigurationInterface, FormDataProviderInterface
 {
-    private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $configurationRepository;
 
-    public function __construct(ConfigurationRepository $configurationRepository)
+    public function __construct(ShopConfigurationRepository $configurationRepository)
     {
         $this->configurationRepository = $configurationRepository;
     }

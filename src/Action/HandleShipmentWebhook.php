@@ -15,30 +15,35 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Action;
 
 use Order;
+use PrestaShop\PrestaShop\Adapter\Shop\Context;
 use Sendy\PrestaShop\Entity\SendyShipment;
+use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
-use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\PackageRepository;
 use Sendy\PrestaShop\Repository\ShipmentRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
 
 class HandleShipmentWebhook
 {
     private ShipmentRepository $shipmentRepository;
     private PackageRepository $packageRepository;
-    private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $shopConfigurationRepository;
     private ApiConnectionFactory $apiConnectionFactory;
+    private Context $shopContext;
 
     public function __construct(
         ShipmentRepository $shipmentRepository,
         PackageRepository $packageRepository,
-        ConfigurationRepository $configurationRepository,
-        ApiConnectionFactory $apiConnectionFactory
+        ShopConfigurationRepository $shopConfigurationRepository,
+        ApiConnectionFactory $apiConnectionFactory,
+        Context $shopContext
     ) {
         $this->shipmentRepository = $shipmentRepository;
         $this->packageRepository = $packageRepository;
-        $this->configurationRepository = $configurationRepository;
+        $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->apiConnectionFactory = $apiConnectionFactory;
+        $this->shopContext = $shopContext;
     }
 
     public function execute(SendyShipment $shipment, string $event): void
@@ -48,6 +53,14 @@ class HandleShipmentWebhook
         if (!$order->id) {
             $this->deleteShipment($shipment);
 
+            return;
+        }
+
+        // Only handle events if the processing method is set to Sendy for this shop
+        $this->shopContext->setShopContext($order->id_shop);
+        $processingMethod = $this->shopConfigurationRepository->getProcessingMethod();
+
+        if ($processingMethod !== ProcessingMethod::Sendy) {
             return;
         }
 
@@ -81,14 +94,14 @@ class HandleShipmentWebhook
             );
         }
 
-        if ($status = $this->configurationRepository->getStatusGenerated()) {
+        if ($status = $this->shopConfigurationRepository->getStatusGenerated()) {
             $order->setCurrentState($status);
         }
     }
 
     private function handleDelivered(SendyShipment $shipment, Order $order): void
     {
-        if ($status = $this->configurationRepository->getStatusDelivered()) {
+        if ($status = $this->shopConfigurationRepository->getStatusDelivered()) {
             $order->setCurrentState($status);
         }
     }

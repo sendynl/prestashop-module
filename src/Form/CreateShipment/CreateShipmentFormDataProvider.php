@@ -15,13 +15,13 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Form\CreateShipment;
 
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
-use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
 class CreateShipmentFormDataProvider implements FormDataProviderInterface
 {
-    private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $configurationRepository;
 
-    public function __construct(ConfigurationRepository $configurationRepository)
+    public function __construct(ShopConfigurationRepository $configurationRepository)
     {
         $this->configurationRepository = $configurationRepository;
     }

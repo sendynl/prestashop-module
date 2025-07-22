@@ -36,6 +36,8 @@ class ApplyProcessingMethodChange
      */
     public function execute(string $newProcessingMethod): void
     {
+        // TODO install webhook when the first shop sets the processing method to Sendy,
+        // and uninstall it when the last shop sets it to prestashop
         if ($newProcessingMethod === ProcessingMethod::Sendy) {
             $this->installWebhook->execute();
         } elseif ($newProcessingMethod === ProcessingMethod::PrestaShop) {

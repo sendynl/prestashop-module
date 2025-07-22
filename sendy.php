@@ -22,6 +22,7 @@ use Sendy\PrestaShop\Hook;
 use Sendy\PrestaShop\Installer;
 use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -269,10 +270,11 @@ class Sendy extends CarrierModule
         // $container->get(Hook\ActionOrderStatusPostUpdate::class)($params);
 
         $configurationRepository = new ConfigurationRepository(new PrestaShop\PrestaShop\Adapter\Configuration());
+        $shopConfigurationRepository = new ShopConfigurationRepository(new PrestaShop\PrestaShop\Adapter\Configuration(), new PrestaShop\PrestaShop\Adapter\Shop\Context());
         $apiConnectionFactory = new ApiConnectionFactory($configurationRepository, new DummyUrlGenerator());
-        $createShipmentFromOrder = new CreateShipmentFromOrder($apiConnectionFactory, $configurationRepository);
+        $createShipmentFromOrder = new CreateShipmentFromOrder($apiConnectionFactory, $shopConfigurationRepository);
 
-        (new Hook\ActionOrderStatusPostUpdate($createShipmentFromOrder, $configurationRepository))($params);
+        (new Hook\ActionOrderStatusPostUpdate($createShipmentFromOrder, $shopConfigurationRepository))($params);
     }
 
     public function hookActionOrderStatusUpdate($params): void

@@ -18,20 +18,24 @@ use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class InstallWebhook
 {
     private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $shopConfigurationRepository;
     private UrlGeneratorInterface $router;
     private ApiConnectionFactory $apiConnectionFactory;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
+        ShopConfigurationRepository $shopConfigurationRepository,
         UrlGeneratorInterface $router,
         ApiConnectionFactory $apiConnectionFactory
     ) {
         $this->configurationRepository = $configurationRepository;
+        $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->router = $router;
         $this->apiConnectionFactory = $apiConnectionFactory;
     }
@@ -41,7 +45,7 @@ class InstallWebhook
      */
     public function execute(): void
     {
-        if ($this->configurationRepository->getProcessingMethod() !== ProcessingMethod::Sendy) {
+        if ($this->shopConfigurationRepository->getProcessingMethod() !== ProcessingMethod::Sendy) {
             return;
         }
 

@@ -19,7 +19,10 @@ use Media;
 use Sendy;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ActionAdminControllerSetMedia
+/**
+ * Registers the JavaScript file for the back office.
+ */
+final class ActionAdminControllerSetMedia
 {
     private UrlGeneratorInterface $router;
 

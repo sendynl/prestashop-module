@@ -47,7 +47,7 @@ class SystemUser
 
         $employee->save();
 
-        Configuration::updateValue('SENDY_SYSTEM_USER_ID', $employee->id);
+        Configuration::updateGlobalValue('SENDY_SYSTEM_USER_ID', $employee->id);
 
         PrestaShopLogger::addLog("Sendy - Installed system user {$employee->id}");
 

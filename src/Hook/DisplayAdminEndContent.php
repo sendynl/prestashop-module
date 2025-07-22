@@ -17,6 +17,9 @@ namespace Sendy\PrestaShop\Hook;
 use Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler;
 use Twig\Environment;
 
+/**
+ * Displays the modals at the end of the admin page.
+ */
 final class DisplayAdminEndContent
 {
     private Environment $twig;

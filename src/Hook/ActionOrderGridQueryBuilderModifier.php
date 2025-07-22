@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook;
 
+/**
+ * Modifies the order grid query builder to include Sendy shipment and package information.
+ */
 final class ActionOrderGridQueryBuilderModifier
 {
     public function __invoke(array $params)

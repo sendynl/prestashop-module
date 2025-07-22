@@ -22,6 +22,9 @@ use Sendy\PrestaShop\Repository\ShipmentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
+/**
+ * Displays the Sendy card on the side of the order page in the admin panel.
+ */
 final class DisplayAdminOrderSide
 {
     private Environment $twig;

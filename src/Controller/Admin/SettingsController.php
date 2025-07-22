@@ -20,17 +20,20 @@ use Sendy\PrestaShop\Action\ApplyProcessingMethodChange;
 use Sendy\PrestaShop\Form\Settings\AuthenticateForm;
 use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SettingsController extends FrameworkBundleAdminController
 {
     private ConfigurationRepository $configurationRepository;
+    private ShopConfigurationRepository $shopConfigurationRepository;
     private SettingsFormHandler $settingsFormHandler;
     private ApplyProcessingMethodChange $applyProcessingMethodChange;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
+        ShopConfigurationRepository $shopConfigurationRepository,
         SettingsFormHandler $settingsFormHandler,
         ApplyProcessingMethodChange $applyProcessingMethodChange
     ) {
@@ -38,6 +41,7 @@ class SettingsController extends FrameworkBundleAdminController
             parent::__construct();
         }
         $this->configurationRepository = $configurationRepository;
+        $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->settingsFormHandler = $settingsFormHandler;
         $this->applyProcessingMethodChange = $applyProcessingMethodChange;
     }
@@ -48,7 +52,7 @@ class SettingsController extends FrameworkBundleAdminController
         $settingsForm->handleRequest($request);
 
         if ($settingsForm->isSubmitted() && $settingsForm->isValid()) {
-            $oldProcessingMethod = $this->configurationRepository->getProcessingMethod();
+            $oldProcessingMethod = $this->shopConfigurationRepository->getProcessingMethod();
             $newProcessingMethod = $settingsForm->getData()['sendy_processing_method'];
             $processingMethodChanged = $oldProcessingMethod !== $newProcessingMethod;
 
@@ -59,7 +63,7 @@ class SettingsController extends FrameworkBundleAdminController
                     try {
                         $this->applyProcessingMethodChange->execute($newProcessingMethod);
                     } catch (SendyException $e) {
-                        $this->configurationRepository->setProcessingMethod($oldProcessingMethod);
+                        $this->shopConfigurationRepository->setProcessingMethod($oldProcessingMethod);
                         $this->addFlash('error', $this->trans(
                             'An error occurred while changing the processing method: %error%',
                             'Modules.Sendy.Admin',

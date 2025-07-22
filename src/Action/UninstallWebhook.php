@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
+use Sendy\Api\Exceptions\ClientException;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
@@ -40,7 +41,16 @@ class UninstallWebhook
 
         if ($webhookId) {
             $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
-            $sendy->webhook->delete($webhookId);
+
+            try {
+                $sendy->webhook->delete($webhookId);
+            } catch (ClientException $e) {
+                // If the webhook does not exist, we can safely ignore this error.
+                if ($e->getCode() !== 404) {
+                    throw $e;
+                }
+            }
+
             $this->configurationRepository->setWebhookId(null);
         }
     }

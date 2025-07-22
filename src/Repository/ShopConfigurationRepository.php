@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
+use Configuration;
 use InvalidArgumentException;
 use PrestaShop\PrestaShop\Adapter\Shop\Context;
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
@@ -50,6 +51,18 @@ class ShopConfigurationRepository
         }
 
         $this->configuration->set('SENDY_PROCESSING_METHOD', $processingMethod, $this->getShopConstraint());
+    }
+
+    public function anyShopsUsingSendyProcessingMethod(): bool
+    {
+        $shops = Configuration::getMultiShopValues('SENDY_PROCESSING_METHOD');
+        foreach ($shops as $shopId => $processingMethod) {
+            if ($processingMethod === ProcessingMethod::Sendy) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getProcessableStatus(?int $storeId = null): ?int
@@ -128,9 +141,9 @@ class ShopConfigurationRepository
     private function getShopConstraint(?int $storeId = null): ShopConstraint
     {
         if ($storeId !== null) {
-            return ShopConstraint::shop($storeId, true);
+            return ShopConstraint::shop($storeId);
         }
 
-        return $this->shopContext->getShopConstraint(true);
+        return $this->shopContext->getShopConstraint();
     }
 }

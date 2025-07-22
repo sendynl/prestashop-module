@@ -18,7 +18,7 @@ use Context;
 use PrestaShop\PrestaShop\Adapter\Shop\Context as ShopContext;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
-use Sendy\PrestaShop\Action\InstallWebhook;
+use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
@@ -32,20 +32,20 @@ class AuthController extends FrameworkBundleAdminController
     private ConfigurationRepository $configurationRepository;
     private ApiConnectionFactory $apiConnectionFactory;
     private UrlGeneratorInterface $router;
-    private InstallWebhook $installWebhook;
+    private SynchronizeWebhook $synchronizeWebhook;
     private ShopContext $shopContext;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
         ApiConnectionFactory $apiConnectionFactory,
         UrlGeneratorInterface $router,
-        InstallWebhook $installWebhook,
+        SynchronizeWebhook $synchronizeWebhook,
         ShopContext $shopContext
     ) {
         $this->configurationRepository = $configurationRepository;
         $this->apiConnectionFactory = $apiConnectionFactory;
         $this->router = $router;
-        $this->installWebhook = $installWebhook;
+        $this->synchronizeWebhook = $synchronizeWebhook;
         $this->shopContext = $shopContext;
     }
 
@@ -84,8 +84,8 @@ class AuthController extends FrameworkBundleAdminController
             // Check if the access token is valid and acquire a new one if necessary
             $sendy->checkOrAcquireAccessToken();
 
-            // Install webhook if needed
-            $this->installWebhook->execute();
+            // Install/uninstall the webhook as needed
+            $this->synchronizeWebhook->execute();
 
             $this->addFlash('success', $this->trans('Login successful.', 'Modules.Sendy.Admin'));
         } catch (SendyException $exception) {

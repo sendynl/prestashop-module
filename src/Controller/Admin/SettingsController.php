@@ -16,7 +16,7 @@ namespace Sendy\PrestaShop\Controller\Admin;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
-use Sendy\PrestaShop\Action\ApplyProcessingMethodChange;
+use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Form\Settings\AuthenticateForm;
 use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
@@ -29,13 +29,13 @@ class SettingsController extends FrameworkBundleAdminController
     private ConfigurationRepository $configurationRepository;
     private ShopConfigurationRepository $shopConfigurationRepository;
     private SettingsFormHandler $settingsFormHandler;
-    private ApplyProcessingMethodChange $applyProcessingMethodChange;
+    private SynchronizeWebhook $synchronizeWebhook;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
         ShopConfigurationRepository $shopConfigurationRepository,
         SettingsFormHandler $settingsFormHandler,
-        ApplyProcessingMethodChange $applyProcessingMethodChange
+        SynchronizeWebhook $synchronizeWebhook
     ) {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
@@ -43,7 +43,7 @@ class SettingsController extends FrameworkBundleAdminController
         $this->configurationRepository = $configurationRepository;
         $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->settingsFormHandler = $settingsFormHandler;
-        $this->applyProcessingMethodChange = $applyProcessingMethodChange;
+        $this->synchronizeWebhook = $synchronizeWebhook;
     }
 
     public function index(Request $request): Response
@@ -61,7 +61,7 @@ class SettingsController extends FrameworkBundleAdminController
             if (empty($errors)) {
                 if ($processingMethodChanged) {
                     try {
-                        $this->applyProcessingMethodChange->execute($newProcessingMethod);
+                        $this->synchronizeWebhook->execute();
                     } catch (SendyException $e) {
                         $this->shopConfigurationRepository->setProcessingMethod($oldProcessingMethod);
                         $this->addFlash('error', $this->trans(

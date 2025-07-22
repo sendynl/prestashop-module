@@ -3,11 +3,6 @@ services:
     public: true
 
   # Actions
-  Sendy\PrestaShop\Action\ApplyProcessingMethodChange:
-    class: 'Sendy\PrestaShop\Action\ApplyProcessingMethodChange'
-    arguments:
-      - '@Sendy\PrestaShop\Action\InstallWebhook'
-      - '@Sendy\PrestaShop\Action\UninstallWebhook'
   Sendy\PrestaShop\Action\CreateShipmentFromOrder:
     class: 'Sendy\PrestaShop\Action\CreateShipmentFromOrder'
     arguments:
@@ -28,6 +23,12 @@ services:
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@router'
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+  Sendy\PrestaShop\Action\SynchronizeWebhook:
+    class: 'Sendy\PrestaShop\Action\SynchronizeWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Action\InstallWebhook'
+      - '@Sendy\PrestaShop\Action\UninstallWebhook'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
   Sendy\PrestaShop\Action\UninstallWebhook:
     class: 'Sendy\PrestaShop\Action\UninstallWebhook'
     arguments:
@@ -50,7 +51,7 @@ services:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
-      - '@Sendy\PrestaShop\Action\ApplyProcessingMethodChange'
+      - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
   Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'
     arguments:

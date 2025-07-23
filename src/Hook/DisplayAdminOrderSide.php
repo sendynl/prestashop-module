@@ -19,6 +19,7 @@ use Sendy;
 use Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler;
 use Sendy\PrestaShop\Repository\PackageRepository;
 use Sendy\PrestaShop\Repository\ShipmentRepository;
+use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
@@ -31,17 +32,20 @@ final class DisplayAdminOrderSide
     private CreateShipmentFormHandler $createShipmentFormHandler;
     private ShipmentRepository $shipmentRepository;
     private PackageRepository $packageRepository;
+    private ShopConfigurationRepository $shopConfigurationRepository;
 
     public function __construct(
         Environment $twig,
         CreateShipmentFormHandler $createShipmentFormHandler,
         ShipmentRepository $shipmentRepository,
-        PackageRepository $packageRepository
+        PackageRepository $packageRepository,
+        ShopConfigurationRepository $shopConfigurationRepository
     ) {
         $this->twig = $twig;
         $this->createShipmentFormHandler = $createShipmentFormHandler;
         $this->shipmentRepository = $shipmentRepository;
         $this->packageRepository = $packageRepository;
+        $this->shopConfigurationRepository = $shopConfigurationRepository;
     }
 
     /**
@@ -58,6 +62,7 @@ final class DisplayAdminOrderSide
     public function __invoke(array $params): string
     {
         $shipment = $this->shipmentRepository->findShipmentByOrderId($params['id_order']);
+        $order = new Order($params['id_order']);
         $packages = [];
 
         if ($shipment) {
@@ -66,9 +71,12 @@ final class DisplayAdminOrderSide
 
         $form = $this->createShipmentFormHandler->getForm();
         $form->get('order_ids')->setData([$params['id_order']]);
+        $form->get('shop_id')->setData(
+            $this->shopConfigurationRepository->getDefaultShop($order->id_shop)
+        );
 
         return $this->twig->render('@Modules/sendy/views/templates/admin/order_side.html.twig', [
-            'order' => new Order($params['id_order']),
+            'order' => $order,
             'shipment' => $shipment,
             'packages' => $packages,
             'createShipmentFormView' => $form->createView(),

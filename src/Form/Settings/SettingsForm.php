@@ -79,7 +79,6 @@ class SettingsForm extends AbstractType
                 'label' => $this->translator->trans('Default Sendy shop', [], 'Modules.Sendy.Admin'),
                 'choices' => $shops,
                 'required' => false,
-                'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
             ])
             ->add('sendy_import_products', SwitchType::class, [
                 'label' => $this->translator->trans('Import products', [], 'Modules.Sendy.Admin'),

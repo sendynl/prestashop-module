@@ -146,6 +146,7 @@ services:
       - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
       - '@Sendy\PrestaShop\Repository\ShipmentRepository'
       - '@Sendy\PrestaShop\Repository\PackageRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
   Sendy\PrestaShop\Hook\DisplayAdminEndContent:
     class: 'Sendy\PrestaShop\Hook\DisplayAdminEndContent'
     arguments:

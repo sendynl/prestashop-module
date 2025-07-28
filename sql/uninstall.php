@@ -20,6 +20,7 @@ declare(strict_types=1);
 $sql = [
     'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_shipment`',
     'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_package`',
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_carrier_config`',
 ];
 
 foreach ($sql as $query) {

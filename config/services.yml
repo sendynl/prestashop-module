@@ -134,6 +134,20 @@ services:
     class: 'Sendy\PrestaShop\Hook\ActionAdminControllerSetMedia'
     arguments:
       - '@router'
+  Sendy\PrestaShop\Hook\ActionAfterCreateCarrierFormHandler:
+    class: 'Sendy\PrestaShop\Hook\ActionAfterCreateCarrierFormHandler'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
+  Sendy\PrestaShop\Hook\ActionAfterUpdateCarrierFormHandler:
+    class: 'Sendy\PrestaShop\Hook\ActionAfterCreateCarrierFormHandler'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
+  Sendy\PrestaShop\Hook\ActionCarrierFormBuilderModifier:
+    class: 'Sendy\PrestaShop\Hook\ActionCarrierFormBuilderModifier'
+  Sendy\PrestaShop\Hook\ActionCarrierFormDataProviderData:
+    class: 'Sendy\PrestaShop\Hook\ActionCarrierFormDataProviderData'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
   Sendy\PrestaShop\Hook\ActionOrderGridDefinitionModifier:
     class: 'Sendy\PrestaShop\Hook\ActionOrderGridDefinitionModifier'
     arguments:
@@ -154,6 +168,9 @@ services:
       - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
 
   # Repositories
+  Sendy\PrestaShop\Repository\CarrierConfigRepository:
+    parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
+    public: true
   Sendy\PrestaShop\Repository\AbstractEntityRepository:
     class: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
     arguments:

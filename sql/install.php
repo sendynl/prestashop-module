@@ -45,6 +45,18 @@ CREATE TABLE IF NOT EXISTS `{$prefix}sendy_carrier_config` (
 ) ENGINE={$engine} DEFAULT CHARSET=utf8;
 SQL;
 
+$sql[] = <<<SQL
+CREATE TABLE IF NOT EXISTS `{$prefix}sendy_cart_parcel_shop` (
+    `id_sendy_cart_parcel_shop` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_cart` INT UNSIGNED NOT NULL,
+    `id_reference` INT UNSIGNED NOT NULL,
+    `parcel_shop_id` VARCHAR(255) NOT NULL,
+    `parcel_shop_name` VARCHAR(255) NOT NULL,
+    `parcel_shop_address` TEXT NOT NULL,
+    UNIQUE INDEX `id_cart` (`id_cart`)
+) ENGINE={$engine} DEFAULT CHARSET=utf8;
+SQL;
+
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
         return false;

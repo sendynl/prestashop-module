@@ -292,9 +292,9 @@ class Sendy extends CarrierModule
         PrestaShopLogger::addLog('Sendy - DisplayBeforeCarrier hook - ' . print_r($params, true));
     }
 
-    public function hookDisplayCarrierExtraContent($params): void
+    public function hookDisplayCarrierExtraContent($params): string
     {
-        PrestaShopLogger::addLog('Sendy - DisplayCarrierExtraContent hook - ' . print_r($params, true));
+        return (new Hook\DisplayCarrierExtraContent())($params);
     }
 
     public function hookDisplayCarrierList($params): void

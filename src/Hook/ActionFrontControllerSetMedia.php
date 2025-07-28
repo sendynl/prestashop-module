@@ -27,7 +27,8 @@ final class ActionFrontControllerSetMedia
         $controller = Context::getContext()->controller;
 
         if ($controller->php_self === 'order') {
-            $controller->addJS($module->getPathUri() . '/views/js/front/checkout.js');
+            $controller->addJS($module->getPathUri() . '/views/js/front/checkout.js?v=1');
+            $controller->addJS('https://app.sendy.nl/embed/api.js');
         }
     }
 }

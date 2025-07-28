@@ -1,3 +1,7 @@
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -7,6 +11,12 @@
  *
  * @see https://github.com/sendynl/prestashop-module
  */
-$(function() {
-    // alert('Sendy checkout.js loaded successfully');
-});
+
+namespace Sendy\PrestaShop\Repository;
+
+use Sendy\PrestaShop\Entity\SendyCartParcelShop;
+
+class CartParcelShopRepository extends AbstractEntityRepository
+{
+    protected const ENTITY_CLASS = SendyCartParcelShop::class;
+}

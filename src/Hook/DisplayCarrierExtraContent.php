@@ -1,0 +1,64 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * This file is part of the Sendy PrestaShop module - https://sendy.nl
+ *
+ * @author Sendy B.V.
+ * @copyright Sendy B.V.
+ * @license https://github.com/sendynl/prestashop-module/blob/master/LICENSE MIT
+ *
+ * @see https://github.com/sendynl/prestashop-module
+ */
+
+namespace Sendy\PrestaShop\Hook;
+
+use Sendy\PrestaShop\Legacy\SendyCarrierConfig;
+use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
+
+/**
+ * Displays a parcel shop picker button after selecting a supported carrier during checkout.
+ */
+final class DisplayCarrierExtraContent
+{
+    public function __construct()
+    {
+    }
+
+    /**
+     * @param array{
+     *     carrier: array<string, mixed>,
+     *     cart: \Cart,
+     * } $params
+     *
+     * @return string
+     */
+    public function __invoke($params)
+    {
+        $carrierConfig = SendyCarrierConfig::getByReferenceId($params['carrier']['id_reference']);
+
+        if ($carrierConfig === null) {
+            return '';
+        }
+
+        if (!$carrierConfig->parcel_shop_delivery_enabled || !$carrierConfig->parcel_shop_carrier) {
+            return '';
+        }
+
+        $text = 'Kies een parcelshop';
+        $parcelShopName = '';
+        $cartParcelShop = SendyCartParcelShop::getByCartId($params['cart']->id);
+        if ($cartParcelShop !== null) {
+            $text = 'Verander parcelshop';
+            $parcelShopName = htmlspecialchars($cartParcelShop->parcel_shop_name);
+        }
+
+        return <<<HTML
+        <div data-sendy-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}" class="sendy-parcel-shop-picker" style="margin-bottom: .9375rem;">
+            <button type="button" class="btn btn-secondary">{$text}</button>
+            <div class="sendy-selected-parcel-shop-name">{$parcelShopName}</div>
+        </div>
+        HTML;
+    }
+}

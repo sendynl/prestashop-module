@@ -19,7 +19,15 @@ $(function() {
             return;
         }
 
-        const deliveryAddressId = $(this).parent().data('sendy-id-address-delivery')
+        const parent = $(this).parent();
+        const parcelShopUrl = parent.data('sendy-parcel-shop-url');
+
+        if (!parcelShopUrl) {
+            alert('No Parcel Shop URL found.');
+            return;
+        }
+
+        const deliveryAddressId = parent.data('sendy-id-address-delivery')
 
         if (!deliveryAddressId) {
             alert('No delivery address found.');
@@ -33,16 +41,31 @@ $(function() {
             return;
         }
 
-        const data = {
-            address: `${deliveryAddress.address1}, ${deliveryAddress.postcode} ${deliveryAddress.city}`,
-            country: window.prestashop.country.iso_code,
-            carriers: [$(this).parent().data('sendy-parcel-shop-picker-carrier')]
-        };
+        window.Sendy.parcelShopPicker.open(
+            {
+                address: `${deliveryAddress.address1}, ${deliveryAddress.postcode} ${deliveryAddress.city}`,
+                country: window.prestashop.country.iso_code,
+                carriers: [parent.data('sendy-parcel-shop-picker-carrier')]
+            },
+            async function(parcelShop) {
+                const response = await fetch(parcelShopUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        parcel_shop_id: parcelShop.id,
+                        parcel_shop_name: parcelShop.name,
+                        parcel_shop_address: `${parcelShop.street} ${parcelShop.number}, ${parcelShop.postal_code} ${parcelShop.city}`,
+                    }),
+                    headers: {'content-type': 'application/json'}
+                });
 
-        window.Sendy.parcelShopPicker.open(data, function(parcelShop) {
-            alert('checkout.js: success callback') ;
-        }, function(error) {
-            alert('checkout.js: failure callback');
-        });
+                const responseData = await response.json();
+
+                parent.find('.sendy-parcel-shop-picker-name').text(responseData.parcel_shop_name);
+                parent.find('.sendy-parcel-shop-picker-address').text(responseData.parcel_shop_address);
+            },
+            function() {
+                alert('An error occurred while selecting a parcel shop.');
+            }
+        );
     });
 });

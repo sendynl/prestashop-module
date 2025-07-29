@@ -7,3 +7,12 @@
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+
+.sendy-parcel-shop-picker {
+    margin-bottom: .9375rem;
+}
+
+.sendy-parcel-shop-picker-name:not(:empty) {
+    font-weight: 500;
+    margin-top: 0.5rem;
+}

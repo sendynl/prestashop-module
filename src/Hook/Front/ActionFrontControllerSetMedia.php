@@ -28,6 +28,7 @@ final class ActionFrontControllerSetMedia
 
         if ($controller->php_self === 'order') {
             $controller->registerJavascript('sendy_checkout', 'modules/sendy/views/js/front/checkout.js');
+            $controller->registerStylesheet('sendy_styles', 'modules/sendy/views/css/front.css');
 
             $controller->registerJavascript('sendy_api', 'https://app.sendy.nl/embed/api.js', [
                 'server' => 'remote',

@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Front;
 
+use Context;
 use Sendy\PrestaShop\Legacy\SendyCarrierConfig;
 use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
 
@@ -52,22 +53,32 @@ final class DisplayCarrierExtraContent
             return '';
         }
 
-        $text = 'Kies een afhaalpunt';
+        $text = Context::getContext()->getTranslator()->trans('Select a pick up point', [], 'Modules.Sendy.Front');
         $parcelShopName = '';
+        $parcelShopAddress = '';
         $cartParcelShop = SendyCartParcelShop::getByCartId($params['cart']->id);
-        if ($cartParcelShop !== null) {
-            $text = 'Verander afhaalpunt';
-            $parcelShopName = htmlspecialchars($cartParcelShop->parcel_shop_name);
+        if ($cartParcelShop !== null && $cartParcelShop->id_reference === $params['carrier']['id_reference']) {
+            $parcelShopName = htmlspecialchars($cartParcelShop->parcel_shop_name ?? '');
+            $parcelShopAddress = htmlspecialchars($cartParcelShop->parcel_shop_address ?? '');
         }
+        $parcelShopUrl = Context::getContext()->link->getModuleLink(
+            'sendy',
+            'parcelshop',
+            [
+                'carrier_reference_id' => $params['carrier']['id_reference'],
+            ]
+        );
 
         return <<<HTML
         <div
             data-sendy-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}"
             data-sendy-id-address-delivery="{$params['cart']->id_address_delivery}"
-            class="sendy-parcel-shop-picker"
-            style="margin-bottom: .9375rem;">
+            data-sendy-parcel-shop-url="{$parcelShopUrl}"
+            class="sendy-parcel-shop-picker col-xs-12"
+        >
             <button type="button" class="btn btn-secondary sendy-parcel-shop-picker-button">{$text}</button>
-            <div class="sendy-selected-parcel-shop-name">{$parcelShopName}</div>
+            <div class="sendy-parcel-shop-picker-name">{$parcelShopName}</div>
+            <div class="sendy-parcel-shop-picker-address">{$parcelShopAddress}</div>
         </div>
         HTML;
     }

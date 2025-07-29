@@ -19,7 +19,6 @@ use ObjectModel;
 
 class SendyCartParcelShop extends ObjectModel
 {
-    public $id_sendy_cart_parcel_shop;
     public $id_cart;
     public $id_reference;
     public $parcel_shop_id;
@@ -30,7 +29,6 @@ class SendyCartParcelShop extends ObjectModel
         'table' => 'sendy_cart_parcel_shop',
         'primary' => 'id_sendy_cart_parcel_shop',
         'fields' => [
-            'id_sendy_cart_parcel_shop' => ['type' => self::TYPE_INT, 'auto_increment' => true],
             'id_cart' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true],
             'id_reference' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true],
             'parcel_shop_id' => ['type' => self::TYPE_STRING, 'validate' => 'isString', 'required' => true],
@@ -49,21 +47,36 @@ class SendyCartParcelShop extends ObjectModel
     public static function getByCartId(int $id_cart): ?SendyCartParcelShop
     {
         $prefix = _DB_PREFIX_;
-        $sql = "SELECT * FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
-        $result = Db::getInstance()->getRow($sql);
+        $sql = "SELECT id_sendy_cart_parcel_shop FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
+        $id = Db::getInstance()->getValue($sql);
 
-        if ($result) {
-            $parcelShop = new self();
-            $parcelShop->id_sendy_cart_parcel_shop = $result['id_sendy_cart_parcel_shop'];
-            $parcelShop->id_cart = $result['id_cart'];
-            $parcelShop->id_reference = $result['id_reference'];
-            $parcelShop->parcel_shop_id = $result['parcel_shop_id'];
-            $parcelShop->parcel_shop_name = $result['parcel_shop_name'];
-            $parcelShop->parcel_shop_address = $result['parcel_shop_address'];
+        if ($id) {
+            $parcelShop = new self($id);
 
             return $parcelShop;
         }
 
         return null;
+    }
+
+    public static function getOrNewByCartId(int $id_cart): SendyCartParcelShop
+    {
+        $instance = self::getByCartId($id_cart) ?? new self();
+
+        $instance->id_cart = $id_cart;
+
+        return $instance;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'id_cart' => $this->id_cart,
+            'id_reference' => $this->id_reference,
+            'parcel_shop_id' => $this->parcel_shop_id,
+            'parcel_shop_name' => $this->parcel_shop_name,
+            'parcel_shop_address' => $this->parcel_shop_address,
+        ];
     }
 }

@@ -52,17 +52,21 @@ final class DisplayCarrierExtraContent
             return '';
         }
 
-        $text = 'Kies een parcelshop';
+        $text = 'Kies een afhaalpunt';
         $parcelShopName = '';
         $cartParcelShop = SendyCartParcelShop::getByCartId($params['cart']->id);
         if ($cartParcelShop !== null) {
-            $text = 'Verander parcelshop';
+            $text = 'Verander afhaalpunt';
             $parcelShopName = htmlspecialchars($cartParcelShop->parcel_shop_name);
         }
 
         return <<<HTML
-        <div data-sendy-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}" class="sendy-parcel-shop-picker" style="margin-bottom: .9375rem;">
-            <button type="button" class="btn btn-secondary">{$text}</button>
+        <div
+            data-sendy-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}"
+            data-sendy-id-address-delivery="{$params['cart']->id_address_delivery}"
+            class="sendy-parcel-shop-picker"
+            style="margin-bottom: .9375rem;">
+            <button type="button" class="btn btn-secondary sendy-parcel-shop-picker-button">{$text}</button>
             <div class="sendy-selected-parcel-shop-name">{$parcelShopName}</div>
         </div>
         HTML;

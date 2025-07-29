@@ -130,39 +130,39 @@ services:
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
 
   # Hooks
-  Sendy\PrestaShop\Hook\ActionAdminControllerSetMedia:
-    class: 'Sendy\PrestaShop\Hook\ActionAdminControllerSetMedia'
+  Sendy\PrestaShop\Hook\Admin\ActionAdminControllerSetMedia:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionAdminControllerSetMedia'
     arguments:
       - '@router'
-  Sendy\PrestaShop\Hook\ActionAfterCreateCarrierFormHandler:
-    class: 'Sendy\PrestaShop\Hook\ActionAfterCreateCarrierFormHandler'
+  Sendy\PrestaShop\Hook\Admin\ActionAfterCreateCarrierFormHandler:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionAfterCreateCarrierFormHandler'
     arguments:
       - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
-  Sendy\PrestaShop\Hook\ActionAfterUpdateCarrierFormHandler:
-    class: 'Sendy\PrestaShop\Hook\ActionAfterCreateCarrierFormHandler'
+  Sendy\PrestaShop\Hook\Admin\ActionAfterUpdateCarrierFormHandler:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionAfterCreateCarrierFormHandler'
     arguments:
       - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
-  Sendy\PrestaShop\Hook\ActionCarrierFormBuilderModifier:
-    class: 'Sendy\PrestaShop\Hook\ActionCarrierFormBuilderModifier'
-  Sendy\PrestaShop\Hook\ActionCarrierFormDataProviderData:
-    class: 'Sendy\PrestaShop\Hook\ActionCarrierFormDataProviderData'
+  Sendy\PrestaShop\Hook\Admin\ActionCarrierFormBuilderModifier:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionCarrierFormBuilderModifier'
+  Sendy\PrestaShop\Hook\Admin\ActionCarrierFormDataProviderData:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionCarrierFormDataProviderData'
     arguments:
       - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
-  Sendy\PrestaShop\Hook\ActionOrderGridDefinitionModifier:
-    class: 'Sendy\PrestaShop\Hook\ActionOrderGridDefinitionModifier'
+  Sendy\PrestaShop\Hook\Admin\ActionOrderGridDefinitionModifier:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionOrderGridDefinitionModifier'
     arguments:
       - '@translator'
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
-  Sendy\PrestaShop\Hook\DisplayAdminOrderSide:
-    class: 'Sendy\PrestaShop\Hook\DisplayAdminOrderSide'
+  Sendy\PrestaShop\Hook\Admin\DisplayAdminOrderSide:
+    class: 'Sendy\PrestaShop\Hook\Admin\DisplayAdminOrderSide'
     arguments:
       - '@twig'
       - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
       - '@Sendy\PrestaShop\Repository\ShipmentRepository'
       - '@Sendy\PrestaShop\Repository\PackageRepository'
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
-  Sendy\PrestaShop\Hook\DisplayAdminEndContent:
-    class: 'Sendy\PrestaShop\Hook\DisplayAdminEndContent'
+  Sendy\PrestaShop\Hook\Admin\DisplayAdminEndContent:
+    class: 'Sendy\PrestaShop\Hook\Admin\DisplayAdminEndContent'
     arguments:
       - '@twig'
       - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'

@@ -12,15 +12,15 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-namespace Sendy\PrestaShop\Hook;
+namespace Sendy\PrestaShop\Hook\Admin;
 
 use Carrier;
 use Sendy\PrestaShop\Repository\CarrierConfigRepository;
 
 /**
- * Persists the configuration fields from {@see ActionCarrierFormBuilderModifier} after a carrier is updated.
+ * Persists the configuration fields from {@see ActionCarrierFormBuilderModifier} after a carrier is created.
  */
-final class ActionAfterUpdateCarrierFormHandler
+final class ActionAfterCreateCarrierFormHandler
 {
     private CarrierConfigRepository $carrierConfigRepository;
 
@@ -39,12 +39,11 @@ final class ActionAfterUpdateCarrierFormHandler
     {
         $carrierId = $params['id'];
         $carrier = new Carrier((int) $carrierId);
-        dd($params);
 
         $this->carrierConfigRepository->saveSettings(
             $carrier->id_reference,
-            $params['form_data']['sendy_parcel_shop_delivery_enabled'] ?? false,
-            $params['form_data']['sendy_parcel_shop_carrier'] ?? ''
+            $params['form_data']['sendy']['sendy_parcel_shop_delivery_enabled'] ?? false,
+            $params['form_data']['sendy']['sendy_parcel_shop_carrier'] ?? null
         );
     }
 }

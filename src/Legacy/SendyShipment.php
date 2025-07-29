@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Legacy;
 
+use Db;
 use ObjectModel;
+use PrestaShopException;
 
 class SendyShipment extends ObjectModel
 {
@@ -30,4 +32,14 @@ class SendyShipment extends ObjectModel
             'id_order' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true],
         ],
     ];
+
+    /**
+     * @throws PrestaShopException
+     */
+    public static function existsForOrderId(int $orderId): bool
+    {
+        return (bool) Db::getInstance()->getValue(
+            'SELECT 1 FROM `' . _DB_PREFIX_ . 'sendy_shipment` WHERE `id_order` = ' . $orderId
+        );
+    }
 }

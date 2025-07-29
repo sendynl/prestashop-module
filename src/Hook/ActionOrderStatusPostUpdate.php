@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook;
 
-use Db;
 use Order;
 use PrestaShopLogger;
 use PrestaShopLoggerCore;
@@ -26,6 +25,8 @@ use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
 /**
  * Creates a shipment in Sendy when an order reaches the processable status.
+ *
+ * This hook can be triggered from both the back office and front office.
  */
 final class ActionOrderStatusPostUpdate
 {
@@ -64,10 +65,7 @@ final class ActionOrderStatusPostUpdate
         }
 
         // Only proceed if there is no shipment for this order yet.
-        // Since this hook can be triggered from the front office, we use the legacy Db class instead of the repository.
-        if (Db::getInstance()->getValue(
-            'SELECT 1 FROM `' . _DB_PREFIX_ . 'sendy_shipment` WHERE `id_order` = ' . (int) $params['id_order']
-        )) {
+        if (SendyShipment::existsForOrderId((int) $params['id_order'])) {
             return;
         }
 

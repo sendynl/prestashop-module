@@ -225,12 +225,12 @@ class Sendy extends CarrierModule
 
     public function hookActionAdminControllerSetMedia()
     {
-        $this->get(Hook\ActionAdminControllerSetMedia::class)($this);
+        $this->get(Hook\Admin\ActionAdminControllerSetMedia::class)($this);
     }
 
     public function hookActionFrontControllerSetMedia()
     {
-        (new Hook\ActionFrontControllerSetMedia())($this);
+        (new Hook\Front\ActionFrontControllerSetMedia())($this);
     }
 
     public function hookActionCarrierProcess($params): void
@@ -287,6 +287,11 @@ class Sendy extends CarrierModule
         PrestaShopLogger::addLog('Sendy - ActionValidateOrder hook - ' . print_r($params, true));
     }
 
+    public function hookActionValidateStepComplete($params): void
+    {
+        (new Hook\Front\ActionValidateStepComplete())($params);
+    }
+
     public function hookDisplayBeforeCarrier($params): void
     {
         PrestaShopLogger::addLog('Sendy - DisplayBeforeCarrier hook - ' . print_r($params, true));
@@ -294,7 +299,7 @@ class Sendy extends CarrierModule
 
     public function hookDisplayCarrierExtraContent($params): string
     {
-        return (new Hook\DisplayCarrierExtraContent())($params);
+        return (new Hook\Front\DisplayCarrierExtraContent())($params);
     }
 
     public function hookDisplayCarrierList($params): void
@@ -309,41 +314,41 @@ class Sendy extends CarrierModule
 
     public function hookActionOrderGridDefinitionModifier(array $params): void
     {
-        $this->get(Hook\ActionOrderGridDefinitionModifier::class)($params);
+        $this->get(Hook\Admin\ActionOrderGridDefinitionModifier::class)($params);
     }
 
     public function hookActionOrderGridQueryBuilderModifier(array $params): void
     {
-        (new Hook\ActionOrderGridQueryBuilderModifier())($params);
+        (new Hook\Admin\ActionOrderGridQueryBuilderModifier())($params);
     }
 
     public function hookDisplayAdminOrderSide($params): string
     {
-        return $this->get(Hook\DisplayAdminOrderSide::class)($params);
+        return $this->get(Hook\Admin\DisplayAdminOrderSide::class)($params);
     }
 
     public function hookDisplayAdminEndContent($params): string
     {
-        return $this->get(Hook\DisplayAdminEndContent::class)($params);
+        return $this->get(Hook\Admin\DisplayAdminEndContent::class)($params);
     }
 
     public function hookActionCarrierFormBuilderModifier(array $params): void
     {
-        $this->get(Hook\ActionCarrierFormBuilderModifier::class)($params);
+        $this->get(Hook\Admin\ActionCarrierFormBuilderModifier::class)($params);
     }
 
     public function hookActionAfterUpdateCarrierFormHandler(array $params): void
     {
-        $this->get(Hook\ActionAfterUpdateCarrierFormHandler::class)($params);
+        $this->get(Hook\Admin\ActionAfterUpdateCarrierFormHandler::class)($params);
     }
 
     public function hookActionAfterCreateCarrierFormHandler(array $params): void
     {
-        $this->get(Hook\ActionAfterCreateCarrierFormHandler::class)($params);
+        $this->get(Hook\Admin\ActionAfterCreateCarrierFormHandler::class)($params);
     }
 
     public function hookActionCarrierFormDataProviderData(array $params): void
     {
-        $this->get(Hook\ActionCarrierFormDataProviderData::class)($params);
+        $this->get(Hook\Admin\ActionCarrierFormDataProviderData::class)($params);
     }
 }

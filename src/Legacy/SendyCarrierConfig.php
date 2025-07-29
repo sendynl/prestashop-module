@@ -60,4 +60,9 @@ class SendyCarrierConfig extends ObjectModel
 
         return null;
     }
+
+    public function carrierRequiresParcelShop(): bool
+    {
+        return $this->parcel_shop_delivery_enabled && !empty($this->parcel_shop_carrier);
+    }
 }

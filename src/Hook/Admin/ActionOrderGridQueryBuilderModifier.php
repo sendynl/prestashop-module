@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-namespace Sendy\PrestaShop\Hook;
+namespace Sendy\PrestaShop\Hook\Admin;
 
 /**
  * Modifies the order grid query builder to include Sendy shipment and package information.

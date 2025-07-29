@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-namespace Sendy\PrestaShop\Hook;
+namespace Sendy\PrestaShop\Hook\Admin;
 
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use Sendy\PrestaShop\Enum\Carrier;

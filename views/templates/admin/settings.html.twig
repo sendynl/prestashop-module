@@ -44,6 +44,8 @@
             </div>
         </div>
         {{ form_end(settingsFormView) }}
+
+        {% include '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': carrierGrid} %}
     {% endif %}
 {% endblock %}
 

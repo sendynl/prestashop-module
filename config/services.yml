@@ -52,6 +52,7 @@ services:
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
       - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
+      - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory'
   Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'
     arguments:
@@ -128,6 +129,23 @@ services:
     class: 'Sendy\PrestaShop\Form\Settings\ShopChoiceProvider'
     arguments:
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+
+  # Grid
+  Sendy\PrestaShop\Grid\Carrier\CarrierGridDataFactory:
+    class: 'Sendy\PrestaShop\Grid\Carrier\CarrierGridDataFactory'
+    public: true
+  Sendy\PrestaShop\Grid\Carrier\CarrierGridDefinitionFactory:
+    class: 'Sendy\PrestaShop\Grid\Carrier\CarrierGridDefinitionFactory'
+    parent: 'prestashop.core.grid.definition.factory.abstract_grid_definition'
+    public: true
+  Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory:
+    class: 'Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory'
+    public: true
+    arguments:
+      - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridDefinitionFactory'
+      - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridDataFactory'
+      - '@prestashop.core.grid.filter.form_factory'
+      - '@prestashop.core.hook.dispatcher'
 
   # Hooks
   Sendy\PrestaShop\Hook\Admin\ActionAdminControllerSetMedia:

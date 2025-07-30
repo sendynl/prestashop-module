@@ -14,11 +14,13 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
+use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Form\Settings\AuthenticateForm;
 use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
+use Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,12 +32,14 @@ class SettingsController extends FrameworkBundleAdminController
     private ShopConfigurationRepository $shopConfigurationRepository;
     private SettingsFormHandler $settingsFormHandler;
     private SynchronizeWebhook $synchronizeWebhook;
+    private CarrierGridFactory $carrierGridFactory;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
         ShopConfigurationRepository $shopConfigurationRepository,
         SettingsFormHandler $settingsFormHandler,
-        SynchronizeWebhook $synchronizeWebhook
+        SynchronizeWebhook $synchronizeWebhook,
+        CarrierGridFactory $carrierGridFactory,
     ) {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
@@ -44,6 +48,7 @@ class SettingsController extends FrameworkBundleAdminController
         $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->settingsFormHandler = $settingsFormHandler;
         $this->synchronizeWebhook = $synchronizeWebhook;
+        $this->carrierGridFactory = $carrierGridFactory;
     }
 
     public function index(Request $request): Response
@@ -80,10 +85,13 @@ class SettingsController extends FrameworkBundleAdminController
             $this->flashErrors($errors);
         }
 
+        $carrierGrid = $this->carrierGridFactory->getGrid(new SearchCriteria());
+
         return $this->render('@Modules/sendy/views/templates/admin/settings.html.twig', [
             'settingsFormView' => $settingsForm->createView(),
             'authenticateFormView' => $this->createForm(AuthenticateForm::class)->createView(),
             'shouldDisplaySettingsForm' => $this->configurationRepository->getAccessToken() !== null,
+            'carrierGrid' => $this->presentGrid($carrierGrid),
         ]);
     }
 }

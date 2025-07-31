@@ -45,8 +45,22 @@
         </div>
         {{ form_end(settingsFormView) }}
 
-        {% include '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': carrierGrid} %}
+        {% embed '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': carrierGrid} %}
+            {% block grid_actions_block %}
+                <div class="d-inline-block float-right">
+                    <a href="{{ path('admin_carriers_index') }}" class="btn btn-outline-secondary">
+                        View all carriers
+                    </a>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#sendyCreateCarrierModal">
+                        <i class="material-icons">add_circle_outline</i>
+                        {{ 'Add new carrier'|trans({}, 'Admin.Shipping.Feature') }}
+                    </button>
+                </div>
+            {% endblock %}
+        {% endembed %}
     {% endif %}
+
+    {% include '@Modules/sendy/views/templates/admin/carrier_modal.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
@@ -87,5 +101,13 @@
 
             updateConditionalVisibility();
         });
+
+        $(() => {
+
+            // initialize choice column for carrier grid
+            const carrierGrid = new window.prestashop.component.Grid('sendy_carrier');
+            carrierGrid.addExtension(new window.prestashop.component.GridExtensions.ChoiceExtension());
+
+        })
     </script>
 {% endblock %}

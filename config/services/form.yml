@@ -1,0 +1,61 @@
+services:
+  _defaults:
+    public: true
+
+  Sendy\PrestaShop\Form\Carrier\CarrierForm:
+    class: 'Sendy\PrestaShop\Form\Carrier\CarrierForm'
+    arguments:
+      - '@translator'
+      - "@=service('prestashop.adapter.legacy.context').getLanguages()"
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Form\Carrier\CarrierChoiceProvider:
+    class: 'Sendy\PrestaShop\Form\Carrier\CarrierChoiceProvider'
+  Sendy\PrestaShop\Form\CreateShipment\CreateShipmentForm:
+    class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentForm'
+    arguments:
+      - '@translator'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler:
+    class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider'
+  Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider:
+    class: 'Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormDataProvider'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+  Sendy\PrestaShop\Form\Settings\AuthenticateForm:
+    class: Sendy\PrestaShop\Form\Settings\AuthenticateForm
+    arguments:
+      - '@translator'
+      - "@=service('prestashop.adapter.legacy.context').getLanguages()"
+      - '@router'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Form\Settings\SettingsDataManager:
+    class: 'Sendy\PrestaShop\Form\Settings\SettingsDataManager'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+  Sendy\PrestaShop\Form\Settings\SettingsForm:
+    class: 'Sendy\PrestaShop\Form\Settings\SettingsForm'
+    arguments:
+      - '@translator'
+      - '@prestashop.core.form.choice_provider.order_state_by_id'
+      - '@Sendy\PrestaShop\Form\Settings\ShopChoiceProvider'
+    tags:
+      - { name: form.type }
+  Sendy\PrestaShop\Form\Settings\SettingsFormHandler:
+    class: 'Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@Sendy\PrestaShop\Form\Settings\SettingsDataManager'
+  Sendy\PrestaShop\Form\Settings\ShopChoiceProvider:
+    class: 'Sendy\PrestaShop\Form\Settings\ShopChoiceProvider'
+    arguments:
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'

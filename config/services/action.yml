@@ -1,0 +1,36 @@
+services:
+  _defaults:
+    public: true
+
+  Sendy\PrestaShop\Action\CreateShipmentFromOrder:
+    class: 'Sendy\PrestaShop\Action\CreateShipmentFromOrder'
+    arguments:
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+  Sendy\PrestaShop\Action\HandleShipmentWebhook:
+    class: 'Sendy\PrestaShop\Action\HandleShipmentWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+      - '@Sendy\PrestaShop\Repository\PackageRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@prestashop.adapter.shop.context'
+  Sendy\PrestaShop\Action\InstallWebhook:
+    class: 'Sendy\PrestaShop\Action\InstallWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+      - '@router'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+  Sendy\PrestaShop\Action\SynchronizeWebhook:
+    class: 'Sendy\PrestaShop\Action\SynchronizeWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Action\InstallWebhook'
+      - '@Sendy\PrestaShop\Action\UninstallWebhook'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+  Sendy\PrestaShop\Action\UninstallWebhook:
+    class: 'Sendy\PrestaShop\Action\UninstallWebhook'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+

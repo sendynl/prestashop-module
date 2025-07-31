@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
-use PrestaShopBundle\Form\Admin\Type\SwitchType;
-use Sendy\PrestaShop\Enum\Carrier;
+use Carrier;
+use Sendy\PrestaShop\Form\Carrier\CarrierForm;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
@@ -23,6 +23,13 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
  */
 final class ActionCarrierFormBuilderModifier
 {
+    private CarrierForm $carrierForm;
+
+    public function __construct(CarrierForm $carrierForm)
+    {
+        $this->carrierForm = $carrierForm;
+    }
+
     /**
      * @param array{
      *     form_builder: \Symfony\Component\Form\FormBuilderInterface,
@@ -33,6 +40,13 @@ final class ActionCarrierFormBuilderModifier
      */
     public function __invoke($params)
     {
+        $carrier = new Carrier($params['id']);
+
+        // Only display the Sendy tab if the carrier belongs to the Sendy module
+        if ($carrier->external_module_name !== 'sendy') {
+            return;
+        }
+
         // Add a 'Sendy' tab to the carrier form
         $params['form_builder']->add(
             'sendy',
@@ -44,25 +58,6 @@ final class ActionCarrierFormBuilderModifier
         );
 
         // Add fields to the 'Sendy' tab
-        $params['form_builder']->get('sendy')
-            ->add(
-                'sendy_parcel_shop_delivery_enabled',
-                SwitchType::class,
-                [
-                    'label' => 'Show parcel shop picker',
-                    'required' => false,
-                    'help' => 'Whether this carrier should display a parcel shop picker in the checkout.',
-                ]
-            )
-            ->add(
-                'sendy_parcel_shop_carrier',
-                \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class,
-                [
-                    'label' => 'Select a carrier',
-                    'required' => false,
-                    'choices' => Carrier::choices(),
-                    'help' => 'The carrier used to display parcel shops in the parcel shop picker.',
-                ]
-            );
+        $this->carrierForm->buildForm($params['form_builder']->get('sendy'), []);
     }
 }

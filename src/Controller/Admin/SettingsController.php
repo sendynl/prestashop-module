@@ -18,6 +18,7 @@ use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\SynchronizeWebhook;
+use Sendy\PrestaShop\Form\Carrier\CarrierForm;
 use Sendy\PrestaShop\Form\Settings\AuthenticateForm;
 use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
 use Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory;
@@ -90,6 +91,7 @@ class SettingsController extends FrameworkBundleAdminController
         return $this->render('@Modules/sendy/views/templates/admin/settings.html.twig', [
             'settingsFormView' => $settingsForm->createView(),
             'authenticateFormView' => $this->createForm(AuthenticateForm::class)->createView(),
+            'carrierFormView' => $this->createForm(CarrierForm::class)->createView(),
             'shouldDisplaySettingsForm' => $this->configurationRepository->getAccessToken() !== null,
             'carrierGrid' => $this->presentGrid($carrierGrid),
         ]);

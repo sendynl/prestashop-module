@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Form\Settings\LegacySettingsForm;
@@ -76,11 +75,6 @@ class Sendy extends CarrierModule
 
             return false;
         }
-
-        $carrier = $this->addCarrier();
-        $this->addZones($carrier);
-        $this->addGroups($carrier);
-        $this->addRanges($carrier);
 
         include dirname(__FILE__) . '/sql/install.php';
 
@@ -149,78 +143,6 @@ class Sendy extends CarrierModule
     public function getOrderShippingCostExternal($params): bool
     {
         return false;
-    }
-
-    /**
-     * @return Carrier|false
-     *
-     * @throws PrestaShopDatabaseException
-     * @throws PrestaShopException
-     */
-    protected function addCarrier()
-    {
-        $carrier = new Carrier();
-
-        $carrier->name = $this->l('My super carrier');
-        $carrier->is_module = true;
-        $carrier->active = 1;
-        $carrier->range_behavior = 1;
-        $carrier->need_range = 1;
-        $carrier->shipping_external = true;
-        $carrier->range_behavior = 0;
-        $carrier->external_module_name = $this->name;
-        $carrier->shipping_method = 2;
-
-        foreach (Language::getLanguages() as $lang) {
-            $carrier->delay[$lang['id_lang']] = $this->l('Super fast delivery');
-        }
-
-        if ($carrier->add() == true) {
-            @copy(
-                dirname(__FILE__) . '/views/img/carrier_image.jpg',
-                _PS_SHIP_IMG_DIR_ . '/' . (int) $carrier->id . '.jpg'
-            );
-            Configuration::updateValue('MYSHIPPINGMODULE_CARRIER_ID', (int) $carrier->id);
-
-            return $carrier;
-        }
-
-        return false;
-    }
-
-    protected function addGroups(Carrier $carrier): void
-    {
-        $groups_ids = [];
-        $groups = Group::getGroups(Context::getContext()->language->id);
-        foreach ($groups as $group) {
-            $groups_ids[] = $group['id_group'];
-        }
-
-        $carrier->setGroups($groups_ids);
-    }
-
-    protected function addRanges(Carrier $carrier): void
-    {
-        $range_price = new RangePrice();
-        $range_price->id_carrier = $carrier->id;
-        $range_price->delimiter1 = '0';
-        $range_price->delimiter2 = '10000';
-        $range_price->add();
-
-        $range_weight = new RangeWeight();
-        $range_weight->id_carrier = $carrier->id;
-        $range_weight->delimiter1 = '0';
-        $range_weight->delimiter2 = '10000';
-        $range_weight->add();
-    }
-
-    protected function addZones(Carrier $carrier): void
-    {
-        $zones = Zone::getZones();
-
-        foreach ($zones as $zone) {
-            $carrier->addZone($zone['id_zone']);
-        }
     }
 
     public function hookActionAdminControllerSetMedia()

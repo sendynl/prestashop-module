@@ -39,7 +39,7 @@ $sql[] = <<<SQL
 CREATE TABLE IF NOT EXISTS `{$prefix}sendy_carrier_config` (
     `id_sendy_carrier_config` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_reference` INT UNSIGNED NOT NULL,
-    `parcel_shop_delivery_enabled` TINYINT(1) NOT NULL DEFAULT 0,
+    `parcel_shop_delivery_enabled` TINYINT(1) NOT NULL DEFAULT 1,
     `parcel_shop_carrier` VARCHAR(255) NULL,
     UNIQUE INDEX `id_reference` (`id_reference`)
 ) ENGINE={$engine} DEFAULT CHARSET=utf8;

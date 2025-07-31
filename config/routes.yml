@@ -25,6 +25,18 @@ sendy_logout:
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\AuthController::logout'
 
+sendy_carriers_store:
+  path: /sendy/carriers
+  methods: [POST]
+  defaults:
+    _controller: 'Sendy\PrestaShop\Controller\Admin\CarrierController::store'
+
+sendy_carriers_update:
+  path: /sendy/carriers/{carrierId}/parcel-shop-carrier
+  methods: [POST]
+  defaults:
+      _controller: 'Sendy\PrestaShop\Controller\Admin\CarrierController::updateParcelShopCarrier'
+
 sendy_orders_create_shipment:
   path: /sendy/orders/create-shipment
   methods: [POST]

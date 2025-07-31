@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    public: true
+
+  Sendy\PrestaShop\Factory\ApiConnectionFactory:
+    class: 'Sendy\PrestaShop\Factory\ApiConnectionFactory'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@router'
+

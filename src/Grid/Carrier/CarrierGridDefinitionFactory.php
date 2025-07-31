@@ -17,14 +17,31 @@ namespace Sendy\PrestaShop\Grid\Carrier;
 use PrestaShop\PrestaShop\Core\Grid\Action\GridActionCollection;
 use PrestaShop\PrestaShop\Core\Grid\Action\Row\RowActionCollection;
 use PrestaShop\PrestaShop\Core\Grid\Action\Row\Type\LinkRowAction;
+use PrestaShop\PrestaShop\Core\Grid\Action\Type\LinkGridAction;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollectionInterface;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ActionColumn;
+use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ChoiceColumn;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\DataColumn;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory;
+use PrestaShop\PrestaShop\Core\Hook\HookDispatcherInterface;
+use Sendy\PrestaShop\Form\Carrier\CarrierChoiceProvider;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
 {
+    private CarrierChoiceProvider $carrierChoiceProvider;
+
+    public function __construct(
+        ?HookDispatcherInterface $hookDispatcher = null,
+        TranslatorInterface $translator,
+        CarrierChoiceProvider $carrierChoiceProvider
+    ) {
+        parent::__construct($hookDispatcher);
+        $this->setTranslator($translator);
+        $this->carrierChoiceProvider = $carrierChoiceProvider;
+    }
+
     protected function getId(): string
     {
         return 'sendy_carrier';
@@ -32,7 +49,7 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
 
     protected function getName(): string
     {
-        return $this->trans('Carriers', [], 'Admin.Shipping.Feature');
+        return $this->trans('Parcelshop carriers', [], 'Modules.Sendy.Admin');
     }
 
     protected function getColumns(): ColumnCollectionInterface
@@ -47,6 +64,18 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
                 (new DataColumn('name'))
                     ->setName($this->trans('Name', [], 'Admin.Global'))
                     ->setOptions(['field' => 'name'])
+            )
+            ->add(
+                (new ChoiceColumn('carrier'))
+                    ->setName($this->trans('Carrier', [], 'Admin.Shipping.Feature'))
+                    ->setOptions([
+                        'field' => 'parcel_shop_carrier',
+                        'choice_provider' => $this->carrierChoiceProvider,
+                        'route' => 'sendy_carriers_update',
+                        'record_route_params' => [
+                            'id_carrier' => 'carrierId',
+                        ],
+                    ])
             )
             ->add((new ActionColumn('actions'))
                 ->setName($this->trans('Actions', [], 'Admin.Global'))
@@ -65,14 +94,17 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
                         ),
                 ])
             )
-
         ;
     }
 
     protected function getGridActions()
     {
-        return new GridActionCollection()
-            // ->add(new )
+        return (new GridActionCollection())
+             ->add(
+                 (new LinkGridAction('create_carrier'))
+                     ->setOptions(['route' => 'admin_carriers_create'])
+                     ->setName($this->trans('Add new carrier', [], 'Admin.Shipping.Feature'))
+             )
         ;
     }
 }

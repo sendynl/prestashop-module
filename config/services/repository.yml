@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    public: true
+
+  Sendy\PrestaShop\Repository\CarrierRepository:
+    class: 'Sendy\PrestaShop\Repository\CarrierRepository'
+  Sendy\PrestaShop\Repository\CarrierConfigRepository:
+    class: 'Sendy\PrestaShop\Repository\CarrierConfigRepository'
+    parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
+  Sendy\PrestaShop\Repository\AbstractEntityRepository:
+    class: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
+    arguments:
+      - '@doctrine.orm.entity_manager'
+  Sendy\PrestaShop\Repository\ShipmentRepository:
+    parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
+  Sendy\PrestaShop\Repository\PackageRepository:
+    parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
+  Sendy\PrestaShop\Repository\ConfigurationRepository:
+    class: 'Sendy\PrestaShop\Repository\ConfigurationRepository'
+    arguments:
+      - '@prestashop.adapter.legacy.configuration'
+  Sendy\PrestaShop\Repository\ShopConfigurationRepository:
+    class: 'Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+    arguments:
+      - '@prestashop.adapter.legacy.configuration'
+      - '@prestashop.adapter.shop.context'

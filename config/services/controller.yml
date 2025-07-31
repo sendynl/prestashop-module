@@ -1,0 +1,45 @@
+services:
+  _defaults:
+    public: true
+
+  Sendy\PrestaShop\Controller\Admin\AuthController:
+    class: 'Sendy\PrestaShop\Controller\Admin\AuthController'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@router'
+      - '@Sendy\PrestaShop\Action\InstallWebhook'
+    parent: 'PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController'
+  Sendy\PrestaShop\Controller\Admin\CarrierController:
+    class: 'Sendy\PrestaShop\Controller\Admin\CarrierController'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\CarrierRepository'
+      - '@Sendy\PrestaShop\Repository\CarrierConfigRepository'
+  Sendy\PrestaShop\Controller\Admin\SettingsController:
+    class: 'Sendy\PrestaShop\Controller\Admin\SettingsController'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+      - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
+      - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
+      - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory'
+  Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
+    class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'
+    arguments:
+      - '@Sendy\PrestaShop\Action\CreateShipmentFromOrder'
+  Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController:
+    class: 'Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController'
+    arguments:
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+  Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController:
+    class: 'Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+  Sendy\PrestaShop\Controller\Admin\WebhookController:
+    class: 'Sendy\PrestaShop\Controller\Admin\WebhookController'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+      - '@Sendy\PrestaShop\Action\HandleShipmentWebhook'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+

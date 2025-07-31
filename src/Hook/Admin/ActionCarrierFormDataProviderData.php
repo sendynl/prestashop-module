@@ -46,7 +46,6 @@ final class ActionCarrierFormDataProviderData
             return;
         }
 
-        $params['data']['sendy']['sendy_parcel_shop_delivery_enabled'] = $carrierConfig->isParcelShopDeliveryEnabled();
         $params['data']['sendy']['sendy_parcel_shop_carrier'] = $carrierConfig->getParcelShopCarrier();
     }
 }

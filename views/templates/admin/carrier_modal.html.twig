@@ -6,6 +6,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
+                <p>
+                    {{ 'Carriers you create here will have a parcelshop picker button available at checkout. If you are looking to create a regular carrier, please use the "Add new carrier" button on the <a href="%link%">Carriers page</a>.'|trans({
+                        '%link%': path('admin_carriers_index')
+                    }, 'Admin.Shipping.Help')|raw }}
+                </p>
+
                 {{ form_start(carrierFormView, {
                     action: path('sendy_carriers_store'),
                     attr: {

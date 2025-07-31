@@ -40,10 +40,14 @@ final class ActionAfterCreateCarrierFormHandler
         $carrierId = $params['id'];
         $carrier = new Carrier((int) $carrierId);
 
+        if ($carrier->external_module_name !== 'sendy') {
+            return;
+        }
+
         $this->carrierConfigRepository->saveSettings(
             $carrier->id_reference,
-            $params['form_data']['sendy']['sendy_parcel_shop_delivery_enabled'] ?? false,
-            $params['form_data']['sendy']['sendy_parcel_shop_carrier'] ?? null
+            true,
+            $params['form_data']['sendy_parcel_shop_carrier'] ?? ''
         );
     }
 }

@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Form\Carrier;
 
-use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Sendy\PrestaShop\Enum\Carrier;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,17 +24,6 @@ class CarrierForm extends TranslatorAwareType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // TODO remove this switch as carrier config is only for parcel shop carriers (default to true)
-            ->add(
-                'sendy_parcel_shop_delivery_enabled',
-                SwitchType::class,
-                [
-                    'label' => 'Show parcel shop picker',
-                    'required' => true,
-                    'help' => 'Whether this carrier should display a parcel shop picker in the checkout.',
-                    'default_empty_data' => true,
-                ]
-            )
             ->add(
                 'sendy_parcel_shop_carrier',
                 ChoiceType::class,

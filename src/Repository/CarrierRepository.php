@@ -51,7 +51,7 @@ class CarrierRepository
         $this->addRanges($carrier);
         $this->addZones($carrier);
 
-        return $carrier->id;
+        return (int) $carrier->id;
     }
 
     protected function addGroups(Carrier $carrier): void

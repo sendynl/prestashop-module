@@ -23,6 +23,7 @@ use Product;
 use Sendy\Api\Connection;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
+use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Addr;
 
@@ -49,7 +50,6 @@ class CreateShipmentFromOrder
         $this->sendy ??= $this->apiConnectionFactory->buildConnectionUsingTokens();
 
         $address = new Address((int) $order->id_address_delivery);
-
         $parsedAddress = Addr::parseAddress($address->address1);
 
         $data = [
@@ -68,6 +68,7 @@ class CreateShipmentFromOrder
             'amount' => $amount,
             'order_date' => (new DateTime($order->date_add))->format(DATE_RFC3339),
             'country' => Country::getIsoById((int) $address->id_country),
+            'options' => [],
         ];
 
         if ($this->shopConfigurationRepository->getImportWeight($order->id_shop)) {
@@ -76,6 +77,12 @@ class CreateShipmentFromOrder
 
         if ($this->shopConfigurationRepository->getImportProducts($order->id_shop)) {
             $data['products'] = $this->formatProducts($order);
+        }
+
+        $cartParcelShop = SendyCartParcelShop::getForOrder($order);
+
+        if ($cartParcelShop) {
+            $data['options']['parcel_shop_id'] = $cartParcelShop->parcel_shop_id;
         }
 
         if ($preferenceId) {

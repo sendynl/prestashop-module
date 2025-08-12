@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Legacy;
 
+use Carrier;
 use Db;
 use ObjectModel;
+use Order;
 
 class SendyCartParcelShop extends ObjectModel
 {
@@ -57,6 +59,32 @@ class SendyCartParcelShop extends ObjectModel
         }
 
         return null;
+    }
+
+    public static function getByCartIdAndCarrierReferenceId(int $id_cart, int $id_reference): ?SendyCartParcelShop
+    {
+        $prefix = _DB_PREFIX_;
+        $sql = "SELECT id_sendy_cart_parcel_shop FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart} AND `id_reference` = {$id_reference}";
+        $id = Db::getInstance()->getValue($sql);
+
+        if ($id) {
+            $parcelShop = new self($id);
+
+            return $parcelShop;
+        }
+
+        return null;
+    }
+
+    public static function getForOrder(Order $order): ?SendyCartParcelShop
+    {
+        if (!$order->id_cart) {
+            return null;
+        }
+
+        $carrier = new Carrier((int) $order->id_carrier);
+
+        return self::getByCartIdAndCarrierReferenceId((int) $order->id_cart, (int) $carrier->id_reference);
     }
 
     public static function getOrNewByCartId(int $id_cart): SendyCartParcelShop

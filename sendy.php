@@ -273,4 +273,19 @@ class Sendy extends CarrierModule
     {
         $this->get(Hook\Admin\ActionCarrierFormDataProviderData::class)($params);
     }
+
+    public function hookActionObjectCarrierAddAfter(array $params): void
+    {
+        $this->get(Hook\Admin\ActionObjectCarrierAddAfter::class)($params);
+    }
+
+    public function hookActionObjectCarrierUpdateAfter(array $params): void
+    {
+        $this->get(Hook\Admin\ActionObjectCarrierUpdateAfter::class)($params);
+    }
+
+    public function hookActionObjectCarrierDeleteAfter(array $params): void
+    {
+        $this->get(Hook\Admin\ActionObjectCarrierDeleteAfter::class)($params);
+    }
 }

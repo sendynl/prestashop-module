@@ -22,6 +22,7 @@ services:
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
       - '@Sendy\PrestaShop\Form\Settings\SettingsFormHandler'
       - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
+      - '@Sendy\PrestaShop\Action\SynchronizeCarriers'
       - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory'
   Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'

@@ -17,6 +17,7 @@ namespace Sendy\PrestaShop\Controller\Admin;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Action\SynchronizeCarriers;
 use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Form\Carrier\CarrierForm;
 use Sendy\PrestaShop\Form\Settings\AuthenticateForm;
@@ -33,6 +34,7 @@ class SettingsController extends FrameworkBundleAdminController
     private ShopConfigurationRepository $shopConfigurationRepository;
     private SettingsFormHandler $settingsFormHandler;
     private SynchronizeWebhook $synchronizeWebhook;
+    private SynchronizeCarriers $synchronizeCarriers;
     private CarrierGridFactory $carrierGridFactory;
 
     public function __construct(
@@ -40,7 +42,8 @@ class SettingsController extends FrameworkBundleAdminController
         ShopConfigurationRepository $shopConfigurationRepository,
         SettingsFormHandler $settingsFormHandler,
         SynchronizeWebhook $synchronizeWebhook,
-        CarrierGridFactory $carrierGridFactory,
+        SynchronizeCarriers $synchronizeCarriers,
+        CarrierGridFactory $carrierGridFactory
     ) {
         if (method_exists(parent::class, '__construct')) {
             parent::__construct();
@@ -49,6 +52,7 @@ class SettingsController extends FrameworkBundleAdminController
         $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->settingsFormHandler = $settingsFormHandler;
         $this->synchronizeWebhook = $synchronizeWebhook;
+        $this->synchronizeCarriers = $synchronizeCarriers;
         $this->carrierGridFactory = $carrierGridFactory;
     }
 
@@ -68,6 +72,7 @@ class SettingsController extends FrameworkBundleAdminController
                 if ($processingMethodChanged) {
                     try {
                         $this->synchronizeWebhook->execute();
+                        $this->synchronizeCarriers->execute();
                     } catch (SendyException $e) {
                         $this->shopConfigurationRepository->setProcessingMethod($oldProcessingMethod);
                         $this->addFlash('error', $this->trans(

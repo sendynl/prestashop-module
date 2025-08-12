@@ -33,4 +33,10 @@ services:
     arguments:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+  Sendy\PrestaShop\Action\SynchronizeCarriers:
+    class: 'Sendy\PrestaShop\Action\SynchronizeCarriers'
+    arguments:
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
+      - '@Sendy\PrestaShop\Repository\CarrierRepository'
+      - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
 

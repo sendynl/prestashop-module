@@ -88,4 +88,34 @@ class CarrierRepository
             $carrier->addZone($zone['id_zone']);
         }
     }
+
+    /**
+     * @return list<array{
+     * id_carrier: int,
+     * id_reference: int,
+     * name: string,
+     * url: string,
+     * active: int<0,1>,
+     * deleted: int<0,1>,
+     * shipping_handling: int,
+     * range_behavior: int,
+     * is_module: int<0,1>,
+     * is_free: int<0,1>,
+     * shipping_external: int<0,1>,
+     * need_range: int<0,1>,
+     * external_module_name: string,
+     * shipping_method: int,
+     * position: int,
+     * max_width: int,
+     * max_height: int,
+     * max_depth: int,
+     * max_weight: float|string,
+     * grade: int,
+     * delay: string,
+     * }>
+     */
+    public function all(): array
+    {
+        return Carrier::getCarriers(Context::getContext()->language->id, false, false, false, null, Carrier::ALL_CARRIERS);
+    }
 }

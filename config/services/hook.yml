@@ -40,3 +40,15 @@ services:
     arguments:
       - '@twig'
       - '@Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler'
+  Sendy\PrestaShop\Hook\Admin\ActionObjectCarrierAddAfter:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionObjectCarrierUpdateAfter'
+    arguments:
+      - '@Sendy\PrestaShop\Action\SynchronizeCarriers'
+  Sendy\PrestaShop\Hook\Admin\ActionObjectCarrierUpdateAfter:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionObjectCarrierUpdateAfter'
+    arguments:
+      - '@Sendy\PrestaShop\Action\SynchronizeCarriers'
+  Sendy\PrestaShop\Hook\Admin\ActionObjectCarrierDeleteAfter:
+    class: 'Sendy\PrestaShop\Hook\Admin\ActionObjectCarrierUpdateAfter'
+    arguments:
+      - '@Sendy\PrestaShop\Action\SynchronizeCarriers'

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Action;
 
 use Address;
+use Carrier;
 use Country;
 use DateTime;
 use Language;
@@ -51,6 +52,7 @@ class CreateShipmentFromOrder
 
         $address = new Address((int) $order->id_address_delivery);
         $parsedAddress = Addr::parseAddress($address->address1);
+        $carrier = new Carrier((int) $order->id_carrier);
 
         $data = [
             'shop_id' => $sendyShopId,
@@ -69,6 +71,7 @@ class CreateShipmentFromOrder
             'order_date' => (new DateTime($order->date_add))->format(DATE_RFC3339),
             'country' => Country::getIsoById((int) $address->id_country),
             'options' => [],
+            'shippingMethodId' => $carrier->id_reference,
         ];
 
         if ($this->shopConfigurationRepository->getImportWeight($order->id_shop)) {

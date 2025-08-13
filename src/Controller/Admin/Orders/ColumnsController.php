@@ -40,13 +40,4 @@ class ColumnsController extends FrameworkBundleAdminController
 
         return new RedirectResponse($this->generateUrl('admin_orders_index'));
     }
-
-    public function toggleShippingMethodColumn(): Response
-    {
-        $this->configurationRepository->setDisplayShippingMethodColumn(
-            !$this->configurationRepository->getDisplayShippingMethodColumn()
-        );
-
-        return new RedirectResponse($this->generateUrl('admin_orders_index'));
-    }
 }

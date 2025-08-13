@@ -8,8 +8,10 @@ services:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
       - '@router'
-      - '@Sendy\PrestaShop\Action\InstallWebhook'
+      - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
+      - '@prestashop.adapter.shop.context'
     parent: 'PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController'
+    public: true
   Sendy\PrestaShop\Controller\Admin\CarrierController:
     class: 'Sendy\PrestaShop\Controller\Admin\CarrierController'
     arguments:

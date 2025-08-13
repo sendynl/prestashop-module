@@ -41,7 +41,6 @@ final class ActionOrderGridQueryBuilderModifier
             ->addSelect('GROUP_CONCAT(sp.id_sendy_package) AS sendy_package_ids')
             ->addSelect('GROUP_CONCAT(sp.tracking_number) AS sendy_tracking_numbers')
             ->addGroupBy('o.id_order')
-            // ->addSelect('ss.shipping_method AS sendy_shipping_method')
         ;
     }
 }

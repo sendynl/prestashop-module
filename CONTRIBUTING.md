@@ -34,6 +34,29 @@ You can then log in to the PrestaShop back office with email `demo@prestashop.co
 - http://localhost:8080/admin7639
 - http://localhost:8090/admin7639
 
+### Testing webhooks
+
+To test webhooks, you can use [ngrok](https://ngrok.com/) to expose your local server to the internet.
+
+```
+ngrok http 8090
+```
+
+When starting the docker container, make sure to update the `PS_DOMAIN` environment variable to match the ngrok URL, and set the `PS_ENABLE_SSL` variable to `1`.
+
+```yaml
+# docker-compose
+    environment:
+      PS_DOMAIN: your-ngrok-url.ngrok.io
+      PS_ENABLE_SSL: 1
+```
+
+Then, to work around the PrestaShop warning in the back office, add the following line to the top of the prestashop-{version}/admin7639/index.php file:
+
+```php
+$_SERVER['HTTPS'] = 'on';
+```
+
 ### Code style and quality
 
 We use the tools provided by [prestashop/php-dev-tools](https://github.com/PrestaShop/php-dev-tools).

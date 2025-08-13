@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
+use Context;
 use Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler;
 use Twig\Environment;
 
@@ -33,7 +34,7 @@ final class DisplayAdminEndContent
 
     public function __invoke(array $params): string
     {
-        if ($params['route'] === 'admin_orders_index') {
+        if (Context::getContext()->controller->php_self === 'AdminOrders') {
             return $this->twig->render(
                 '@Modules/sendy/views/templates/admin/order_modal.html.twig',
                 [

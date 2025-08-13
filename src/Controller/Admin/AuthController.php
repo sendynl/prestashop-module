@@ -22,6 +22,7 @@ use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
+use Shop;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,7 @@ class AuthController extends FrameworkBundleAdminController
 
     public function login(Request $request): Response
     {
-        if (!$this->shopContext->isAllShopContext()) {
+        if (Shop::isFeatureActive() && !$this > shopContext->isAllShopContext()) {
             $this->addFlash('error', "You can only log in to Sendy from the 'All stores' context.");
 
             return new RedirectResponse($this->router->generate('sendy_settings'));

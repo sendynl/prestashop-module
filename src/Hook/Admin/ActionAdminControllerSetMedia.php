@@ -17,6 +17,7 @@ namespace Sendy\PrestaShop\Hook\Admin;
 use Context;
 use Media;
 use Sendy;
+use Sendy\PrestaShop\Action\RunScheduledTasks;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -25,10 +26,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class ActionAdminControllerSetMedia
 {
     private UrlGeneratorInterface $router;
+    private RunScheduledTasks $runScheduledTasks;
 
-    public function __construct(UrlGeneratorInterface $router)
+    public function __construct(UrlGeneratorInterface $router, RunScheduledTasks $runScheduledTasks)
     {
         $this->router = $router;
+        $this->runScheduledTasks = $runScheduledTasks;
     }
 
     public function __invoke(Sendy $module)
@@ -44,5 +47,7 @@ final class ActionAdminControllerSetMedia
                 ],
             ]);
         }
+
+        $this->runScheduledTasks->execute();
     }
 }

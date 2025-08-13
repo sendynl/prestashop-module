@@ -131,4 +131,14 @@ class ConfigurationRepository
     {
         return $this->configuration->getInt('SENDY_SYSTEM_USER_ID') ?: null;
     }
+
+    public function getLastCronRun(): ?int
+    {
+        return $this->configuration->getInt('SENDY_LAST_CRON_RUN') ?: null;
+    }
+
+    public function setLastCronRun(int $now): void
+    {
+        $this->configuration->set('SENDY_LAST_CRON_RUN', $now, ShopConstraint::allShops());
+    }
 }

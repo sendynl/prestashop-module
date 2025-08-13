@@ -39,4 +39,10 @@ services:
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
       - '@Sendy\PrestaShop\Repository\CarrierRepository'
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+  Sendy\PrestaShop\Action\RunScheduledTasks:
+    class: 'Sendy\PrestaShop\Action\RunScheduledTasks'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
+      - '@Sendy\PrestaShop\Action\SynchronizeCarriers'
 

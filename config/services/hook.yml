@@ -6,6 +6,7 @@ services:
     class: 'Sendy\PrestaShop\Hook\Admin\ActionAdminControllerSetMedia'
     arguments:
       - '@router'
+      - '@Sendy\PrestaShop\Action\RunScheduledTasks'
   Sendy\PrestaShop\Hook\Admin\ActionAfterCreateCarrierFormHandler:
     class: 'Sendy\PrestaShop\Hook\Admin\ActionAfterCreateCarrierFormHandler'
     arguments:

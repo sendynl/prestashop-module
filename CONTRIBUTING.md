@@ -49,3 +49,13 @@ To statically analyze the code, first, ensure the PrestaShop source is available
 ```shell
 composer run analyse
 ```
+
+## Publishing
+
+Before releasing a new version, ensure there is an upgrade script if needed (https://devdocs.prestashop-project.org/9/modules/creation/enabling-auto-update/). For example, you might need to run `Tools::clearAllCache()` after an update to JavaScript files, or to update the database schema.
+
+To release a new version of the module, first bump the version using the bump_version.sh script with the new version number as an argument:
+
+```shell
+./bump_version.sh 1.2.3
+```

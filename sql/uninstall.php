@@ -17,10 +17,14 @@ declare(strict_types=1);
  * Maybe the merchant will just try to reset the module
  * but does not want to loose all of the data associated to the module.
  */
+
+// The 'sendy_carrier_config' table is intentionally not dropped to avoid confusion during module reset,
+// since uninstalling the module does not remove carriers.
+
 $sql = [
     'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_shipment`',
     'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_package`',
-    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_carrier_config`',
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_cart_parcel_shop`',
 ];
 
 foreach ($sql as $query) {

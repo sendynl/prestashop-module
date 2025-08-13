@@ -1,10 +1,22 @@
 <div>
 {% if record.sendy_shipment_id %}
-    {% if record.sendy_package_id %}
-        Link to package page
-        {# TODO multiple packages #}
-    %{ else %}
-        Link to shipment edit page
+    {% if record.sendy_package_ids %}
+        {% set package_ids = record.sendy_package_ids|split(',') %}
+        {% set tracking_numbers = record.sendy_tracking_numbers|split(',') %}
+
+        <ul class="list-unstyled">
+            {% for index, package_id in package_ids %}
+                <li>
+                    <a href="{{ column.options.sendy_view_package_url|format(package_id) }}" target="_blank" style="text-decoration: underline;">
+                        {{ tracking_numbers[index] }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <a href="{{ column.options.sendy_edit_shipment_url|format(record.sendy_shipment_id) }}" target="_blank" style="text-decoration: underline;">
+            {{ 'Edit shipment'|trans({}, 'Modules.Sendy.Admin') }}
+        </a>
     {% endif %}
 {% else %}
     No shipment

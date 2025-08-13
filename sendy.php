@@ -16,7 +16,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
-use Sendy\PrestaShop\Form\Settings\LegacySettingsForm;
 use Sendy\PrestaShop\Hook;
 use Sendy\PrestaShop\Installer;
 use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
@@ -49,8 +48,8 @@ class Sendy extends CarrierModule
 
         parent::__construct();
 
-        $this->displayName = $this->l('Sendy');
-        $this->description = $this->l('A PrestaShop module that connects your store to the Sendy platform');
+        $this->displayName = $this->trans('Sendy', [], 'Modules.Sendy.Admin');
+        $this->description = $this->trans('A PrestaShop module that connects your store to the Sendy platform', [], 'Modules.Sendy.Admin');
 
         $this->ps_versions_compliancy = ['min' => '1.7.8', 'max' => _PS_VERSION_];
 
@@ -71,7 +70,7 @@ class Sendy extends CarrierModule
     public function install(): bool
     {
         if (extension_loaded('curl') == false) {
-            $this->_errors[] = $this->l('You have to enable the cURL extension on your server to install this module');
+            $this->_errors[] = $this->trans('You have to enable the cURL extension on your server to install this module', [], 'Modules.Sendy.Admin');
 
             return false;
         }
@@ -86,8 +85,6 @@ class Sendy extends CarrierModule
 
     public function uninstall(): bool
     {
-        Configuration::deleteByName('SENDY_LIVE_MODE');
-
         include dirname(__FILE__) . '/sql/uninstall.php';
 
         return parent::uninstall()
@@ -97,33 +94,16 @@ class Sendy extends CarrierModule
     /**
      * Load the configuration form
      *
-     * @return string|void
+     * @return void
      *
      * @throws Exception
      */
     public function getContent()
     {
-        if (_PS_VERSION_ >= '1.7.8') {
-            /** @var Symfony\Component\Routing\Router $router */
-            $router = $this->get('router');
-            $route = $router->generate('sendy_settings');
-            Tools::redirectAdmin($route);
-        } else {
-            // TODO this can be removed along with any references to configuration values defined in this class
-            $form = new LegacySettingsForm(
-                $this->context->controller,
-                $this->context->language,
-                $this->context->smarty,
-                $this->context->link,
-                $this,
-                $this->_path,
-                $this->local_path,
-                $this->table,
-                $this->identifier
-            );
-
-            return $form->getContent();
-        }
+        /** @var Symfony\Component\Routing\Router $router */
+        $router = $this->get('router');
+        $route = $router->generate('sendy_settings');
+        Tools::redirectAdmin($route);
     }
 
     /**

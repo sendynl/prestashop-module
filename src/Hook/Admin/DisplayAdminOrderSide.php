@@ -72,7 +72,7 @@ final class DisplayAdminOrderSide
         $form = $this->createShipmentFormHandler->getForm();
         $form->get('order_ids')->setData([$params['id_order']]);
         $form->get('shop_id')->setData(
-            $this->shopConfigurationRepository->getDefaultShop($order->id_shop)
+            $this->shopConfigurationRepository->getDefaultShop((int) $order->id_shop)
         );
 
         return $this->twig->render('@Modules/sendy/views/templates/admin/order_side.html.twig', [

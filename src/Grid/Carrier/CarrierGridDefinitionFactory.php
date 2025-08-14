@@ -22,9 +22,9 @@ use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollectionInterface;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ActionColumn;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ChoiceColumn;
-use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\DataColumn;
+use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory;
-use PrestaShop\PrestaShop\Core\Hook\HookDispatcherInterface;
+use PrestaShopBundle\Event\Dispatcher\NullDispatcher;
 use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\PrestaShop\Form\Carrier\CarrierChoiceProvider;
 
@@ -33,11 +33,10 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
     private CarrierChoiceProvider $carrierChoiceProvider;
 
     public function __construct(
-        ?HookDispatcherInterface $hookDispatcher = null,
         TranslatorInterface $translator,
         CarrierChoiceProvider $carrierChoiceProvider
     ) {
-        parent::__construct($hookDispatcher);
+        parent::__construct(new NullDispatcher());
         $this->setTranslator($translator);
         $this->carrierChoiceProvider = $carrierChoiceProvider;
     }
@@ -77,34 +76,33 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
                         ],
                     ])
             )
-            ->add((new ActionColumn('actions'))
-                ->setName($this->trans('Actions', [], 'Admin.Global'))
-                ->setOptions([
-                    'actions' => (new RowActionCollection())
-                        ->add(
-                            (new LinkRowAction('edit'))
-                                ->setName($this->trans('Edit', [], 'Admin.Actions'))
-                                ->setIcon('edit')
-                                ->setOptions([
-                                    'route' => 'admin_carriers_edit',
-                                    'route_param_name' => 'carrierId',
-                                    'route_param_field' => 'id_carrier',
-                                    'clickable_row' => true,
-                                ])
-                        ),
-                ])
-            )
-        ;
+            ->add(
+                (new ActionColumn('actions'))
+                    ->setName($this->trans('Actions', [], 'Admin.Global'))
+                    ->setOptions([
+                        'actions' => (new RowActionCollection())
+                            ->add(
+                                (new LinkRowAction('edit'))
+                                    ->setName($this->trans('Edit', [], 'Admin.Actions'))
+                                    ->setIcon('edit')
+                                    ->setOptions([
+                                        'route' => 'admin_carriers_edit',
+                                        'route_param_name' => 'carrierId',
+                                        'route_param_field' => 'id_carrier',
+                                        'clickable_row' => true,
+                                    ])
+                            ),
+                    ])
+            );
     }
 
     protected function getGridActions()
     {
         return (new GridActionCollection())
-             ->add(
-                 (new LinkGridAction('create_carrier'))
-                     ->setOptions(['route' => 'admin_carriers_create'])
-                     ->setName($this->trans('Add new carrier', [], 'Admin.Shipping.Feature'))
-             )
-        ;
+            ->add(
+                (new LinkGridAction('create_carrier'))
+                    ->setOptions(['route' => 'admin_carriers_create'])
+                    ->setName($this->trans('Add new carrier', [], 'Admin.Shipping.Feature'))
+            );
     }
 }

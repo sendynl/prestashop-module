@@ -21,7 +21,7 @@ use PrestaShop\PrestaShop\Core\Grid\GridFactory;
 use PrestaShop\PrestaShop\Core\Grid\GridFactoryInterface;
 use PrestaShop\PrestaShop\Core\Grid\GridInterface;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
-use PrestaShop\PrestaShop\Core\Hook\HookDispatcherInterface;
+use PrestaShopBundle\Event\Dispatcher\NullDispatcher;
 
 class CarrierGridFactory implements GridFactoryInterface
 {
@@ -30,14 +30,13 @@ class CarrierGridFactory implements GridFactoryInterface
     public function __construct(
         GridDefinitionFactoryInterface $definitionFactory,
         GridDataFactoryInterface $dataFactory,
-        GridFilterFormFactoryInterface $filterFormFactory,
-        ?HookDispatcherInterface $hookDispatcher = null
+        GridFilterFormFactoryInterface $filterFormFactory
     ) {
         $this->gridFactory = new GridFactory(
             $definitionFactory,
             $dataFactory,
             $filterFormFactory,
-            $hookDispatcher,
+            new NullDispatcher()
         );
     }
 

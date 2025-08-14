@@ -65,7 +65,7 @@ class CarrierController extends FrameworkBundleAdminController
     {
         $carrier = new Carrier($carrierId);
 
-        $this->carrierConfigRepository->saveSettings($carrier->id_reference, true, $request->get('value'));
+        $this->carrierConfigRepository->saveSettings((int) $carrier->id_reference, true, $request->get('value'));
 
         return new RedirectResponse($this->generateUrl('sendy_settings'));
     }

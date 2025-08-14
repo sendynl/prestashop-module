@@ -13,9 +13,11 @@ services:
     arguments:
       - '@doctrine.orm.entity_manager'
   Sendy\PrestaShop\Repository\ShipmentRepository:
+    class: 'Sendy\PrestaShop\Repository\ShipmentRepository'
     parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
     public: true
   Sendy\PrestaShop\Repository\PackageRepository:
+    class: 'Sendy\PrestaShop\Repository\PackageRepository'
     parent: 'Sendy\PrestaShop\Repository\AbstractEntityRepository'
     public: true
   Sendy\PrestaShop\Repository\ConfigurationRepository:

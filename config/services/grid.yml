@@ -7,7 +7,6 @@ services:
   Sendy\PrestaShop\Grid\Carrier\CarrierGridDefinitionFactory:
     class: 'Sendy\PrestaShop\Grid\Carrier\CarrierGridDefinitionFactory'
     arguments:
-      - '@prestashop.hook.dispatcher'
       - '@translator'
       - '@Sendy\PrestaShop\Form\Carrier\CarrierChoiceProvider'
   Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory:
@@ -16,5 +15,4 @@ services:
       - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridDefinitionFactory'
       - '@Sendy\PrestaShop\Grid\Carrier\CarrierGridDataFactory'
       - '@prestashop.core.grid.filter.form_factory'
-      - '@prestashop.core.hook.dispatcher'
 

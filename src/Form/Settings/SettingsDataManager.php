@@ -19,6 +19,7 @@ use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+use Sendy\PrestaShop\Support\TypeTransformer;
 
 /**
  * Manages storage and retrieval of the settings for the Sendy module.
@@ -76,13 +77,21 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
         }
 
         $this->configurationRepository->setProcessingMethod($configuration['sendy_processing_method']);
-        $this->configurationRepository->setProcessableStatus($configuration['sendy_processable_status']);
+        $this->configurationRepository->setProcessableStatus(
+            TypeTransformer::toNullableInt($configuration['sendy_processable_status'])
+        );
         $this->configurationRepository->setDefaultShop($configuration['sendy_default_shop']);
         $this->configurationRepository->setImportProducts($configuration['sendy_import_products']);
         $this->configurationRepository->setImportWeight($configuration['sendy_import_weight']);
-        $this->configurationRepository->setStatusGenerated($configuration['sendy_status_generated']);
-        $this->configurationRepository->setStatusPrinted($configuration['sendy_status_printed']);
-        $this->configurationRepository->setStatusDelivered($configuration['sendy_status_delivered']);
+        $this->configurationRepository->setStatusGenerated(
+            TypeTransformer::toNullableInt($configuration['sendy_status_generated'])
+        );
+        $this->configurationRepository->setStatusPrinted(
+            TypeTransformer::toNullableInt($configuration['sendy_status_printed'])
+        );
+        $this->configurationRepository->setStatusDelivered(
+            TypeTransformer::toNullableInt($configuration['sendy_status_delivered'])
+        );
 
         return [];
     }

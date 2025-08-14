@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en-US" target-language="nl-NL" datatype="plaintext" original="Modules.Sendy.Admin.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>Parcelshop carriers</source>
+                <target>Vervoerders voor afhaalpunten</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Shipment already exists for order %order%.</source>
+                <target>Zending bestaat al voor bestelling %order%.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Shipments created successfully.</source>
+                <target>Zendingen succesvol aangemaakt.</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Error creating shipment for order %order%: %message%</source>
+                <target>Fout bij aanmaken van zending voor bestelling %order%: %message%</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Authentication</source>
+                <target>Authenticatie</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Settings</source>
+                <target>Instellingen</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Statuses</source>
+                <target>Statussen</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>This is used to determine which carrier to use when displaying parcelshops in the parcel shop picker.</source>
+                <target>Dit wordt gebruikt om te bepalen welke vervoerder wordt gebruikt bij het tonen van pakketpunten.</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Edit shipment</source>
+                <target>Zending bewerken</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Print label</source>
+                <target>Label printen</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Shop</source>
+                <target>Shop</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Shipping profile</source>
+                <target>Verzendprofiel</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Amount</source>
+                <target>Aantal</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Create shipment</source>
+                <target>Zending aanmaken</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>An error occurred while changing the processing method: %error%</source>
+                <target>Er is een fout opgetreden bij het wijzigen van de werkwijze: %error%</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Invalid carrier.</source>
+                <target>Ongeldige vervoerder.</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Pick up at parcelshop</source>
+                <target>Afhalen bij pakketpunt</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Failed to create carrier.</source>
+                <target>Vervoerder aanmaken mislukt.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Logout %name%</source>
+                <target>Uitloggen (ingelogd als %name%)</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Login with Sendy</source>
+                <target>Inloggen met Sendy</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Processing method</source>
+                <target>Werkwijze</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>You can choose to push orders to Sendy and process them in the Sendy app, or process them directly in PrestaShop.</source>
+                <target>Je kunt ervoor kiezen om bestellingen naar Sendy te pushen en ze daar te verwerken, of ze rechtstreeks in PrestaShop te verwerken.</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Processable Order Status</source>
+                <target>Verwerkbare orderstatus</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Create a shipment in Sendy when an order transitions to this status.</source>
+                <target>Wanneer een bestelling deze status krijgt, wordt er een zending aangemaakt in Sendy.</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Default Sendy shop</source>
+                <target>Standaard Sendy-shop</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>Import products</source>
+                <target>Producten importeren</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Import weight</source>
+                <target>Gewicht importeren</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Status after shipment is generated</source>
+                <target>Status nadat verzendlabel is gegenereerd</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>None (do not update the order status)</source>
+                <target>Geen (orderstatus niet bijwerken)</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>When a shipping label is generated in Sendy, the order will be updated to this status.</source>
+                <target>Wanneer een verzendlabel in Sendy wordt aangemaakt, wordt de bestelling bijgewerkt naar deze status.</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>Status after label is printed</source>
+                <target>Status nadat label is geprint</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>When pressing the &quot;Print label&quot; button in your PrestaShop back office, the order will be updated to this status.</source>
+                <target>Wanneer je op de knop &quot;Label printen&quot; in je PrestaShop-backoffice drukt, wordt de bestelling bijgewerkt naar deze status.</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>Status after shipment is delivered</source>
+                <target>Status nadat zending is geleverd</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>When a shipment is delivered, the order will be updated to this status.</source>
+                <target>Wanneer een zending is geleverd, wordt de bestelling bijgewerkt naar deze status.</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>Login failed. Please try again.</source>
+                <target>Inloggen mislukt. Probeer het opnieuw.</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>Login successful.</source>
+                <target>Succesvol ingelogd.</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Login failed: %error%</source>
+                <target>Inloggen mislukt: %error%</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>Sendy - Create shipment</source>
+                <target>Sendy - Zending aanmaken</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Sendy - Print label</source>
+                <target>Sendy - Label printen</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Track and trace</source>
+                <target>Track &amp; trace</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>Sendy - Hide track and trace column</source>
+                <target>Sendy - Track &amp; trace-kolom verbergen</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>Sendy - Show track and trace column</source>
+                <target>Sendy - Track &amp; trace-kolom tonen</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>Sendy</source>
+                <target>Sendy</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>A PrestaShop module that connects your store to the Sendy platform</source>
+                <target>Een PrestaShop-module die je webshop verbindt met het Sendy-platform</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>You have to enable the cURL extension on your server to install this module</source>
+                <target>De cURL-extensie is benodigd om deze module te installeren</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>Create shipment</source>
+                <target>Zending aanmaken</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>View all carriers</source>
+                <target>Toon alle vervoerders</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Carriers you create here will have a parcelshop picker button available at checkout. If you are looking to create a regular carrier, please use the "Add new carrier" button on the %link_start%Carriers page%link_end%.</source>
+                <target>Vervoerders die je hier aanmaakt, krijgen een knop om een afhaalpunt te kiezen bij het afrekenen. Als je een reguliere vervoerder wilt aanmaken, gebruik dan de knop &quot;Voeg nieuwe vervoerder toe&quot; op de %link_start%Vervoerderspagina%link_end%.</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Select a carrier</source>
+                <target>Selecteer een vervoerder</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Amount of packages</source>
+                <target>Aantal pakketten</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>Processing method is required.</source>
+                <target>Werkwijze is vereist.</target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>Invalid processing method.</source>
+                <target>Ongeldige werkwijze.</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>Processable status is required when processing method is Sendy.</source>
+                <target>Verwerkbare orderstatus is vereist wanneer de werkwijze Sendy is.</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>Default shop is required when processing method is Sendy.</source>
+                <target>Standaardshop is vereist wanneer de werkwijze Sendy is.</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>Import products setting is required.</source>
+                <target>Instelling 'producten importeren' is vereist.</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>Invalid value for import products.</source>
+                <target>Ongeldige waarde voor 'producten importeren'.</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>Import weight setting is required.</source>
+                <target>Instelling 'gewicht importeren' is vereist.</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>Invalid value for import weight.</source>
+                <target>Ongeldige waarde voor 'gewicht importeren'.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -7,9 +7,10 @@
             </div>
             <div class="modal-body">
                 <p>
-                    {{ 'Carriers you create here will have a parcelshop picker button available at checkout. If you are looking to create a regular carrier, please use the "Add new carrier" button on the <a href="%link%">Carriers page</a>.'|trans({
-                        '%link%': path('admin_carriers_index')
-                    }, 'Admin.Shipping.Help')|raw }}
+                    {{ 'Carriers you create here will have a parcelshop picker button available at checkout. If you are looking to create a regular carrier, please use the "Add new carrier" button on the %link_start%Carriers page%link_end%.'|trans({
+                        '%link_start%': '<a href="' ~ path('admin_carriers_index') ~ '">',
+                        '%link_end%': '</a>'
+                    }, 'Modules.Sendy.Admin')|raw }}
                 </p>
 
                 {{ form_start(carrierFormView, {

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Enum;
 
 use InvalidArgumentException;
+use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 use PrestaShop\PrestaShop\Core\Util\String\StringModifier;
 use ReflectionClass;
 
@@ -52,7 +53,13 @@ abstract class StringBackedEnum
 
         foreach ($constants as $name => $constantValue) {
             if ($constantValue === $value) {
-                // TODO: Get the description from the Modules.Sendy.Enum translation domain
+                $key = "{$reflection->getShortName()}::{$name}";
+                $translated = SymfonyContainer::getInstance()->get('translator')->trans($key, [], 'Modules.Sendy.Enum');
+
+                if ($translated !== $key) {
+                    return $translated;
+                }
+
                 return (new StringModifier())->splitByCamelCase($name);
             }
         }

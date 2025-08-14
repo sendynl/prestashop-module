@@ -28,7 +28,7 @@ class CarrierForm extends TranslatorAwareType
                 'sendy_parcel_shop_carrier',
                 ChoiceType::class,
                 [
-                    'label' => 'Select a carrier',
+                    'label' => $this->trans('Select a carrier', 'Modules.Sendy.Admin', []),
                     'required' => true,
                     'choices' => Carrier::choices(),
                     'help' => $this->trans(

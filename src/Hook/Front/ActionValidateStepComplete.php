@@ -42,7 +42,7 @@ final class ActionValidateStepComplete
 
         $carrier = new Carrier($params['cart']->id_carrier);
 
-        $carrierConfig = SendyCarrierConfig::getByReferenceId($carrier->id_reference);
+        $carrierConfig = SendyCarrierConfig::getByReferenceId((int) $carrier->id_reference);
 
         if ($carrierConfig === null || !$carrierConfig->carrierRequiresParcelShop()) {
             return;

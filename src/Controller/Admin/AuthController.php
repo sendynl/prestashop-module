@@ -52,8 +52,8 @@ class AuthController extends FrameworkBundleAdminController
 
     public function login(Request $request): Response
     {
-        if (Shop::isFeatureActive() && !$this > shopContext->isAllShopContext()) {
-            $this->addFlash('error', "You can only log in to Sendy from the 'All stores' context.");
+        if (Shop::isFeatureActive() && !$this->shopContext->isAllShopContext()) {
+            $this->addFlash('error', $this->trans("You can only log in to Sendy from the 'All stores' context.", 'Modules.Sendy.Admin'));
 
             return new RedirectResponse($this->router->generate('sendy_settings'));
         }

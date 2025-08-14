@@ -33,6 +33,7 @@ services:
       PS_DOMAIN: localhost:8080
       PS_FOLDER_ADMIN: admin7639
       PS_DEV_MODE: 1
+      PS_LANGUAGE: nl
     networks:
       - prestashop_network
 networks:

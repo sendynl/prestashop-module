@@ -16,6 +16,7 @@ namespace Sendy\PrestaShop\Form\Settings;
 
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
+use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
@@ -34,10 +35,12 @@ use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 class SettingsDataManager implements DataConfigurationInterface, FormDataProviderInterface
 {
     private ShopConfigurationRepository $configurationRepository;
+    private TranslatorInterface $translator;
 
-    public function __construct(ShopConfigurationRepository $configurationRepository)
+    public function __construct(ShopConfigurationRepository $configurationRepository, TranslatorInterface $translator)
     {
         $this->configurationRepository = $configurationRepository;
+        $this->translator = $translator;
     }
 
     /**
@@ -119,29 +122,37 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
         $errors = [];
 
         if (!isset($configuration['sendy_processing_method'])) {
-            $errors[] = 'Processing method is required.';
+            $errors[] = $this->translator->trans('Processing method is required.', [], 'Modules.Sendy.Admin');
         } elseif (!in_array($configuration['sendy_processing_method'], ProcessingMethod::values(), true)) {
-            $errors[] = 'Invalid processing method.';
+            $errors[] = $this->translator->trans('Invalid processing method.', [], 'Modules.Sendy.Admin');
         } elseif ($configuration['sendy_processing_method'] === ProcessingMethod::Sendy) {
             if (!isset($configuration['sendy_processable_status']) || !is_int($configuration['sendy_processable_status'])) {
-                $errors[] = 'Processable status is required when processing method is Sendy.';
+                $errors[] = $this->translator->trans(
+                    'Processable status is required when processing method is Sendy.',
+                    [],
+                    'Modules.Sendy.Admin'
+                );
             }
 
             if (!isset($configuration['sendy_default_shop']) || !is_string($configuration['sendy_default_shop'])) {
-                $errors[] = 'Default shop is required when processing method is Sendy.';
+                $errors[] = $this->translator->trans(
+                    'Default shop is required when processing method is Sendy.',
+                    [],
+                    'Modules.Sendy.Admin'
+                );
             }
         }
 
         if (!isset($configuration['sendy_import_products'])) {
-            $errors[] = 'Import products setting is required.';
+            $errors[] = $this->translator->trans('Import products setting is required.', [], 'Modules.Sendy.Admin');
         } elseif (!is_bool($configuration['sendy_import_products'])) {
-            $errors[] = 'Invalid value for import products.';
+            $errors[] = $this->translator->trans('Invalid value for import products.', [], 'Modules.Sendy.Admin');
         }
 
         if (!isset($configuration['sendy_import_weight'])) {
-            $errors[] = 'Import weight setting is required.';
+            $errors[] = $this->translator->trans('Import weight setting is required.', [], 'Modules.Sendy.Admin');
         } elseif (!is_bool($configuration['sendy_import_weight'])) {
-            $errors[] = 'Invalid value for import weight.';
+            $errors[] = $this->translator->trans('Invalid value for import weight.', [], 'Modules.Sendy.Admin');
         }
 
         return $errors;

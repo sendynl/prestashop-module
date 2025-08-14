@@ -12,11 +12,12 @@ declare(strict_types=1);
  * @see https://github.com/sendynl/prestashop-module
  */
 
-namespace Sendy\PrestaShop\Enum;
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
-final class Carrier extends StringBackedEnum
-{
-    public const DHL = 'DHL';
-    public const DPD = 'DPD';
-    public const PostNL = 'PostNL';
-}
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
+
+header('Location: ../');
+exit;

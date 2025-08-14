@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en-US" target-language="nl-NL" datatype="plaintext" original="Modules.Sendy.Enum.xlf">
+        <body>
+            <trans-unit id="Carrier::DHL">
+                <source>Carrier::DHL</source>
+                <target>DHL</target>
+            </trans-unit>
+            <trans-unit id="Carrier::DPD">
+                <source>Carrier::DPD</source>
+                <target>DPD</target>
+            </trans-unit>
+            <trans-unit id="Carrier::PostNL">
+                <source>Carrier::PostNL</source>
+                <target>PostNL</target>
+            </trans-unit>
+            <trans-unit id="ProcessingMethod::PrestaShop">
+                <source>ProcessingMethod::PrestaShop</source>
+                <target>PrestaShop</target>
+            </trans-unit>
+            <trans-unit id="ProcessingMethod::Sendy">
+                <source>ProcessingMethod::Sendy</source>
+                <target>Sendy</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -19,6 +19,7 @@ use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\GridDefinitionFactoryInte
 use PrestaShop\PrestaShop\Core\Grid\Filter\GridFilterFormFactoryInterface;
 use PrestaShop\PrestaShop\Core\Grid\GridFactory;
 use PrestaShop\PrestaShop\Core\Grid\GridFactoryInterface;
+use PrestaShop\PrestaShop\Core\Grid\GridInterface;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
 use PrestaShop\PrestaShop\Core\Hook\HookDispatcherInterface;
 
@@ -40,7 +41,7 @@ class CarrierGridFactory implements GridFactoryInterface
         );
     }
 
-    public function getGrid(SearchCriteriaInterface $searchCriteria)
+    public function getGrid(SearchCriteriaInterface $searchCriteria): GridInterface
     {
         return $this->gridFactory->getGrid($searchCriteria);
     }

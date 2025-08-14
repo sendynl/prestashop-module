@@ -125,6 +125,11 @@ class Sendy extends CarrierModule
         return false;
     }
 
+    public function isUsingNewTranslationSystem()
+    {
+        return true;
+    }
+
     public function hookActionAdminControllerSetMedia()
     {
         $this->get(Hook\Admin\ActionAdminControllerSetMedia::class)($this);

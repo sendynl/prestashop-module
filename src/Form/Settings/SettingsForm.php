@@ -16,13 +16,13 @@ namespace Sendy\PrestaShop\Form\Settings;
 
 use PrestaShop\PrestaShop\Core\Form\ChoiceProvider\OrderStateByIdChoiceProvider;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
+use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Exception\TokensMissingException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @see https://devdocs.prestashop-project.org/8/modules/creation/adding-configuration-page-modern/

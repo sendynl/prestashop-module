@@ -25,8 +25,8 @@ use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ChoiceColumn;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\DataColumn;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory;
 use PrestaShop\PrestaShop\Core\Hook\HookDispatcherInterface;
+use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\PrestaShop\Form\Carrier\CarrierChoiceProvider;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
 {

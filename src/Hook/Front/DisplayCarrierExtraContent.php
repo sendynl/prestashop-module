@@ -43,7 +43,7 @@ final class DisplayCarrierExtraContent
      */
     public function __invoke($params)
     {
-        $carrierConfig = SendyCarrierConfig::getByReferenceId($params['carrier']['id_reference']);
+        $carrierConfig = SendyCarrierConfig::getByReferenceId((int) $params['carrier']['id_reference']);
 
         if ($carrierConfig === null) {
             return '';

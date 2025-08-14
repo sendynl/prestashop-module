@@ -41,6 +41,7 @@ services:
     class: 'Sendy\PrestaShop\Form\Settings\SettingsDataManager'
     arguments:
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+      - '@translator'
   Sendy\PrestaShop\Form\Settings\SettingsForm:
     class: 'Sendy\PrestaShop\Form\Settings\SettingsForm'
     arguments:

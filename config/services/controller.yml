@@ -30,6 +30,8 @@ services:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController'
     arguments:
       - '@Sendy\PrestaShop\Action\CreateShipmentFromOrder'
+      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
+      - '@Sendy\PrestaShop\Repository\PackageRepository'
   Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController'
     arguments:

@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Controller\Admin\Orders;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ShipmentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -52,7 +54,7 @@ class PrintLabelController extends FrameworkBundleAdminController
         try {
             $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
             $responseBody = $sendy->label->get($shipmentIds);
-        } catch (\Sendy\Api\Exceptions\SendyException $e) {
+        } catch (SendyException|TokensMissingException $e) {
             return new JsonResponse(
                 [
                     'message' => $this->trans('Error while fetching labels: %error%', [

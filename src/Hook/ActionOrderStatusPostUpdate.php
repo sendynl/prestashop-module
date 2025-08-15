@@ -20,6 +20,7 @@ use PrestaShopLoggerCore;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Legacy\SendyShipment;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
@@ -80,7 +81,7 @@ final class ActionOrderStatusPostUpdate
             $shipment->id_sendy_shipment = $result['uuid'];
             $shipment->id_order = (int) $params['id_order'];
             $shipment->save();
-        } catch (SendyException $e) {
+        } catch (SendyException|TokensMissingException $e) {
             PrestaShopLogger::addLog(
                 'Sendy - Error creating shipment: ' . $e->getMessage(),
                 PrestaShopLoggerCore::LOG_SEVERITY_LEVEL_ERROR,

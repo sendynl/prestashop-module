@@ -16,6 +16,7 @@ namespace Sendy\PrestaShop\Action;
 
 use Sendy\Api\Exceptions\ClientException;
 use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 
@@ -33,6 +34,7 @@ class UninstallWebhook
     }
 
     /**
+     * @throws TokensMissingException
      * @throws SendyException
      */
     public function execute(): void

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Sendy\PrestaShop\Form\CreateShipment;
 
 use PrestaShopBundle\Translation\TranslatorInterface;
+use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Symfony\Component\Form\AbstractType;
@@ -43,7 +44,7 @@ class CreateShipmentForm extends AbstractType
             $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
             $shops = $sendy->shop->list();
             $preferences = $sendy->shippingPreference->list();
-        } catch (TokensMissingException $e) {
+        } catch (TokensMissingException|SendyException $e) {
             $shops = [];
             $preferences = [];
         }

@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
+use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\CarrierRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
@@ -34,6 +36,10 @@ class SynchronizeCarriers
         $this->shopConfigurationRepository = $shopConfigurationRepository;
     }
 
+    /**
+     * @throws TokensMissingException
+     * @throws SendyException
+     */
     public function execute(): void
     {
         if (!$this->shopConfigurationRepository->anyShopsUsingSendyProcessingMethod()) {

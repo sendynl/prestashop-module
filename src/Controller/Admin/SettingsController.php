@@ -19,6 +19,7 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\SynchronizeCarriers;
 use Sendy\PrestaShop\Action\SynchronizeWebhook;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Form\Carrier\CarrierForm;
 use Sendy\PrestaShop\Form\Settings\AuthenticateForm;
 use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
@@ -73,7 +74,7 @@ class SettingsController extends FrameworkBundleAdminController
                     try {
                         $this->synchronizeWebhook->execute();
                         $this->synchronizeCarriers->execute();
-                    } catch (SendyException $e) {
+                    } catch (SendyException|TokensMissingException $e) {
                         $this->shopConfigurationRepository->setProcessingMethod($oldProcessingMethod);
                         $this->addFlash('error', $this->trans(
                             'An error occurred while changing the processing method: %error%',

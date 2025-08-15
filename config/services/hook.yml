@@ -36,6 +36,7 @@ services:
       - '@Sendy\PrestaShop\Repository\ShipmentRepository'
       - '@Sendy\PrestaShop\Repository\PackageRepository'
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
   Sendy\PrestaShop\Hook\Admin\DisplayAdminEndContent:
     class: 'Sendy\PrestaShop\Hook\Admin\DisplayAdminEndContent'
     arguments:

@@ -14,7 +14,10 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
+use PrestaShopLogger;
+use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\SynchronizeCarriers;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 
 class ActionObjectCarrierDeleteAfter
 {
@@ -35,6 +38,12 @@ class ActionObjectCarrierDeleteAfter
      */
     public function __invoke(array $params): void
     {
-        $this->synchronizeCarriers->execute();
+        try {
+            $this->synchronizeCarriers->execute();
+        } catch (TokensMissingException $e) {
+            // Ignore when user is not authenticated.
+        } catch (SendyException $e) {
+            PrestaShopLogger::addLog('Sendy: ' . $e->getMessage(), PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace Sendy\PrestaShop\Hook\Admin;
 use Order;
 use Sendy;
 use Sendy\PrestaShop\Form\CreateShipment\CreateShipmentFormHandler;
+use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\PackageRepository;
 use Sendy\PrestaShop\Repository\ShipmentRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
@@ -33,19 +34,22 @@ final class DisplayAdminOrderSide
     private ShipmentRepository $shipmentRepository;
     private PackageRepository $packageRepository;
     private ShopConfigurationRepository $shopConfigurationRepository;
+    private ConfigurationRepository $configurationRepository;
 
     public function __construct(
         Environment $twig,
         CreateShipmentFormHandler $createShipmentFormHandler,
         ShipmentRepository $shipmentRepository,
         PackageRepository $packageRepository,
-        ShopConfigurationRepository $shopConfigurationRepository
+        ShopConfigurationRepository $shopConfigurationRepository,
+        ConfigurationRepository $configurationRepository
     ) {
         $this->twig = $twig;
         $this->createShipmentFormHandler = $createShipmentFormHandler;
         $this->shipmentRepository = $shipmentRepository;
         $this->packageRepository = $packageRepository;
         $this->shopConfigurationRepository = $shopConfigurationRepository;
+        $this->configurationRepository = $configurationRepository;
     }
 
     /**
@@ -61,6 +65,11 @@ final class DisplayAdminOrderSide
      */
     public function __invoke(array $params): string
     {
+        // Don't display the form if the user is not logged in.
+        if ($this->configurationRepository->getAccessToken() === null) {
+            return '';
+        }
+
         $shipment = $this->shipmentRepository->findShipmentByOrderId($params['id_order']);
         $order = new Order($params['id_order']);
         $packages = [];

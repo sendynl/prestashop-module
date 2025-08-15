@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Exception;
 
-use RuntimeException;
+use Exception;
 
-class TokensMissingException extends RuntimeException
+class TokensMissingException extends Exception
 {
 }

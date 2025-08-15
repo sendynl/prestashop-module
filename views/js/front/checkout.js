@@ -14,8 +14,8 @@ $(function() {
             return;
         }
 
-        if (!window.prestashop || !window.prestashop.country || !window.prestashop.customer || !window.prestashop.customer.addresses) {
-            alert('Checkout data is not available.');
+        if (!window.prestashop || !window.prestashop.customer || !window.prestashop.customer.addresses) {
+            alert('Address data is not available.');
             return;
         }
 
@@ -41,10 +41,17 @@ $(function() {
             return;
         }
 
+        const countryCode = deliveryAddress.country_iso || window.prestashop.country?.iso_code;
+
+        if (!countryCode) {
+            alert('Country code not found in delivery address.');
+            return;
+        }
+
         window.Sendy.parcelShopPicker.open(
             {
                 address: `${deliveryAddress.address1}, ${deliveryAddress.postcode} ${deliveryAddress.city}`,
-                country: window.prestashop.country.iso_code,
+                country: countryCode,
                 carriers: [parent.data('sendy-parcel-shop-picker-carrier')]
             },
             async function(parcelShop) {

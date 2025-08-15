@@ -23,6 +23,7 @@ use Order;
 use Product;
 use Sendy\Api\Connection;
 use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
@@ -44,7 +45,7 @@ class CreateShipmentFromOrder
     /**
      * @return array<string, mixed>
      *
-     * @throws SendyException
+     * @throws SendyException|TokensMissingException
      */
     public function execute(Order $order, string $sendyShopId, ?string $preferenceId = null, int $amount = 1): array
     {
@@ -74,11 +75,11 @@ class CreateShipmentFromOrder
             'shippingMethodId' => $carrier->id_reference,
         ];
 
-        if ($this->shopConfigurationRepository->getImportWeight($order->id_shop)) {
+        if ($this->shopConfigurationRepository->getImportWeight((int) $order->id_shop)) {
             $data['weight'] = $order->getTotalWeight();
         }
 
-        if ($this->shopConfigurationRepository->getImportProducts($order->id_shop)) {
+        if ($this->shopConfigurationRepository->getImportProducts((int) $order->id_shop)) {
             $data['products'] = $this->formatProducts($order);
         }
 

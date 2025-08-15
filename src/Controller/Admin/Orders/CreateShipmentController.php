@@ -19,6 +19,7 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopLogger;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
+use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Repository\PackageRepository;
 use Sendy\PrestaShop\Repository\ShipmentRepository;
 use Sendy\PrestaShop\Support\Str;
@@ -89,7 +90,7 @@ class CreateShipmentController extends FrameworkBundleAdminController
                 'success',
                 $this->trans('Shipments created successfully.', 'Modules.Sendy.Admin')
             );
-        } catch (SendyException $exception) {
+        } catch (SendyException|TokensMissingException $exception) {
             if (isset($order)) {
                 $this->addFlash(
                     'error',

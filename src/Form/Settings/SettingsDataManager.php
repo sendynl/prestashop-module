@@ -135,7 +135,7 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
         } elseif (!in_array($configuration['sendy_processing_method'], ProcessingMethod::values(), true)) {
             $errors[] = $this->translator->trans('Invalid processing method.', [], 'Modules.Sendy.Admin');
         } elseif ($configuration['sendy_processing_method'] === ProcessingMethod::Sendy) {
-            if (!isset($configuration['sendy_processable_status']) || !is_int($configuration['sendy_processable_status'])) {
+            if (!isset($configuration['sendy_processable_status']) || !is_numeric($configuration['sendy_processable_status'])) {
                 $errors[] = $this->translator->trans(
                     'Processable status is required when processing method is Sendy.',
                     [],

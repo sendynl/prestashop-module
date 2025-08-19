@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sendynl/php-sdk.git",
-                "reference": "fbb502429a46215bb104ac062de64c4ee2f574ee"
+                "reference": "a16d46e606cfacece1f6e272aa9049cfd51978b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sendynl/php-sdk/zipball/fbb502429a46215bb104ac062de64c4ee2f574ee",
-                "reference": "fbb502429a46215bb104ac062de64c4ee2f574ee",
+                "url": "https://api.github.com/repos/sendynl/php-sdk/zipball/a16d46e606cfacece1f6e272aa9049cfd51978b7",
+                "reference": "a16d46e606cfacece1f6e272aa9049cfd51978b7",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "issues": "https://github.com/sendynl/php-sdk/issues",
                 "source": "https://github.com/sendynl/php-sdk/tree/3.x"
             },
-            "time": "2025-07-03T14:05:37+00:00"
+            "time": "2025-08-19T13:33:19+00:00"
         }
     ],
     "packages-dev": [

@@ -19,7 +19,9 @@ use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Arr;
+use Sendy\PrestaShop\Support\Str;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Tools;
 
 class InstallWebhook
 {
@@ -51,7 +53,10 @@ class InstallWebhook
 
         $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
         $currentWebhookId = $this->configurationRepository->getWebhookId();
-        $url = $this->router->generate('sendy_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = Str::withoutUrlQueryParameters(
+            Tools::getShopDomainSsl(true) . $this->router->generate('sendy_webhook'),
+            ['_token']
+        );
         $payload = [
             'url' => $url,
             'events' => [

@@ -52,4 +52,26 @@ class Str
 
         return false;
     }
+
+    /**
+     * @param list<string> $queryParameters
+     */
+    public static function withoutUrlQueryParameters(string $path, array $queryParameters): string
+    {
+        if (empty($queryParameters)) {
+            return $path;
+        }
+
+        $parts = explode('?', $path, 2);
+        $uri = $parts[0];
+        parse_str(isset($parts[1]) ? $parts[1] : '', $query);
+        $query = array_diff_key($query, array_flip($queryParameters));
+        $queryString = http_build_query($query);
+
+        if ($queryString) {
+            return $uri . '?' . $queryString;
+        }
+
+        return $uri;
+    }
 }

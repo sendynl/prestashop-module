@@ -16,6 +16,8 @@ namespace Sendy\PrestaShop\Controller\Admin;
 
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShopLogger;
+use Sendy\Api\Exceptions\HttpException;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\SynchronizeCarriers;
 use Sendy\PrestaShop\Action\SynchronizeWebhook;
@@ -81,6 +83,14 @@ class SettingsController extends FrameworkBundleAdminController
                             'Modules.Sendy.Admin',
                             ['%error%' => $e->getMessage()]
                         ));
+
+                        if ($e instanceof HttpException) {
+                            PrestaShopLogger::addLog(
+                                "Sendy - Processing method change failed: {$e->getMessage()} - {$e->getRequest()->getBody()}",
+                                PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR,
+                                $e->getCode(),
+                            );
+                        }
                     }
                 }
 

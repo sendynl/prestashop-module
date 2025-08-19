@@ -56,12 +56,12 @@ final class ActionOrderStatusPostUpdate
         $order = new Order((int) $params['id_order']);
 
         // Only proceed if the processing method is Sendy
-        if ($this->shopConfigurationRepository->getProcessingMethod($order->id_shop) !== ProcessingMethod::Sendy) {
+        if ($this->shopConfigurationRepository->getProcessingMethod((int) $order->id_shop) !== ProcessingMethod::Sendy) {
             return;
         }
 
         // Only proceed if the new order status is the processable status
-        if ($params['newOrderStatus']->id !== $this->shopConfigurationRepository->getProcessableStatus($order->id_shop)) {
+        if ($params['newOrderStatus']->id !== $this->shopConfigurationRepository->getProcessableStatus((int) $order->id_shop)) {
             return;
         }
 
@@ -73,7 +73,7 @@ final class ActionOrderStatusPostUpdate
         try {
             $result = $this->createShipmentFromOrder->execute(
                 $order,
-                $this->shopConfigurationRepository->getDefaultShop($order->id_shop),
+                $this->shopConfigurationRepository->getDefaultShop((int) $order->id_shop),
                 null
             );
 

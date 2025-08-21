@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,12 +8,19 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
-use Carrier;
 use Sendy\PrestaShop\Repository\CarrierConfigRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+/**
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionformnameformdataproviderdata/
+ */
 final class ActionCarrierFormDataProviderData
 {
     private CarrierConfigRepository $carrierConfigRepository;
@@ -39,7 +43,7 @@ final class ActionCarrierFormDataProviderData
             return;
         }
 
-        $carrier = new Carrier($params['id']);
+        $carrier = new \Carrier($params['id']);
         $carrierConfig = $this->carrierConfigRepository->findByCarrierReferenceId($carrier->id_reference);
 
         if ($carrierConfig === null) {

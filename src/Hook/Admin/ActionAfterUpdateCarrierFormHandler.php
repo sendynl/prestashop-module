@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,14 +8,21 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
 use Carrier;
 use Sendy\PrestaShop\Repository\CarrierConfigRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Persists the configuration fields from {@see ActionCarrierFormBuilderModifier} after a carrier is updated.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionafterupdateformnameformhandler/
  */
 final class ActionAfterUpdateCarrierFormHandler
 {
@@ -35,10 +39,10 @@ final class ActionAfterUpdateCarrierFormHandler
      *     form_data: array<string, mixed>,
      * } $params
      */
-    public function __invoke(array $params)
+    public function __invoke(array $params): void
     {
         $carrierId = $params['id'];
-        $carrier = new Carrier((int) $carrierId);
+        $carrier = new \Carrier((int) $carrierId);
 
         if ($carrier->external_module_name !== 'sendy') {
             return;

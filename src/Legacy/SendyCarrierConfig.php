@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,13 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Legacy;
 
-use Db;
-use ObjectModel;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-class SendyCarrierConfig extends ObjectModel
+class SendyCarrierConfig extends \ObjectModel
 {
     public $id_sendy_carrier_config;
     public $id_reference;
@@ -46,7 +45,7 @@ class SendyCarrierConfig extends ObjectModel
     {
         $prefix = _DB_PREFIX_;
         $sql = "SELECT * FROM `{$prefix}sendy_carrier_config` WHERE `id_reference` = {$id_reference}";
-        $result = Db::getInstance()->getRow($sql);
+        $result = \Db::getInstance()->getRow($sql);
 
         if ($result) {
             $config = new self();

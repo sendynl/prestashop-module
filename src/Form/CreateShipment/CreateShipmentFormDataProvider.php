@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,11 +8,16 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Form\CreateShipment;
 
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CreateShipmentFormDataProvider implements FormDataProviderInterface
 {
@@ -26,6 +28,13 @@ class CreateShipmentFormDataProvider implements FormDataProviderInterface
         $this->configurationRepository = $configurationRepository;
     }
 
+    /**
+     * @return array{
+     *     shop_id: string|null,
+     *     preference_id: string|null,
+     *     amount: int,
+     * }
+     */
     public function getData()
     {
         return [
@@ -35,8 +44,14 @@ class CreateShipmentFormDataProvider implements FormDataProviderInterface
         ];
     }
 
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return list<string>
+     */
     public function setData(array $data)
     {
         // not implemented - form is handled by Sendy\PrestaShop\Action\CreateShipmentFromOrder
+        return [];
     }
 }

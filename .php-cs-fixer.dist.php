@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,14 +8,20 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
-
+declare(strict_types=1);
 $config = new class extends PrestaShop\CodingStandards\CsFixer\Config {
     public function getRules(): array
     {
         return [
             ...parent::getRules(),
             'declare_strict_types' => true,
-            'global_namespace_import' => true,
+            'global_namespace_import' => [
+                'import_classes' => false,
+                'import_constants' => false,
+                'import_functions' => false,
+            ],
+            'no_unused_imports' => true,
+            'blank_line_after_opening_tag' => false,
             'header_comment' => [
                 'comment_type' => 'PHPDoc',
                 'header' => <<<'HEADER'
@@ -30,6 +33,8 @@ $config = new class extends PrestaShop\CodingStandards\CsFixer\Config {
 
                     @see https://github.com/sendynl/prestashop-module
                     HEADER,
+                'location' => 'after_open',
+                'separate' => 'none',
             ],
             'trailing_comma_in_multiline' => [
                 // Only target arrays, as trailing commas in function calls are not supported in PHP 7.4.

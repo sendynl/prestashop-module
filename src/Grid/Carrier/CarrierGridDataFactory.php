@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,14 +8,18 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Grid\Carrier;
 
-use Db;
 use PrestaShop\PrestaShop\Core\Grid\Data\Factory\GridDataFactoryInterface;
 use PrestaShop\PrestaShop\Core\Grid\Data\GridData;
 use PrestaShop\PrestaShop\Core\Grid\Record\RecordCollection;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CarrierGridDataFactory implements GridDataFactoryInterface
 {
@@ -32,7 +33,7 @@ class CarrierGridDataFactory implements GridDataFactoryInterface
             WHERE c.active = 1 AND c.external_module_name = 'sendy' AND c.deleted = 0
             ORDER BY c.name ASC
             SQL;
-        $rows = Db::getInstance()->executeS($query);
+        $rows = \Db::getInstance()->executeS($query);
 
         return new GridData(new RecordCollection($rows), count($rows), $query);
     }

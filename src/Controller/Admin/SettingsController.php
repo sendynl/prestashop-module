@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,12 +8,12 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-use PrestaShopLogger;
 use Sendy\Api\Exceptions\HttpException;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\SynchronizeCarriers;
@@ -30,6 +27,10 @@ use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class SettingsController extends FrameworkBundleAdminController
 {
@@ -85,9 +86,9 @@ class SettingsController extends FrameworkBundleAdminController
                         ));
 
                         if ($e instanceof HttpException) {
-                            PrestaShopLogger::addLog(
+                            \PrestaShopLogger::addLog(
                                 "Sendy - Processing method change failed: {$e->getMessage()} - {$e->getRequest()->getBody()}",
-                                PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR,
+                                \PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR,
                                 $e->getCode(),
                             );
                         }

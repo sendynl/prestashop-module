@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,13 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Legacy;
 
-use Db;
-use ObjectModel;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-class SendyPackage extends ObjectModel
+class SendyPackage extends \ObjectModel
 {
     public $id_sendy_package;
     public $id_sendy_shipment;
@@ -48,7 +47,7 @@ class SendyPackage extends ObjectModel
 
     public static function uuidExists(string $uuid): bool
     {
-        return (bool) Db::getInstance()->getValue(
+        return (bool) \Db::getInstance()->getValue(
             'select 1 from `' . _DB_PREFIX_ . "sendy_package` where `id_sendy_package` = '" . pSQL($uuid) . "'"
         );
     }
@@ -65,13 +64,13 @@ class SendyPackage extends ObjectModel
         string $trackingUrl
     ): void {
         if (self::uuidExists($packageId)) {
-            Db::getInstance()->update('sendy_package', [
+            \Db::getInstance()->update('sendy_package', [
                 'id_sendy_shipment' => pSQL($shipmentId),
                 'tracking_number' => pSQL($packageNumber),
                 'tracking_url' => pSQL($trackingUrl),
             ], '`id_sendy_package` = \'' . pSQL($packageId) . '\'');
         } else {
-            Db::getInstance()->insert('sendy_package', [
+            \Db::getInstance()->insert('sendy_package', [
                 'id_sendy_package' => pSQL($packageId),
                 'id_sendy_shipment' => pSQL($shipmentId),
                 'tracking_number' => pSQL($packageNumber),
@@ -85,6 +84,6 @@ class SendyPackage extends ObjectModel
      */
     public static function deleteByShipmentId(string $shipmentId): void
     {
-        Db::getInstance()->delete('sendy_package', '`id_sendy_shipment` = \'' . pSQL($shipmentId) . '\'');
+        \Db::getInstance()->delete('sendy_package', '`id_sendy_shipment` = \'' . pSQL($shipmentId) . '\'');
     }
 }

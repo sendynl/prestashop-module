@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,10 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * @ORM\Entity

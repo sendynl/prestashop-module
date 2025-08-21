@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,11 +8,16 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Install or uninstall the webhook based on the current processing method.

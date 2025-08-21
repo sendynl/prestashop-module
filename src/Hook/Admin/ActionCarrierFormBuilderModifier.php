@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
@@ -18,8 +16,14 @@ use Carrier;
 use Sendy\PrestaShop\Form\Carrier\CarrierForm;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Modifies the carrier form to add a 'Sendy' tab with configuration fields.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionformnameformbuildermodifier/
  */
 final class ActionCarrierFormBuilderModifier
 {
@@ -38,9 +42,9 @@ final class ActionCarrierFormBuilderModifier
      *     id: ?int,
      * } $params
      */
-    public function __invoke($params)
+    public function __invoke($params): void
     {
-        $carrier = new Carrier($params['id']);
+        $carrier = new \Carrier($params['id']);
 
         // Only display the Sendy tab if the carrier belongs to the Sendy module
         if ($carrier->external_module_name !== 'sendy') {

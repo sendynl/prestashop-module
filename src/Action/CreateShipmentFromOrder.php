@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,16 +8,10 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
-use Address;
-use Carrier;
-use Country;
-use DateTime;
-use Language;
-use Order;
-use Product;
 use Sendy\Api\Connection;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Exception\TokensMissingException;
@@ -28,6 +19,10 @@ use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Addr;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CreateShipmentFromOrder
 {
@@ -47,13 +42,13 @@ class CreateShipmentFromOrder
      *
      * @throws SendyException|TokensMissingException
      */
-    public function execute(Order $order, string $sendyShopId, ?string $preferenceId = null, int $amount = 1): array
+    public function execute(\Order $order, string $sendyShopId, ?string $preferenceId = null, int $amount = 1): array
     {
         $this->sendy ??= $this->apiConnectionFactory->buildConnectionUsingTokens();
 
-        $address = new Address((int) $order->id_address_delivery);
+        $address = new \Address((int) $order->id_address_delivery);
         $parsedAddress = Addr::parseAddress($address->address1);
-        $carrier = new Carrier((int) $order->id_carrier);
+        $carrier = new \Carrier((int) $order->id_carrier);
 
         $data = [
             'shop_id' => $sendyShopId,
@@ -69,8 +64,8 @@ class CreateShipmentFromOrder
             'email' => $order->getCustomer()->email,
             'reference' => $order->reference,
             'amount' => $amount,
-            'order_date' => (new DateTime($order->date_add))->format(DATE_RFC3339),
-            'country' => Country::getIsoById((int) $address->id_country),
+            'order_date' => (new \DateTime($order->date_add))->format(DATE_RFC3339),
+            'country' => \Country::getIsoById((int) $address->id_country),
             'options' => [],
             'shippingMethodId' => $carrier->id_reference,
         ];
@@ -96,9 +91,19 @@ class CreateShipmentFromOrder
         }
     }
 
-    private function formatProducts(Order $order): array
+    /**
+     * @return list<array{
+     *     description: string,
+     *     quantity: int,
+     *     sku: string,
+     *     unit_price: float|string,
+     *     unit_weight: float|string,
+     *     description_en?: string
+     * }>
+     */
+    private function formatProducts(\Order $order): array
     {
-        $english = Language::getIdByIso('en');
+        $english = \Language::getIdByIso('en');
 
         return array_map(function ($product) use ($english) {
             $data = [
@@ -109,7 +114,7 @@ class CreateShipmentFromOrder
                 'unit_weight' => $product['weight'],
             ];
 
-            $englishProduct = new Product((int) $product['id_product'], false, $english);
+            $englishProduct = new \Product((int) $product['id_product'], false, $english);
             if (is_string($englishProduct->name) && trim($englishProduct->name) !== '') {
                 $data['description_en'] = $englishProduct->name;
             }

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,12 +8,11 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook;
 
 use Order;
-use PrestaShopLogger;
-use PrestaShopLoggerCore;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
@@ -24,10 +20,16 @@ use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Legacy\SendyShipment;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Creates a shipment in Sendy when an order reaches the processable status.
  *
  * This hook can be triggered from both the back office and front office.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionorderstatuspostupdate/
  */
 final class ActionOrderStatusPostUpdate
 {
@@ -49,11 +51,11 @@ final class ActionOrderStatusPostUpdate
      *     id_order: int,
      * } $params
      */
-    public function __invoke(array $params)
+    public function __invoke(array $params): void
     {
-        PrestaShopLogger::addLog('Sendy - ActionOrderStatusPostUpdate hook class - ' . print_r($params, true));
+        \PrestaShopLogger::addLog('Sendy - ActionOrderStatusPostUpdate hook class - ' . print_r($params, true));
 
-        $order = new Order((int) $params['id_order']);
+        $order = new \Order((int) $params['id_order']);
 
         // Only proceed if the processing method is Sendy
         if ($this->shopConfigurationRepository->getProcessingMethod((int) $order->id_shop) !== ProcessingMethod::Sendy) {
@@ -82,11 +84,11 @@ final class ActionOrderStatusPostUpdate
             $shipment->id_order = (int) $params['id_order'];
             $shipment->save();
         } catch (SendyException|TokensMissingException $e) {
-            PrestaShopLogger::addLog(
+            \PrestaShopLogger::addLog(
                 'Sendy - Error creating shipment: ' . $e->getMessage(),
-                PrestaShopLoggerCore::LOG_SEVERITY_LEVEL_ERROR,
+                \PrestaShopLoggerCore::LOG_SEVERITY_LEVEL_ERROR,
                 $e->getCode(),
-                Order::class,
+                \Order::class,
                 (int) $params['id_order']
             );
         }

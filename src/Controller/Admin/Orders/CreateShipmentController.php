@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,12 +8,11 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin\Orders;
 
-use Order;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-use PrestaShopLogger;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Exception\TokensMissingException;
@@ -26,6 +22,10 @@ use Sendy\PrestaShop\Support\Str;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CreateShipmentController extends FrameworkBundleAdminController
 {
@@ -49,13 +49,13 @@ class CreateShipmentController extends FrameworkBundleAdminController
 
     public function __invoke(Request $request): Response
     {
-        PrestaShopLogger::addLog('Sendy - CreateShipmentController');
+        \PrestaShopLogger::addLog('Sendy - CreateShipmentController');
 
         $formData = $request->get('form');
 
         try {
             foreach ($formData['order_ids'] as $orderId) {
-                $order = new Order((int) $orderId);
+                $order = new \Order((int) $orderId);
 
                 if ($this->shipmentRepository->findShipmentByOrderId((int) $orderId)) {
                     $this->addFlash('warning', $this->trans('Shipment already exists for order %order%.', 'Modules.Sendy.Admin', [
@@ -69,7 +69,7 @@ class CreateShipmentController extends FrameworkBundleAdminController
                     $order,
                     $formData['shop_id'],
                     $formData['preference_id'],
-                    (int) $formData['amount'] ?? 1
+                    (int) ($formData['amount'] ?? 1)
                 );
 
                 $this->shipmentRepository->addShipmentToOrder($order->id, $result['uuid']);

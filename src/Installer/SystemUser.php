@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,14 +8,13 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Installer;
 
-use Configuration;
-use Db;
-use Employee;
-use PrestaShopLogger;
-use Tools;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Installs the system user that is needed when the webhook creates database records that need an employee ID, e.g. when
@@ -28,41 +24,41 @@ class SystemUser
 {
     public static function install(): bool
     {
-        PrestaShopLogger::addLog('Sendy - Installing system user');
+        \PrestaShopLogger::addLog('Sendy - Installing system user');
 
-        $employee = new Employee();
+        $employee = new \Employee();
 
-        if (Employee::employeeExists('prestashop-automation-user@sendy.nl')) {
+        if (\Employee::employeeExists('prestashop-automation-user@sendy.nl')) {
             $employee->getByEmail('prestashop-automation-user@sendy.nl', null, false);
         }
 
         $employee->firstname = 'Sendy';
         $employee->lastname = 'Automation';
         $employee->email = 'prestashop-automation-user@sendy.nl';
-        $employee->setWsPasswd(Tools::passwdGen(40));
-        $employee->active = 0;
-        $employee->id_profile = (int) Db::getInstance()
+        $employee->setWsPasswd(\Tools::passwdGen(40));
+        $employee->active = false;
+        $employee->id_profile = (int) \Db::getInstance()
             ->getValue('SELECT id_profile FROM ' . _DB_PREFIX_ . 'profile ORDER BY id_profile ASC');
-        $employee->id_lang = (int) Configuration::get('PS_LANG_DEFAULT');
+        $employee->id_lang = (int) \Configuration::get('PS_LANG_DEFAULT');
 
         $employee->save();
 
-        Configuration::updateGlobalValue('SENDY_SYSTEM_USER_ID', $employee->id);
+        \Configuration::updateGlobalValue('SENDY_SYSTEM_USER_ID', $employee->id);
 
-        PrestaShopLogger::addLog("Sendy - Installed system user {$employee->id}");
+        \PrestaShopLogger::addLog("Sendy - Installed system user {$employee->id}");
 
         return true;
     }
 
     public static function exists(): bool
     {
-        $id = Configuration::get('SENDY_SYSTEM_USER_ID');
+        $id = \Configuration::get('SENDY_SYSTEM_USER_ID');
 
         if (!$id) {
             return false;
         }
 
-        $employee = new Employee($id);
+        $employee = new \Employee((int) $id);
 
         return (bool) $employee->id;
     }
@@ -78,16 +74,16 @@ class SystemUser
 
     public static function uninstall(): bool
     {
-        $id = Configuration::get('SENDY_SYSTEM_USER_ID');
+        $id = \Configuration::get('SENDY_SYSTEM_USER_ID');
 
         if (!$id) {
             return true;
         }
 
-        $employee = new Employee($id);
+        $employee = new \Employee((int) $id);
         $employee->delete();
 
-        Configuration::deleteByName('SENDY_SYSTEM_USER_ID');
+        \Configuration::deleteByName('SENDY_SYSTEM_USER_ID');
 
         return true;
     }

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 use Sendy\PrestaShop\Action\HandleShipmentWebhook;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
@@ -19,6 +17,10 @@ use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
 use Sendy\PrestaShop\Legacy\SendyShipment;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl

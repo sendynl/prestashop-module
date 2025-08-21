@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,10 +8,10 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
-use Context;
 use PrestaShop\PrestaShop\Adapter\Shop\Context as ShopContext;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
@@ -22,11 +19,14 @@ use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
-use Shop;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class AuthController extends FrameworkBundleAdminController
 {
@@ -52,7 +52,7 @@ class AuthController extends FrameworkBundleAdminController
 
     public function login(Request $request): Response
     {
-        if (Shop::isFeatureActive() && !$this->shopContext->isAllShopContext()) {
+        if (\Shop::isFeatureActive() && !$this->shopContext->isAllShopContext()) {
             $this->addFlash('error', $this->trans("You can only log in to Sendy from the 'All stores' context.", 'Modules.Sendy.Admin'));
 
             return new RedirectResponse($this->router->generate('sendy_settings'));
@@ -64,7 +64,7 @@ class AuthController extends FrameworkBundleAdminController
             'client_id' => $this->configurationRepository->ensureClientId(),
             'client_secret' => $this->configurationRepository->ensureClientSecret(),
             'redirect_uri' => $this->apiConnectionFactory->getRedirectUrl(),
-            'name' => Context::getContext()->shop->name,
+            'name' => \Context::getContext()->shop->name,
             'type' => 'prestashop',
             'state' => $state,
         ]));

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -125,34 +123,19 @@ class Sendy extends CarrierModule
         return false;
     }
 
-    public function isUsingNewTranslationSystem()
+    public function isUsingNewTranslationSystem(): bool
     {
         return true;
     }
 
-    public function hookActionAdminControllerSetMedia()
+    public function hookActionAdminControllerSetMedia(): void
     {
         $this->get(Hook\Admin\ActionAdminControllerSetMedia::class)($this);
     }
 
-    public function hookActionFrontControllerSetMedia()
+    public function hookActionFrontControllerSetMedia(): void
     {
         (new Hook\Front\ActionFrontControllerSetMedia())($this);
-    }
-
-    public function hookActionCarrierProcess($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - ActionCarrierProcess hook - ' . print_r($params, true));
-    }
-
-    public function hookActionCarrierUpdate($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - ActionCarrierUpdate hook - ' . print_r($params, true));
-    }
-
-    public function hookActionObjectOrderAddAfter($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - ActionObjectOrderAddAfter hook - ' . print_r($params, true));
     }
 
     public function hookActionOrderStatusPostUpdate($params): void
@@ -165,39 +148,14 @@ class Sendy extends CarrierModule
         (new Hook\ActionOrderStatusPostUpdate($createShipmentFromOrder, $shopConfigurationRepository))($params);
     }
 
-    public function hookActionOrderStatusUpdate($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - ActionOrderStatusUpdate hook - ' . print_r($params, true));
-    }
-
-    public function hookActionValidateOrder($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - ActionValidateOrder hook - ' . print_r($params, true));
-    }
-
     public function hookActionValidateStepComplete($params): void
     {
         (new Hook\Front\ActionValidateStepComplete())($params);
     }
 
-    public function hookDisplayBeforeCarrier($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - DisplayBeforeCarrier hook - ' . print_r($params, true));
-    }
-
     public function hookDisplayCarrierExtraContent($params): string
     {
         return (new Hook\Front\DisplayCarrierExtraContent())($params);
-    }
-
-    public function hookDisplayCarrierList($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - DisplayCarrierList hook - ' . print_r($params, true));
-    }
-
-    public function hookDisplayOrderConfirmation($params): void
-    {
-        PrestaShopLogger::addLog('Sendy - DisplayOrderConfirmation hook - ' . print_r($params, true));
     }
 
     public function hookActionOrderGridDefinitionModifier(array $params): void

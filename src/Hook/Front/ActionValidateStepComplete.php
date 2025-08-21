@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,16 +8,21 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Front;
 
-use Carrier;
-use Context;
 use Sendy\PrestaShop\Legacy\SendyCarrierConfig;
 use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Validates whether a parcel shop has been selected in the delivery step.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionvalidatestepcomplete/
  */
 final class ActionValidateStepComplete
 {
@@ -40,7 +42,7 @@ final class ActionValidateStepComplete
             return;
         }
 
-        $carrier = new Carrier($params['cart']->id_carrier);
+        $carrier = new \Carrier($params['cart']->id_carrier);
 
         $carrierConfig = SendyCarrierConfig::getByReferenceId((int) $carrier->id_reference);
 
@@ -52,7 +54,7 @@ final class ActionValidateStepComplete
 
         if ($cartParcelShop === null || $cartParcelShop->id_reference !== $carrier->id_reference) {
             $params['completed'] = false;
-            Context::getContext()->controller->errors[] = Context::getContext()->getTranslator()->trans(
+            \Context::getContext()->controller->errors[] = \Context::getContext()->getTranslator()->trans(
                 'This shipping method requires a parcel shop to be selected.',
                 [],
                 'Modules.Sendy.Front'

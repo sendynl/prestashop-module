@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,17 +8,21 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
-use Context;
-use Media;
-use Sendy;
 use Sendy\PrestaShop\Action\RunScheduledTasks;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Registers the JavaScript file for the back office.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionadmincontrollersetmedia/
  */
 final class ActionAdminControllerSetMedia
 {
@@ -34,14 +35,14 @@ final class ActionAdminControllerSetMedia
         $this->runScheduledTasks = $runScheduledTasks;
     }
 
-    public function __invoke(Sendy $module)
+    public function __invoke(\Sendy $module): void
     {
-        $controller = Context::getContext()->controller;
+        $controller = \Context::getContext()->controller;
 
         if ($controller->php_self === 'AdminOrders') {
             $controller->addJS($module->getPathUri() . 'views/js/admin/orders.js');
 
-            Media::addJsDef([
+            \Media::addJsDef([
                 'sendyRoutes' => [
                     'sendy_orders_print_label' => $this->router->generate('sendy_orders_print_label'),
                 ],

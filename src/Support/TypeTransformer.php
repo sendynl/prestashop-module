@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,13 +8,19 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Support;
 
-use InvalidArgumentException;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class TypeTransformer
 {
+    /**
+     * @param mixed $value
+     */
     public static function toNullableInt($value): ?int
     {
         if ($value === null || trim($value) === '') {
@@ -28,6 +31,6 @@ class TypeTransformer
             return (int) $value;
         }
 
-        throw new InvalidArgumentException(sprintf('Expected a numeric value, got %s', gettype($value)));
+        throw new \InvalidArgumentException(sprintf('Expected a numeric value, got %s', gettype($value)));
     }
 }

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,14 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Legacy;
 
-use Db;
-use ObjectModel;
-use PrestaShopException;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-class SendyShipment extends ObjectModel
+class SendyShipment extends \ObjectModel
 {
     public $id_sendy_shipment;
 
@@ -34,11 +32,11 @@ class SendyShipment extends ObjectModel
     ];
 
     /**
-     * @throws PrestaShopException
+     * @throws \PrestaShopException
      */
     public static function existsForOrderId(int $orderId): bool
     {
-        return (bool) Db::getInstance()->getValue(
+        return (bool) \Db::getInstance()->getValue(
             'SELECT 1 FROM `' . _DB_PREFIX_ . 'sendy_shipment` WHERE `id_order` = ' . $orderId
         );
     }
@@ -56,7 +54,7 @@ class SendyShipment extends ObjectModel
 
     public static function deleteByUuid(string $id_sendy_shipment): void
     {
-        Db::getInstance()->delete(
+        \Db::getInstance()->delete(
             'sendy_shipment',
             '`id_sendy_shipment` = \'' . pSQL($id_sendy_shipment) . '\''
         );

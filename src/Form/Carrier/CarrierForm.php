@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Form\Carrier;
 
@@ -18,6 +16,10 @@ use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Sendy\PrestaShop\Enum\Carrier;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CarrierForm extends TranslatorAwareType
 {

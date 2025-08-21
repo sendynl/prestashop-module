@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,12 +8,17 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint;
 use Sendy\PrestaShop\Support\Str;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * This repository handles global configuration like OAuth data and UI preferences.
@@ -117,7 +119,7 @@ class ConfigurationRepository
         $this->configuration->set('SENDY_DISPLAY_TRACK_AND_TRACE_COLUMN', $displayTrackAndTraceColumn, ShopConstraint::allShops());
     }
 
-    public function setWebhookId(?string $id)
+    public function setWebhookId(?string $id): void
     {
         $this->configuration->set('SENDY_WEBHOOK_ID', $id, ShopConstraint::allShops());
     }

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
@@ -24,8 +22,14 @@ use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Displays the Sendy card on the side of the order page in the admin panel.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/displayadminorderside/
  */
 final class DisplayAdminOrderSide
 {
@@ -71,7 +75,7 @@ final class DisplayAdminOrderSide
         }
 
         $shipment = $this->shipmentRepository->findShipmentByOrderId($params['id_order']);
-        $order = new Order($params['id_order']);
+        $order = new \Order($params['id_order']);
         $packages = [];
 
         if ($shipment) {
@@ -89,8 +93,8 @@ final class DisplayAdminOrderSide
             'shipment' => $shipment,
             'packages' => $packages,
             'createShipmentFormView' => $form->createView(),
-            'editShipmentUrl' => Sendy::EDIT_SHIPMENT_URL,
-            'viewPackageUrl' => Sendy::VIEW_PACKAGE_URL,
+            'editShipmentUrl' => \Sendy::EDIT_SHIPMENT_URL,
+            'viewPackageUrl' => \Sendy::VIEW_PACKAGE_URL,
         ]);
     }
 }

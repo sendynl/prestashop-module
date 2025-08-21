@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,15 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Legacy;
 
-use Carrier;
-use Db;
-use ObjectModel;
-use Order;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
-class SendyCartParcelShop extends ObjectModel
+class SendyCartParcelShop extends \ObjectModel
 {
     public $id_cart;
     public $id_reference;
@@ -50,7 +47,7 @@ class SendyCartParcelShop extends ObjectModel
     {
         $prefix = _DB_PREFIX_;
         $sql = "SELECT id_sendy_cart_parcel_shop FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
-        $id = Db::getInstance()->getValue($sql);
+        $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {
             $parcelShop = new self($id);
@@ -65,7 +62,7 @@ class SendyCartParcelShop extends ObjectModel
     {
         $prefix = _DB_PREFIX_;
         $sql = "SELECT id_sendy_cart_parcel_shop FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart} AND `id_reference` = {$id_reference}";
-        $id = Db::getInstance()->getValue($sql);
+        $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {
             $parcelShop = new self($id);
@@ -76,13 +73,13 @@ class SendyCartParcelShop extends ObjectModel
         return null;
     }
 
-    public static function getForOrder(Order $order): ?SendyCartParcelShop
+    public static function getForOrder(\Order $order): ?SendyCartParcelShop
     {
         if (!$order->id_cart) {
             return null;
         }
 
-        $carrier = new Carrier((int) $order->id_carrier);
+        $carrier = new \Carrier((int) $order->id_carrier);
 
         return self::getByCartIdAndCarrierReferenceId((int) $order->id_cart, (int) $carrier->id_reference);
     }

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Form\Settings;
 
@@ -21,6 +19,10 @@ use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class AuthenticateForm extends TranslatorAwareType
 {
@@ -38,6 +40,9 @@ class AuthenticateForm extends TranslatorAwareType
         $this->apiConnectionFactory = $apiConnectionFactory;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         try {

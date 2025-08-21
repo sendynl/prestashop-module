@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Form\Settings;
 
@@ -21,6 +19,10 @@ use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\TypeTransformer;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Manages storage and retrieval of the settings for the Sendy module.
  *
@@ -30,7 +32,9 @@ use Sendy\PrestaShop\Support\TypeTransformer;
  *      sendy_default_shop: string|null,
  *      sendy_import_products: bool,
  *      sendy_import_weight: bool,
- *      sendy_mark_order_as_completed: string
+ *      sendy_status_generated: int|null,
+ *      sendy_status_printed: int|null,
+ *      sendy_status_delivered: int|null
  *  }
  */
 class SettingsDataManager implements DataConfigurationInterface, FormDataProviderInterface
@@ -106,6 +110,9 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
         return empty($this->getValidationErrors($configuration));
     }
 
+    /**
+     * @return SendySettingsData
+     */
     public function getData()
     {
         return $this->getConfiguration();
@@ -124,7 +131,7 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
     /**
      * @param array<string, mixed> $configuration
      *
-     * @return ($configuration is SendySettingsData ? [] : list<string>)
+     * @return ($configuration is SendySettingsData ? array{} : list<string>)
      */
     private function getValidationErrors($configuration): array
     {

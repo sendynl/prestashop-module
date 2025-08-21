@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin\Orders;
 
@@ -18,6 +16,10 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class ColumnsController extends FrameworkBundleAdminController
 {

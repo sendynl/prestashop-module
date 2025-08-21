@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,22 +8,24 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Installer;
 
-use PrestaShopLogger;
-use Sendy;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class Hooks
 {
     /**
      * Registers all hooks defined as methods in the main module class.
      *
-     * @param Sendy $module the Sendy module instance
+     * @param \Sendy $module the Sendy module instance
      */
-    public static function install(Sendy $module): bool
+    public static function install(\Sendy $module): bool
     {
-        PrestaShopLogger::addLog('Sendy - Installing hooks');
+        \PrestaShopLogger::addLog('Sendy - Installing hooks');
 
         foreach (get_class_methods($module) as $method) {
             if (substr($method, 0, 4) !== 'hook') {
@@ -38,7 +37,7 @@ class Hooks
             }
         }
 
-        PrestaShopLogger::addLog('Sendy - Installed hooks');
+        \PrestaShopLogger::addLog('Sendy - Installed hooks');
 
         return true;
     }

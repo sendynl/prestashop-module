@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,10 +8,10 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
-use Carrier;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\PrestaShop\Enum\Carrier as CarrierEnum;
 use Sendy\PrestaShop\Repository\CarrierConfigRepository;
@@ -22,7 +19,10 @@ use Sendy\PrestaShop\Repository\CarrierRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CarrierController extends FrameworkBundleAdminController
 {
@@ -52,7 +52,7 @@ class CarrierController extends FrameworkBundleAdminController
             );
 
             $this->carrierConfigRepository->saveSettings($id, true, $carrierType);
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             $this->addFlash('error', $this->trans('Failed to create carrier.', 'Modules.Sendy.Admin'));
 
             return new RedirectResponse($this->generateUrl('sendy_settings'));
@@ -63,7 +63,7 @@ class CarrierController extends FrameworkBundleAdminController
 
     public function updateParcelShopCarrier(Request $request, int $carrierId): Response
     {
-        $carrier = new Carrier($carrierId);
+        $carrier = new \Carrier($carrierId);
 
         $this->carrierConfigRepository->saveSettings((int) $carrier->id_reference, true, $request->get('value'));
 

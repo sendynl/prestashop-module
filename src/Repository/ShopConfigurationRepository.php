@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,15 +8,19 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
 use Configuration;
-use InvalidArgumentException;
 use PrestaShop\PrestaShop\Adapter\Shop\Context;
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * This repository handles configuration that can be specific to a shop when multistore is enabled.
@@ -47,7 +48,7 @@ class ShopConfigurationRepository
     public function setProcessingMethod(string $processingMethod): void
     {
         if (!in_array($processingMethod, ProcessingMethod::values(), true)) {
-            throw new InvalidArgumentException(sprintf('Invalid processing method: %s', $processingMethod));
+            throw new \InvalidArgumentException(sprintf('Invalid processing method: %s', $processingMethod));
         }
 
         $this->configuration->set('SENDY_PROCESSING_METHOD', $processingMethod, $this->getShopConstraint());
@@ -55,7 +56,7 @@ class ShopConfigurationRepository
 
     public function anyShopsUsingSendyProcessingMethod(): bool
     {
-        $shops = Configuration::getMultiShopValues('SENDY_PROCESSING_METHOD');
+        $shops = \Configuration::getMultiShopValues('SENDY_PROCESSING_METHOD');
         foreach ($shops as $shopId => $processingMethod) {
             if ($processingMethod === ProcessingMethod::Sendy) {
                 return true;

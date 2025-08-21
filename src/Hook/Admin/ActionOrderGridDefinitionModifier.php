@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,6 +8,7 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Admin;
 
@@ -22,8 +20,14 @@ use PrestaShopBundle\Translation\TranslatorInterface;
 use Sendy\PrestaShop\Grid\TrackAndTraceColumn;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 /**
  * Modifies the order grid definition to add Sendy-specific actions and columns.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionordergriddefinitionmodifier/
  */
 final class ActionOrderGridDefinitionModifier
 {
@@ -36,7 +40,12 @@ final class ActionOrderGridDefinitionModifier
         $this->configurationRepository = $configurationRepository;
     }
 
-    public function __invoke(array $params)
+    /**
+     * @param array{
+     *     definition: GridDefinitionInterface,
+     * } $params
+     */
+    public function __invoke(array $params): void
     {
         /** @var GridDefinitionInterface $definition */
         $definition = $params['definition'];

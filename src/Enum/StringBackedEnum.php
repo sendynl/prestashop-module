@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,13 +8,16 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Enum;
 
-use InvalidArgumentException;
 use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 use PrestaShop\PrestaShop\Core\Util\String\StringModifier;
-use ReflectionClass;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 abstract class StringBackedEnum
 {
@@ -26,7 +26,7 @@ abstract class StringBackedEnum
      */
     public static function values(): array
     {
-        $reflection = new ReflectionClass(static::class);
+        $reflection = new \ReflectionClass(static::class);
 
         return array_values($reflection->getConstants());
     }
@@ -36,7 +36,7 @@ abstract class StringBackedEnum
      */
     public static function choices(): array
     {
-        $constants = (new ReflectionClass(static::class))->getConstants();
+        $constants = (new \ReflectionClass(static::class))->getConstants();
         $choices = [];
 
         foreach ($constants as $value) {
@@ -48,7 +48,7 @@ abstract class StringBackedEnum
 
     public static function getDescription(string $value): string
     {
-        $reflection = new ReflectionClass(static::class);
+        $reflection = new \ReflectionClass(static::class);
         $constants = $reflection->getConstants();
 
         foreach ($constants as $name => $constantValue) {
@@ -64,6 +64,6 @@ abstract class StringBackedEnum
             }
         }
 
-        throw new InvalidArgumentException(sprintf('Value "%s" is not a valid constant of %s', $value, static::class));
+        throw new \InvalidArgumentException(sprintf('Value "%s" is not a valid constant of %s', $value, static::class));
     }
 }

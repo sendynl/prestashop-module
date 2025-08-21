@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,15 +8,19 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
-use Context;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Arr;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class InstallWebhook
 {
@@ -48,7 +49,7 @@ class InstallWebhook
 
         $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
         $currentWebhookId = $this->configurationRepository->getWebhookId();
-        $url = Context::getContext()->link->getModuleLink('sendy', 'webhook');
+        $url = \Context::getContext()->link->getModuleLink('sendy', 'webhook');
 
         $payload = [
             'url' => $url,

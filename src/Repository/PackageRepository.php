@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,10 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
 use Sendy\PrestaShop\Entity\SendyPackage;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * @extends AbstractEntityRepository<SendyPackage>
@@ -41,7 +43,7 @@ class PackageRepository extends AbstractEntityRepository
 
         if ($existingPackage) {
             $existingPackage->setShipmentId($shipmentId);
-            $existingPackage->setPackageNumber($packageNumber);
+            $existingPackage->setTrackingNumber($packageNumber);
             $existingPackage->setTrackingUrl($trackingUrl);
             $this->save($existingPackage);
         } else {

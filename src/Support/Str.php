@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,8 +8,13 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Support;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class Str
 {
@@ -44,6 +46,15 @@ class Str
         return $string;
     }
 
+    /**
+     * @param mixed $haystack
+     * @param mixed $needle
+     *
+     * @return bool
+     *
+     * @phpstan-assert-if-true string $haystack
+     * @phpstan-assert-if-true string $needle
+     */
     public static function startsWith($haystack, $needle): bool
     {
         if (is_string($haystack) && is_string($needle)) {

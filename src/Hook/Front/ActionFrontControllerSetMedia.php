@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,20 +8,24 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Front;
 
-use Context;
-use Sendy;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Registers the JavaScript file for the front office.
+ *
+ * @see https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/actionfrontcontrollersetmedia/
  */
 final class ActionFrontControllerSetMedia
 {
-    public function __invoke(Sendy $module)
+    public function __invoke(\Sendy $module): void
     {
-        $controller = Context::getContext()->controller;
+        $controller = \Context::getContext()->controller;
 
         if ($controller->php_self === 'order') {
             $controller->registerJavascript('sendy_checkout', 'modules/sendy/views/js/front/checkout.js');

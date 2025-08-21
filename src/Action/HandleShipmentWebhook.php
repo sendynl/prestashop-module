@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,10 +8,10 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
-use Order;
 use PrestaShop\PrestaShop\Adapter\Shop\Context;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
@@ -23,6 +20,10 @@ use Sendy\PrestaShop\Legacy\SendyPackage;
 use Sendy\PrestaShop\Legacy\SendyShipment;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class HandleShipmentWebhook
 {
@@ -42,7 +43,7 @@ class HandleShipmentWebhook
 
     public function execute(SendyShipment $shipment, string $event): void
     {
-        $order = new Order((int) $shipment->id_order);
+        $order = new \Order((int) $shipment->id_order);
 
         if (!$order->id) {
             $this->deleteShipment($shipment);
@@ -51,7 +52,7 @@ class HandleShipmentWebhook
         }
 
         // Only handle events if the processing method is set to Sendy for this shop
-        $this->shopContext->setShopContext($order->id_shop);
+        $this->shopContext->setShopContext((int) $order->id_shop);
         $processingMethod = $this->shopConfigurationRepository->getProcessingMethod();
 
         if ($processingMethod !== ProcessingMethod::Sendy) {
@@ -83,7 +84,10 @@ class HandleShipmentWebhook
         }
     }
 
-    private function handleGenerated(SendyShipment $shipment, Order $order, array $shipmentData): void
+    /**
+     * @param array<string, mixed> $shipmentData
+     */
+    private function handleGenerated(SendyShipment $shipment, \Order $order, array $shipmentData): void
     {
         foreach ($shipmentData['packages'] as $package) {
             SendyPackage::addPackageToShipment(
@@ -99,13 +103,13 @@ class HandleShipmentWebhook
         }
     }
 
-    private function deleteShipment(SendyShipment $shipment)
+    private function deleteShipment(SendyShipment $shipment): void
     {
         SendyPackage::deleteByShipmentId($shipment->id_sendy_shipment);
         SendyShipment::deleteByUuid($shipment->id_sendy_shipment);
     }
 
-    private function handleDelivered(SendyShipment $shipment, Order $order): void
+    private function handleDelivered(SendyShipment $shipment, \Order $order): void
     {
         if ($status = $this->shopConfigurationRepository->getStatusDelivered()) {
             $order->setCurrentState($status);

@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of the Sendy PrestaShop module - https://sendy.nl
  *
@@ -11,12 +8,15 @@ declare(strict_types=1);
  *
  * @see https://github.com/sendynl/prestashop-module
  */
+declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
-use PrestaShopLogger;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
-use Throwable;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class RunScheduledTasks
 {
@@ -48,8 +48,8 @@ class RunScheduledTasks
         try {
             $this->synchronizeWebhook->execute();
             $this->synchronizeCarriers->execute();
-        } catch (Throwable $e) {
-            PrestaShopLogger::addLog('Sendy - RunScheduledTasks - Error: ' . $e->getMessage(), PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR);
+        } catch (\Throwable $e) {
+            \PrestaShopLogger::addLog('Sendy - RunScheduledTasks - Error: ' . $e->getMessage(), \PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR);
         }
     }
 }

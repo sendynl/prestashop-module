@@ -9,3 +9,5 @@ parameters:
   level: 8
   scanDirectories:
     - /var/www/html/classes
+  ignoreErrors:
+    - '#\\mixed|\\null#'

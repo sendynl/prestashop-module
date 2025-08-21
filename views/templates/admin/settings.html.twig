@@ -48,10 +48,10 @@
         {% embed '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': carrierGrid} %}
             {% block grid_actions_block %}
                 <div class="d-inline-block float-right">
-                    <a href="{{ path('admin_carriers_index') }}" class="btn btn-outline-secondary">
+                    <a href="{{ path('admin_carriers_index') }}" class="btn btn-sm btn-outline-secondary">
                         {{ 'View all carriers'|trans({}, 'Modules.Sendy.Admin') }}
                     </a>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#sendyCreateCarrierModal">
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendyCreateCarrierModal">
                         <i class="material-icons">add_circle_outline</i>
                         {{ 'Add new carrier'|trans({}, 'Admin.Shipping.Feature') }}
                     </button>

@@ -52,10 +52,3 @@ sendy_orders_toggle_track_and_trace_column:
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController::toggleTrackAndTraceColumn'
-
-sendy_webhook:
-  path: /sendy/webhook
-  methods: [POST]
-  defaults:
-    _controller: 'Sendy\PrestaShop\Controller\Admin\WebhookController::__invoke'
-    _anonymous_controller: true

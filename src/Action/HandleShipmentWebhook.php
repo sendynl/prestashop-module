@@ -16,31 +16,25 @@ namespace Sendy\PrestaShop\Action;
 
 use Order;
 use PrestaShop\PrestaShop\Adapter\Shop\Context;
-use Sendy\PrestaShop\Entity\SendyShipment;
+use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
-use Sendy\PrestaShop\Repository\PackageRepository;
-use Sendy\PrestaShop\Repository\ShipmentRepository;
+use Sendy\PrestaShop\Legacy\SendyPackage;
+use Sendy\PrestaShop\Legacy\SendyShipment;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
 
 class HandleShipmentWebhook
 {
-    private ShipmentRepository $shipmentRepository;
-    private PackageRepository $packageRepository;
     private ShopConfigurationRepository $shopConfigurationRepository;
     private ApiConnectionFactory $apiConnectionFactory;
     private Context $shopContext;
 
     public function __construct(
-        ShipmentRepository $shipmentRepository,
-        PackageRepository $packageRepository,
         ShopConfigurationRepository $shopConfigurationRepository,
         ApiConnectionFactory $apiConnectionFactory,
         Context $shopContext
     ) {
-        $this->shipmentRepository = $shipmentRepository;
-        $this->packageRepository = $packageRepository;
         $this->shopConfigurationRepository = $shopConfigurationRepository;
         $this->apiConnectionFactory = $apiConnectionFactory;
         $this->shopContext = $shopContext;
@@ -48,7 +42,7 @@ class HandleShipmentWebhook
 
     public function execute(SendyShipment $shipment, string $event): void
     {
-        $order = new Order($shipment->getOrderId());
+        $order = new Order((int) $shipment->id_order);
 
         if (!$order->id) {
             $this->deleteShipment($shipment);
@@ -64,30 +58,36 @@ class HandleShipmentWebhook
             return;
         }
 
+        $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
+
+        try {
+            $shipmentData = $sendy->shipment->get($shipment->id_sendy_shipment);
+        } catch (SendyException $exception) {
+            if ($exception->getCode() === 404) {
+                $shipmentData = null;
+            } else {
+                throw $exception;
+            }
+        }
+
+        if (!$this->verifyStatus($shipmentData, $event)) {
+            return;
+        }
+
         if ($event === 'shipment.generated') {
-            $this->handleGenerated($shipment, $order);
-        } elseif ($event === 'shipment.deleted') {
+            $this->handleGenerated($shipment, $order, $shipmentData);
+        } elseif ($event === 'shipment.deleted' || $event === 'shipment.cancelled') {
             $this->deleteShipment($shipment);
         } elseif ($event === 'shipment.delivered') {
             $this->handleDelivered($shipment, $order);
         }
     }
 
-    private function deleteShipment(SendyShipment $shipment)
+    private function handleGenerated(SendyShipment $shipment, Order $order, array $shipmentData): void
     {
-        $this->packageRepository->deleteByShipmentId($shipment->getId());
-        $this->shipmentRepository->delete($shipment);
-    }
-
-    private function handleGenerated(SendyShipment $shipment, Order $order): void
-    {
-        $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
-
-        $shipmentData = $sendy->shipment->get($shipment->getId());
-
         foreach ($shipmentData['packages'] as $package) {
-            $this->packageRepository->addPackageToShipment(
-                $shipment->getId(),
+            SendyPackage::addPackageToShipment(
+                $shipment->id_sendy_shipment,
                 $package['uuid'] ?? Str::uuidv4(),
                 $package['package_number'],
                 $package['tracking_url']
@@ -99,10 +99,24 @@ class HandleShipmentWebhook
         }
     }
 
+    private function deleteShipment(SendyShipment $shipment)
+    {
+        SendyPackage::deleteByShipmentId($shipment->id_sendy_shipment);
+        SendyShipment::deleteByUuid($shipment->id_sendy_shipment);
+    }
+
     private function handleDelivered(SendyShipment $shipment, Order $order): void
     {
         if ($status = $this->shopConfigurationRepository->getStatusDelivered()) {
             $order->setCurrentState($status);
         }
+    }
+
+    private function verifyStatus(?array $shipmentData, string $event): bool
+    {
+        return ($event === 'shipment.generated' && ($shipmentData['status'] ?? null) === 'generated')
+            || ($event === 'shipment.delivered' && ($shipmentData['phase'] ?? null) === 'delivered')
+            || ($event === 'shipment.deleted' && $shipmentData === null)
+            || ($event === 'shipment.cancelled' && ($shipmentData['status'] ?? null) === 'cancelled');
     }
 }

@@ -20,7 +20,6 @@ services:
     arguments:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
-      - '@router'
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
   Sendy\PrestaShop\Action\SynchronizeWebhook:
     class: 'Sendy\PrestaShop\Action\SynchronizeWebhook'

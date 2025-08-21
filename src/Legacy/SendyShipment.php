@@ -42,4 +42,23 @@ class SendyShipment extends ObjectModel
             'SELECT 1 FROM `' . _DB_PREFIX_ . 'sendy_shipment` WHERE `id_order` = ' . $orderId
         );
     }
+
+    public static function getByUuid(string $uuid): ?self
+    {
+        $shipment = new self($uuid);
+
+        if (is_null($shipment->id_sendy_shipment)) {
+            return null;
+        }
+
+        return $shipment;
+    }
+
+    public static function deleteByUuid(string $id_sendy_shipment): void
+    {
+        Db::getInstance()->delete(
+            'sendy_shipment',
+            '`id_sendy_shipment` = \'' . pSQL($id_sendy_shipment) . '\''
+        );
+    }
 }

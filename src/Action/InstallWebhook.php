@@ -14,31 +14,26 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Action;
 
+use Context;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Arr;
-use Sendy\PrestaShop\Support\Str;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Tools;
 
 class InstallWebhook
 {
     private ConfigurationRepository $configurationRepository;
     private ShopConfigurationRepository $shopConfigurationRepository;
-    private UrlGeneratorInterface $router;
     private ApiConnectionFactory $apiConnectionFactory;
 
     public function __construct(
         ConfigurationRepository $configurationRepository,
         ShopConfigurationRepository $shopConfigurationRepository,
-        UrlGeneratorInterface $router,
         ApiConnectionFactory $apiConnectionFactory
     ) {
         $this->configurationRepository = $configurationRepository;
         $this->shopConfigurationRepository = $shopConfigurationRepository;
-        $this->router = $router;
         $this->apiConnectionFactory = $apiConnectionFactory;
     }
 
@@ -53,10 +48,8 @@ class InstallWebhook
 
         $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
         $currentWebhookId = $this->configurationRepository->getWebhookId();
-        $url = Str::withoutUrlQueryParameters(
-            Tools::getShopDomainSsl(true) . $this->router->generate('sendy_webhook'),
-            ['_token']
-        );
+        $url = Context::getContext()->link->getModuleLink('sendy', 'webhook');
+
         $payload = [
             'url' => $url,
             'events' => [

@@ -41,10 +41,3 @@ services:
     class: 'Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController'
     arguments:
       - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
-  Sendy\PrestaShop\Controller\Admin\WebhookController:
-    class: 'Sendy\PrestaShop\Controller\Admin\WebhookController'
-    arguments:
-      - '@Sendy\PrestaShop\Repository\ShipmentRepository'
-      - '@Sendy\PrestaShop\Action\HandleShipmentWebhook'
-      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
-

@@ -157,25 +157,6 @@ class Sendy extends CarrierModule
 
     public function hookActionOrderStatusPostUpdate($params): void
     {
-        // $container = SymfonyContainer::getInstance();
-        //
-        // // When this hook is triggered from the front office (after an order is placed), we need to boot the Symfony
-        // // kernel to get the container
-        // if (!$container) {
-        //    if (file_exists(_PS_ROOT_DIR_ . '/app/FrontKernel.php')) {
-        //        require_once _PS_ROOT_DIR_ . '/app/FrontKernel.php';
-        //        $kernel = new \FrontKernel('prod', false);
-        //    } else {
-        //        require_once _PS_ROOT_DIR_ . '/app/AppKernel.php';
-        //        $kernel = new \AppKernel('prod', false);
-        //    }
-        //
-        //    $kernel->boot();
-        //    $container = $kernel->getContainer();
-        // }
-        //
-        // $container->get(Hook\ActionOrderStatusPostUpdate::class)($params);
-
         $configurationRepository = new ConfigurationRepository(new PrestaShop\PrestaShop\Adapter\Configuration());
         $shopConfigurationRepository = new ShopConfigurationRepository(new PrestaShop\PrestaShop\Adapter\Configuration(), new PrestaShop\PrestaShop\Adapter\Shop\Context());
         $apiConnectionFactory = new ApiConnectionFactory($configurationRepository, new DummyUrlGenerator());

@@ -15,9 +15,6 @@ jobs:
         with:
           composer-options: --no-dev --optimize-autoloader
 
-      - name: Build project
-        run: npm run build
-
       - name: Create release zip
         run: ./build_release.sh
 

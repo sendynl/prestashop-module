@@ -35,7 +35,7 @@ class Sendy extends CarrierModule
     {
         $this->name = 'sendy';
         $this->tab = 'shipping_logistics';
-        $this->version = '2.0.0';
+        $this->version = '2.0.0-alpha.1';
         $this->author = 'Sendy B.V.';
         $this->need_instance = 1;
 

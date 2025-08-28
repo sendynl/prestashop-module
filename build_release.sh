@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Bundle the project into a zip file for release.
 
-composer install --no-dev --optimize-autoloader
+composer install --no-dev --no-interaction --optimize-autoloader
 
 # Create git archive with sendy/ prefix
 git archive HEAD --format=zip --prefix=sendy/ > sendy.zip

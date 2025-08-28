@@ -13,7 +13,7 @@ fi
 # Remove the 'v' prefix if it exists
 new_version="${1#v}"
 
-if ! [[ "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+if ! [[ "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9a-z.]+)?$ ]]
 then
   echo "Invalid version format. Please use semantic versioning (https://semver.org/)."
   exit 1
@@ -23,3 +23,7 @@ echo "Bumping version to: $new_version"
 
 perl -pi -e "s/<version><!\[CDATA\[.+\]\]><\/version>/<version><![CDATA[$new_version]]><\/version>/" config.xml
 perl -pi -e "s/\$this->version = '.+';$/\$this->version = '$new_version';/" sendy.php
+
+echo
+echo "You can now commit the changes and merge them into the master branch. Then, create a new release on GitHub:"
+echo "https://github.com/sendynl/prestashop-module/releases/new?tag=v$new_version"

@@ -1,0 +1,28 @@
+name: Build release zip
+on:
+  release:
+    types: [released]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: --no-dev --optimize-autoloader
+
+      - name: Build project
+        run: npm run build
+
+      - name: Create release zip
+        run: ./build_release.sh
+
+      - name: Upload release zip
+        run:
+          gh release upload ${{ github.ref_name }} sendy.zip --clobber
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

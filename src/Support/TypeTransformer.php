@@ -23,7 +23,7 @@ class TypeTransformer
      */
     public static function toNullableInt($value): ?int
     {
-        if ($value === null || trim($value) === '') {
+        if ($value === null || (is_string($value) && trim($value) === '')) {
             return null;
         }
 

@@ -25,5 +25,10 @@ perl -pi -e "s/<version><!\[CDATA\[.+\]\]><\/version>/<version><![CDATA[$new_ver
 perl -pi -e "s/\$this->version = '.+';$/\$this->version = '$new_version';/" sendy.php
 
 echo
-echo "You can now commit the changes and merge them into the master branch. Then, create a new release on GitHub:"
-echo "https://github.com/sendynl/prestashop-module/releases/new?tag=v$new_version"
+echo "To release the new version, first, commit the changes:"
+echo "  git add --all"
+echo "  git commit -m "$new_version""
+echo "  git push"
+echo
+echo "Once the commit is pushed to the master branch, create a new release on GitHub to trigger the build:"
+echo "  https://github.com/sendynl/prestashop-module/releases/new?tag=v$new_version"

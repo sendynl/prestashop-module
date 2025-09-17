@@ -13,9 +13,19 @@ fi
 # Remove the 'v' prefix if it exists
 new_version="${1#v}"
 
-if ! [[ "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9a-z.]+)?$ ]]
+echo "New version: $new_version"
+
+if [ ${#new_version} -gt 8 ]
 then
-  echo "Invalid version format. Please use semantic versioning (https://semver.org/)."
+  echo "Please provide a version number with 8 characters or less."
+  echo "PrestaShop's database field for the module version only supports up to 8 characters."
+  exit 1
+fi
+
+if ! [[ "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([a-z][0-9]+)?$ ]]
+then
+  echo "Invalid version format."
+  echo "Examples of valid version numbers: 1.2.3, 1.2.3a1, 1.2.3b2"
   exit 1
 fi
 

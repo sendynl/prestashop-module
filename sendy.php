@@ -35,7 +35,7 @@ class Sendy extends CarrierModule
     {
         $this->name = 'sendy';
         $this->tab = 'shipping_logistics';
-        $this->version = '2.0.0a3';
+        $this->version = '2.0.0a4';
         $this->author = 'Sendy B.V.';
         $this->need_instance = 1;
 
@@ -130,7 +130,14 @@ class Sendy extends CarrierModule
 
     public function hookActionAdminControllerSetMedia(): void
     {
-        $this->get(Hook\Admin\ActionAdminControllerSetMedia::class)($this);
+        try {
+            $this->get(Hook\Admin\ActionAdminControllerSetMedia::class)($this);
+        } catch (Exception $e) {
+            PrestaShopLogger::addLog(
+                'Sendy - ActionAdminControllerSetMedia - Error: ' . $e->getMessage(),
+                PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR
+            );
+        }
     }
 
     public function hookActionFrontControllerSetMedia(): void

@@ -234,6 +234,10 @@
                 <source>Invalid value for import weight.</source>
                 <target>Ongeldige waarde voor 'gewicht importeren'.</target>
             </trans-unit>
+            <trans-unit id="59">
+                <source>No shipment created yet</source>
+                <target>Nog geen zending aangemaakt</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

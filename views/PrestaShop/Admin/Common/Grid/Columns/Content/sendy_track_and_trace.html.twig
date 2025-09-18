@@ -19,6 +19,6 @@
         </a>
     {% endif %}
 {% else %}
-    No shipment
+    {{ 'No shipment created yet'|trans({}, 'Modules.Sendy.Admin') }}
 {% endif %}
 </div>

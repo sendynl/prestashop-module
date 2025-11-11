@@ -19,6 +19,7 @@ use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Addr;
+use Sendy\PrestaShop\Support\TypeTransformer;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -53,8 +54,8 @@ class CreateShipmentFromOrder
         $data = [
             'shop_id' => $sendyShopId,
             'preference_id' => $preferenceId,
-            'company_name' => $order->getCustomer()->company,
-            'contact' => $order->getCustomer()->firstname . ' ' . $order->getCustomer()->lastname,
+            'company_name' => TypeTransformer::toNullableString($address->company),
+            'contact' => $address->firstname . ' ' . $address->lastname,
             'street' => $parsedAddress['street'],
             'number' => $parsedAddress['number'],
             'addition' => $parsedAddress['addition'],

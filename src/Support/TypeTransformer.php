@@ -33,4 +33,24 @@ class TypeTransformer
 
         throw new \InvalidArgumentException(sprintf('Expected a numeric value, got %s', gettype($value)));
     }
+
+    /**
+     * Trim a string and convert to null if empty.
+     *
+     * @param mixed $value
+     */
+    public static function toNullableString($value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        if (is_string($value)) {
+            $trimmed = trim($value);
+
+            return $trimmed === '' ? null : $trimmed;
+        }
+
+        throw new \InvalidArgumentException(sprintf('Expected a string value, got %s', gettype($value)));
+    }
 }

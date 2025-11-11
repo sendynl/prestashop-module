@@ -67,7 +67,7 @@ class Sendy extends CarrierModule
      */
     public function install(): bool
     {
-        if (extension_loaded('curl') == false) {
+        if (!extension_loaded('curl')) {
             $this->_errors[] = $this->trans('You have to enable the cURL extension on your server to install this module', [], 'Modules.Sendy.Admin');
 
             return false;

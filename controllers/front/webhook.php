@@ -43,22 +43,22 @@ class SendyWebhookModuleFrontController extends ModuleFrontController
             $this->ajax = true;
 
             $body = Tools::file_get_contents('php://input');
-            $data = json_decode($body, true)['data'];
+            $decoded = json_decode($body, true);
 
-            if (!isset($data['event'], $data['id'], $data['resource'])) {
+            if (!isset($decoded['data'], $decoded['data']['event'], $decoded['data']['id'], $decoded['data']['resource'])) {
                 $this->errors[] = 'Invalid request';
                 http_response_code(400);
                 $this->ajaxRender(json_encode(['errors' => $this->errors]));
             }
 
-            if ($data['resource'] !== 'shipment') {
+            if ($decoded['data']['resource'] !== 'shipment') {
                 return;
             }
 
             SystemUser::ensureInstalled();
             Context::getContext()->employee = new Employee($configurationRepository->getSendySystemUserId());
 
-            $shipment = SendyShipment::getByUuid($data['id']);
+            $shipment = SendyShipment::getByUuid($decoded['data']['id']);
 
             if ($shipment) {
                 $shopContext = new PrestaShop\PrestaShop\Adapter\Shop\Context();
@@ -71,7 +71,7 @@ class SendyWebhookModuleFrontController extends ModuleFrontController
                     $shopContext
                 );
 
-                $handleShipmentWebhook->execute($shipment, $data['event']);
+                $handleShipmentWebhook->execute($shipment, $decoded['data']['event']);
             }
         } catch (Throwable $e) {
             http_response_code(500);

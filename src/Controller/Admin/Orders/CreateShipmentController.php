@@ -49,8 +49,6 @@ class CreateShipmentController extends FrameworkBundleAdminController
 
     public function __invoke(Request $request): Response
     {
-        \PrestaShopLogger::addLog('Sendy - CreateShipmentController');
-
         $formData = $request->get('form');
 
         try {

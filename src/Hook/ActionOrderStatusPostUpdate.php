@@ -53,8 +53,6 @@ final class ActionOrderStatusPostUpdate
      */
     public function __invoke(array $params): void
     {
-        \PrestaShopLogger::addLog('Sendy - ActionOrderStatusPostUpdate hook class - ' . print_r($params, true));
-
         $order = new \Order((int) $params['id_order']);
 
         // Only proceed if the processing method is Sendy

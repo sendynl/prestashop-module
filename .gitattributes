@@ -5,3 +5,4 @@ CONTRIBUTING.md export-ignore
 .php-cs-fixer.dist.php export-ignore
 /*.sh export-ignore
 /*.yml export-ignore
+/.github export-ignore

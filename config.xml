@@ -2,7 +2,7 @@
 <module>
     <name>sendy</name>
     <displayName><![CDATA[Sendy]]></displayName>
-    <version><![CDATA[2.0.0a5]]></version>
+    <version><![CDATA[2.0.0a6]]></version>
     <description><![CDATA[A PrestaShop module that connects your store to the Sendy platform]]></description>
     <author><![CDATA[Sendy B.V.]]></author>
     <tab><![CDATA[shipping_logistics]]></tab>

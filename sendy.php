@@ -35,9 +35,10 @@ class Sendy extends CarrierModule
     {
         $this->name = 'sendy';
         $this->tab = 'shipping_logistics';
-        $this->version = '2.0.0a5';
+        $this->version = '2.0.0a6';
         $this->author = 'Sendy B.V.';
         $this->need_instance = 1;
+        $this->module_key = 'c4f781164993281f1b2e1e3147b96348';
 
         /*
          * Set $this->bootstrap to true if your module is compliant with bootstrap (PrestaShop 1.6)

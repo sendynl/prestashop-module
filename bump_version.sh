@@ -22,10 +22,10 @@ then
   exit 1
 fi
 
-if ! [[ "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([a-z][0-9]+)?$ ]]
+if ! [[ "$new_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
 then
   echo "Invalid version format."
-  echo "Examples of valid version numbers: 1.2.3, 1.2.3a1, 1.2.3b2"
+  echo "Examples of a valid version number: 1.2.3"
   exit 1
 fi
 

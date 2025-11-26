@@ -30,7 +30,7 @@ class SendyCarrierConfig
      *
      * @ORM\GeneratedValue
      *
-     * @ORM\Column(name="id_sendy_carrier_config", type="integer")
+     * @ORM\Column(name="id_sendynl_carrier_config", type="integer")
      */
     private int $id;
 

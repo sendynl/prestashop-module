@@ -55,18 +55,18 @@ final class ActionOrderGridDefinitionModifier
         // Grid bulk actions
         $definition->getBulkActions()
             ->add(
-                (new ModalFormSubmitBulkAction('sendy_create_shipment'))
+                (new ModalFormSubmitBulkAction('sendynl_create_shipment'))
                     ->setName($this->translator->trans('Sendy - Create shipment', [], 'Modules.Sendynl.Admin'))
                     ->setOptions([
-                        'submit_route' => 'sendy_orders_create_shipment',
-                        'modal_id' => 'sendyCreateShipmentModal',
+                        'submit_route' => 'sendynl_orders_create_shipment',
+                        'modal_id' => 'sendynlCreateShipmentModal',
                     ])
             )
             ->add(
-                (new ButtonBulkAction('sendy_print_label'))
+                (new ButtonBulkAction('sendynl_print_label'))
                     ->setName($this->translator->trans('Sendy - Print label', [], 'Modules.Sendynl.Admin'))
                     ->setOptions([
-                        'class' => 'sendy-print-label-bulk-action-submit-btn',
+                        'class' => 'sendynl-print-label-bulk-action-submit-btn',
                     ])
             );
 
@@ -87,11 +87,11 @@ final class ActionOrderGridDefinitionModifier
             $trackAndTraceColumnIcon = $displayTrackAndTraceColumn ? 'visibility_off' : 'visibility';
             $definition->getGridActions()
                 ->add(
-                    (new SubmitGridAction('sendy_toggle_track_and_trace_column'))
+                    (new SubmitGridAction('sendynl_toggle_track_and_trace_column'))
                         ->setName($trackAndTraceColumnLabel)
                         ->setIcon($trackAndTraceColumnIcon)
                         ->setOptions([
-                            'submit_route' => 'sendy_orders_toggle_track_and_trace_column',
+                            'submit_route' => 'sendynl_orders_toggle_track_and_trace_column',
                         ]),
                 );
         }

@@ -59,7 +59,7 @@ final class DisplayCarrierExtraContent
             $parcelShopAddress = htmlspecialchars($cartParcelShop->parcel_shop_address ?? '');
         }
         $parcelShopUrl = \Context::getContext()->link->getModuleLink(
-            'sendy',
+            'sendynl',
             'parcelshop',
             [
                 'carrier_reference_id' => $params['carrier']['id_reference'],
@@ -68,14 +68,14 @@ final class DisplayCarrierExtraContent
 
         return <<<HTML
         <div
-            data-sendy-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}"
-            data-sendy-id-address-delivery="{$params['cart']->id_address_delivery}"
-            data-sendy-parcel-shop-url="{$parcelShopUrl}"
-            class="sendy-parcel-shop-picker col-xs-12"
+            data-sendynl-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}"
+            data-sendynl-id-address-delivery="{$params['cart']->id_address_delivery}"
+            data-sendynl-parcel-shop-url="{$parcelShopUrl}"
+            class="sendynl-parcel-shop-picker col-xs-12"
         >
-            <button type="button" class="btn btn-secondary sendy-parcel-shop-picker-button">{$text}</button>
-            <div class="sendy-parcel-shop-picker-name">{$parcelShopName}</div>
-            <div class="sendy-parcel-shop-picker-address">{$parcelShopAddress}</div>
+            <button type="button" class="btn btn-secondary sendynl-parcel-shop-picker-button">{$text}</button>
+            <div class="sendynl-parcel-shop-picker-name">{$parcelShopName}</div>
+            <div class="sendynl-parcel-shop-picker-address">{$parcelShopAddress}</div>
         </div>
         HTML;
     }

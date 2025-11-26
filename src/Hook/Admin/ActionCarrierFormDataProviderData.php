@@ -50,6 +50,6 @@ final class ActionCarrierFormDataProviderData
             return;
         }
 
-        $params['data']['sendy']['sendy_parcel_shop_carrier'] = $carrierConfig->getParcelShopCarrier();
+        $params['data']['sendynl']['sendynl_parcel_shop_carrier'] = $carrierConfig->getParcelShopCarrier();
     }
 }

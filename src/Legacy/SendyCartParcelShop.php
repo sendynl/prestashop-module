@@ -25,8 +25,8 @@ class SendyCartParcelShop extends \ObjectModel
     public $parcel_shop_address;
 
     public static $definition = [
-        'table' => 'sendy_cart_parcel_shop',
-        'primary' => 'id_sendy_cart_parcel_shop',
+        'table' => 'sendynl_cart_parcel_shop',
+        'primary' => 'id_sendynl_cart_parcel_shop',
         'fields' => [
             'id_cart' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true],
             'id_reference' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true],
@@ -46,7 +46,7 @@ class SendyCartParcelShop extends \ObjectModel
     public static function getByCartId(int $id_cart): ?SendyCartParcelShop
     {
         $prefix = _DB_PREFIX_;
-        $sql = "SELECT id_sendy_cart_parcel_shop FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
+        $sql = "SELECT id_sendynl_cart_parcel_shop FROM `{$prefix}sendynl_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
         $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {
@@ -61,7 +61,7 @@ class SendyCartParcelShop extends \ObjectModel
     public static function getByCartIdAndCarrierReferenceId(int $id_cart, int $id_reference): ?SendyCartParcelShop
     {
         $prefix = _DB_PREFIX_;
-        $sql = "SELECT id_sendy_cart_parcel_shop FROM `{$prefix}sendy_cart_parcel_shop` WHERE `id_cart` = {$id_cart} AND `id_reference` = {$id_reference}";
+        $sql = "SELECT id_sendynl_cart_parcel_shop FROM `{$prefix}sendynl_cart_parcel_shop` WHERE `id_cart` = {$id_cart} AND `id_reference` = {$id_reference}";
         $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {

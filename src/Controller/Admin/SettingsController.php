@@ -67,7 +67,7 @@ class SettingsController extends FrameworkBundleAdminController
 
         if ($settingsForm->isSubmitted() && $settingsForm->isValid()) {
             $oldProcessingMethod = $this->shopConfigurationRepository->getProcessingMethod();
-            $newProcessingMethod = $settingsForm->getData()['sendy_processing_method'];
+            $newProcessingMethod = $settingsForm->getData()['sendynl_processing_method'];
             $processingMethodChanged = $oldProcessingMethod !== $newProcessingMethod;
 
             $errors = $this->settingsFormHandler->save($settingsForm->getData());

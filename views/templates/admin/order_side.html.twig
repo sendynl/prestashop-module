@@ -25,7 +25,7 @@
                     {% endfor %}
                 </ul>
                 <div class="text-right">
-                    <button class="btn btn-primary sendy-print-label-single-action-btn" type="button" data-order-id="{{ order.id }}">
+                    <button class="btn btn-primary sendynl-print-label-single-action-btn" type="button" data-order-id="{{ order.id }}">
                         <i class="material-icons" aria-hidden="true">print</i>
                         {{ 'Print label'|trans({}, 'Modules.Sendynl.Admin') }}
                     </button>
@@ -34,7 +34,7 @@
         {% else %}
             {# When there is no shipment, display a form to create one #}
             {{ form_start(createShipmentFormView, {
-                action: path('sendy_orders_create_shipment'),
+                action: path('sendynl_orders_create_shipment'),
             }) }}
 
             {{ ps.form_group_row(createShipmentFormView.shop_id, {}, {

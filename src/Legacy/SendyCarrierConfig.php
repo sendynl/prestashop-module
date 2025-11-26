@@ -18,16 +18,16 @@ if (!defined('_PS_VERSION_')) {
 
 class SendyCarrierConfig extends \ObjectModel
 {
-    public $id_sendy_carrier_config;
+    public $id_sendynl_carrier_config;
     public $id_reference;
     public $parcel_shop_delivery_enabled;
     public $parcel_shop_carrier;
 
     public static $definition = [
-        'table' => 'sendy_carrier_config',
-        'primary' => 'id_sendy_carrier_config',
+        'table' => 'sendynl_carrier_config',
+        'primary' => 'id_sendynl_carrier_config',
         'fields' => [
-            'id_sendy_carrier_config' => ['type' => self::TYPE_INT, 'auto_increment' => true],
+            'id_sendynl_carrier_config' => ['type' => self::TYPE_INT, 'auto_increment' => true],
             'id_reference' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true],
             'parcel_shop_delivery_enabled' => ['type' => self::TYPE_BOOL, 'validate' => 'isBool', 'required' => true, 'default' => 0],
             'parcel_shop_carrier' => ['type' => self::TYPE_STRING, 'validate' => 'isString', 'required' => false, 'size' => 255],
@@ -44,12 +44,12 @@ class SendyCarrierConfig extends \ObjectModel
     public static function getByReferenceId(int $id_reference): ?SendyCarrierConfig
     {
         $prefix = _DB_PREFIX_;
-        $sql = "SELECT * FROM `{$prefix}sendy_carrier_config` WHERE `id_reference` = {$id_reference}";
+        $sql = "SELECT * FROM `{$prefix}sendynl_carrier_config` WHERE `id_reference` = {$id_reference}";
         $result = \Db::getInstance()->getRow($sql);
 
         if ($result) {
             $config = new self();
-            $config->id_sendy_carrier_config = $result['id_sendy_carrier_config'];
+            $config->id_sendynl_carrier_config = $result['id_sendynl_carrier_config'];
             $config->id_reference = $result['id_reference'];
             $config->parcel_shop_delivery_enabled = (bool) $result['parcel_shop_delivery_enabled'];
             $config->parcel_shop_carrier = $result['parcel_shop_carrier'];

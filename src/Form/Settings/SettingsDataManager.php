@@ -27,14 +27,14 @@ if (!defined('_PS_VERSION_')) {
  * Manages storage and retrieval of the settings for the Sendy module.
  *
  * @phpstan-type SendySettingsData array{
- *      sendy_processing_method: string,
- *      sendy_processable_status: string|null,
- *      sendy_default_shop: string|null,
- *      sendy_import_products: bool,
- *      sendy_import_weight: bool,
- *      sendy_status_generated: int|null,
- *      sendy_status_printed: int|null,
- *      sendy_status_delivered: int|null
+ *      sendynl_processing_method: string,
+ *      sendynl_processable_status: string|null,
+ *      sendynl_default_shop: string|null,
+ *      sendynl_import_products: bool,
+ *      sendynl_import_weight: bool,
+ *      sendynl_status_generated: int|null,
+ *      sendynl_status_printed: int|null,
+ *      sendynl_status_delivered: int|null
  *  }
  */
 class SettingsDataManager implements DataConfigurationInterface, FormDataProviderInterface
@@ -56,14 +56,14 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
     public function getConfiguration(): array
     {
         return [
-            'sendy_processing_method' => $this->configurationRepository->getProcessingMethod(),
-            'sendy_processable_status' => $this->configurationRepository->getProcessableStatus(),
-            'sendy_default_shop' => $this->configurationRepository->getDefaultShop(),
-            'sendy_import_products' => $this->configurationRepository->getImportProducts(),
-            'sendy_import_weight' => $this->configurationRepository->getImportWeight(),
-            'sendy_status_generated' => $this->configurationRepository->getStatusGenerated(),
-            'sendy_status_printed' => $this->configurationRepository->getStatusPrinted(),
-            'sendy_status_delivered' => $this->configurationRepository->getStatusDelivered(),
+            'sendynl_processing_method' => $this->configurationRepository->getProcessingMethod(),
+            'sendynl_processable_status' => $this->configurationRepository->getProcessableStatus(),
+            'sendynl_default_shop' => $this->configurationRepository->getDefaultShop(),
+            'sendynl_import_products' => $this->configurationRepository->getImportProducts(),
+            'sendynl_import_weight' => $this->configurationRepository->getImportWeight(),
+            'sendynl_status_generated' => $this->configurationRepository->getStatusGenerated(),
+            'sendynl_status_printed' => $this->configurationRepository->getStatusPrinted(),
+            'sendynl_status_delivered' => $this->configurationRepository->getStatusDelivered(),
         ];
     }
 
@@ -80,21 +80,21 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
             return $errors;
         }
 
-        $this->configurationRepository->setProcessingMethod($configuration['sendy_processing_method']);
+        $this->configurationRepository->setProcessingMethod($configuration['sendynl_processing_method']);
         $this->configurationRepository->setProcessableStatus(
-            TypeTransformer::toNullableInt($configuration['sendy_processable_status'])
+            TypeTransformer::toNullableInt($configuration['sendynl_processable_status'])
         );
-        $this->configurationRepository->setDefaultShop($configuration['sendy_default_shop']);
-        $this->configurationRepository->setImportProducts($configuration['sendy_import_products']);
-        $this->configurationRepository->setImportWeight($configuration['sendy_import_weight']);
+        $this->configurationRepository->setDefaultShop($configuration['sendynl_default_shop']);
+        $this->configurationRepository->setImportProducts($configuration['sendynl_import_products']);
+        $this->configurationRepository->setImportWeight($configuration['sendynl_import_weight']);
         $this->configurationRepository->setStatusGenerated(
-            TypeTransformer::toNullableInt($configuration['sendy_status_generated'])
+            TypeTransformer::toNullableInt($configuration['sendynl_status_generated'])
         );
         $this->configurationRepository->setStatusPrinted(
-            TypeTransformer::toNullableInt($configuration['sendy_status_printed'])
+            TypeTransformer::toNullableInt($configuration['sendynl_status_printed'])
         );
         $this->configurationRepository->setStatusDelivered(
-            TypeTransformer::toNullableInt($configuration['sendy_status_delivered'])
+            TypeTransformer::toNullableInt($configuration['sendynl_status_delivered'])
         );
 
         return [];
@@ -137,12 +137,12 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
     {
         $errors = [];
 
-        if (!isset($configuration['sendy_processing_method'])) {
+        if (!isset($configuration['sendynl_processing_method'])) {
             $errors[] = $this->translator->trans('Processing method is required.', [], 'Modules.Sendynl.Admin');
-        } elseif (!in_array($configuration['sendy_processing_method'], ProcessingMethod::values(), true)) {
+        } elseif (!in_array($configuration['sendynl_processing_method'], ProcessingMethod::values(), true)) {
             $errors[] = $this->translator->trans('Invalid processing method.', [], 'Modules.Sendynl.Admin');
-        } elseif ($configuration['sendy_processing_method'] === ProcessingMethod::Sendy) {
-            if (!isset($configuration['sendy_processable_status']) || !is_numeric($configuration['sendy_processable_status'])) {
+        } elseif ($configuration['sendynl_processing_method'] === ProcessingMethod::Sendy) {
+            if (!isset($configuration['sendynl_processable_status']) || !is_numeric($configuration['sendynl_processable_status'])) {
                 $errors[] = $this->translator->trans(
                     'Processable status is required when processing method is Sendy.',
                     [],
@@ -150,7 +150,7 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
                 );
             }
 
-            if (!isset($configuration['sendy_default_shop']) || !is_string($configuration['sendy_default_shop'])) {
+            if (!isset($configuration['sendynl_default_shop']) || !is_string($configuration['sendynl_default_shop'])) {
                 $errors[] = $this->translator->trans(
                     'Default shop is required when processing method is Sendy.',
                     [],
@@ -159,15 +159,15 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
             }
         }
 
-        if (!isset($configuration['sendy_import_products'])) {
+        if (!isset($configuration['sendynl_import_products'])) {
             $errors[] = $this->translator->trans('Import products setting is required.', [], 'Modules.Sendynl.Admin');
-        } elseif (!is_bool($configuration['sendy_import_products'])) {
+        } elseif (!is_bool($configuration['sendynl_import_products'])) {
             $errors[] = $this->translator->trans('Invalid value for import products.', [], 'Modules.Sendynl.Admin');
         }
 
-        if (!isset($configuration['sendy_import_weight'])) {
+        if (!isset($configuration['sendynl_import_weight'])) {
             $errors[] = $this->translator->trans('Import weight setting is required.', [], 'Modules.Sendynl.Admin');
-        } elseif (!is_bool($configuration['sendy_import_weight'])) {
+        } elseif (!is_bool($configuration['sendynl_import_weight'])) {
             $errors[] = $this->translator->trans('Invalid value for import weight.', [], 'Modules.Sendynl.Admin');
         }
 

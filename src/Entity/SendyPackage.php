@@ -28,12 +28,12 @@ class SendyPackage
     /**
      * @ORM\Id
      *
-     * @ORM\Column(name="id_sendy_package", type="string", length=36, unique=true)
+     * @ORM\Column(name="id_sendynl_package", type="string", length=36, unique=true)
      */
     private string $id;
 
     /**
-     * @ORM\Column(name="id_sendy_shipment", type="string", length=36)
+     * @ORM\Column(name="id_sendynl_shipment", type="string", length=36)
      */
     private string $shipmentId;
 

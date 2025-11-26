@@ -76,6 +76,6 @@ class ApiConnectionFactory
 
     public function getRedirectUrl(): string
     {
-        return \ToolsCore::getShopDomainSsl(true) . $this->router->generate('sendy_login_callback');
+        return \ToolsCore::getShopDomainSsl(true) . $this->router->generate('sendynl_login_callback');
     }
 }

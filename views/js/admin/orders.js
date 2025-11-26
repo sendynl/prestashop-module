@@ -17,8 +17,8 @@ $(function() {
         document.querySelectorAll('#order_filter_form input[name="order_orders_bulk[]"]:checked')
     ).map(element => element.value);
 
-    $('.sendy-print-label-bulk-action-submit-btn').on('click', function(e) {
-        const url = new URL(window.sendyRoutes.sendy_orders_print_label, window.location.origin);
+    $('.sendynl-print-label-bulk-action-submit-btn').on('click', function(e) {
+        const url = new URL(window.sendynlRoutes.sendynl_orders_print_label, window.location.origin);
         for (const id of getSelectedOrderIds()) {
             url.searchParams.append('order_ids[]', id);
         }
@@ -26,9 +26,9 @@ $(function() {
         printOrDownloadBase64FromUri(url.toString());
     });
 
-    $('.sendy-print-label-single-action-btn').on('click', function(e) {
+    $('.sendynl-print-label-single-action-btn').on('click', function(e) {
         const orderId = $(this).data('order-id');
-        const url = new URL(window.sendyRoutes.sendy_orders_print_label, window.location.origin);
+        const url = new URL(window.sendynlRoutes.sendynl_orders_print_label, window.location.origin);
         url.searchParams.append('order_ids[]', orderId);
 
         printOrDownloadBase64FromUri(url.toString());

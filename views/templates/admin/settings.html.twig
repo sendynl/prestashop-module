@@ -23,16 +23,16 @@
             </h3>
             <div class="card-body">
                 <div class="form-wrapper">
-                    {{ form_row(settingsFormView.sendy_processing_method) }}
-                    {{ form_row(settingsFormView.sendy_default_shop) }}
-                    {{ form_row(settingsFormView.sendy_import_products) }}
-                    {{ form_row(settingsFormView.sendy_import_weight) }}
+                    {{ form_row(settingsFormView.sendynl_processing_method) }}
+                    {{ form_row(settingsFormView.sendynl_default_shop) }}
+                    {{ form_row(settingsFormView.sendynl_import_products) }}
+                    {{ form_row(settingsFormView.sendynl_import_weight) }}
 
                     <h4 class="mt-4 h2">{{ 'Statuses'|trans({}, 'Modules.Sendynl.Admin') }}</h4>
-                    {{ form_row(settingsFormView.sendy_processable_status) }}
-                    {{ form_row(settingsFormView.sendy_status_generated) }}
-                    {{ form_row(settingsFormView.sendy_status_printed) }}
-                    {{ form_row(settingsFormView.sendy_status_delivered) }}
+                    {{ form_row(settingsFormView.sendynl_processable_status) }}
+                    {{ form_row(settingsFormView.sendynl_status_generated) }}
+                    {{ form_row(settingsFormView.sendynl_status_printed) }}
+                    {{ form_row(settingsFormView.sendynl_status_delivered) }}
                 </div>
             </div>
             <div class="card-footer">
@@ -51,7 +51,7 @@
                     <a href="{{ path('admin_carriers_index') }}" class="btn btn-sm btn-outline-secondary">
                         {{ 'View all carriers'|trans({}, 'Modules.Sendynl.Admin') }}
                     </a>
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendyCreateCarrierModal">
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendynlCreateCarrierModal">
                         <i class="material-icons">add_circle_outline</i>
                         {{ 'Add new carrier'|trans({}, 'Admin.Shipping.Feature') }}
                     </button>
@@ -105,7 +105,7 @@
         $(() => {
 
             // initialize choice column for carrier grid
-            const carrierGrid = new window.prestashop.component.Grid('sendy_carrier');
+            const carrierGrid = new window.prestashop.component.Grid('sendynl_carrier');
             carrierGrid.addExtension(new window.prestashop.component.GridExtensions.ChoiceExtension());
 
         })

@@ -8,7 +8,7 @@
  * @see https://github.com/sendynl/prestashop-module
  */
 $(function() {
-    $('.sendy-parcel-shop-picker-button').on('click', function(e) {
+    $('.sendynl-parcel-shop-picker-button').on('click', function(e) {
         if (!window.Sendy || !window.Sendy.parcelShopPicker) {
             alert('Sendy Parcel Shop Picker is not available.')
             return;
@@ -20,14 +20,14 @@ $(function() {
         }
 
         const parent = $(this).parent();
-        const parcelShopUrl = parent.data('sendy-parcel-shop-url');
+        const parcelShopUrl = parent.data('sendynl-parcel-shop-url');
 
         if (!parcelShopUrl) {
             alert('No Parcel Shop URL found.');
             return;
         }
 
-        const deliveryAddressId = parent.data('sendy-id-address-delivery')
+        const deliveryAddressId = parent.data('sendynl-id-address-delivery')
 
         if (!deliveryAddressId) {
             alert('No delivery address found.');
@@ -52,7 +52,7 @@ $(function() {
             {
                 address: `${deliveryAddress.address1}, ${deliveryAddress.postcode} ${deliveryAddress.city}`,
                 country: countryCode,
-                carriers: [parent.data('sendy-parcel-shop-picker-carrier')]
+                carriers: [parent.data('sendynl-parcel-shop-picker-carrier')]
             },
             async function(parcelShop) {
                 const response = await fetch(parcelShopUrl, {
@@ -67,8 +67,8 @@ $(function() {
 
                 const responseData = await response.json();
 
-                parent.find('.sendy-parcel-shop-picker-name').text(responseData.parcel_shop_name);
-                parent.find('.sendy-parcel-shop-picker-address').text(responseData.parcel_shop_address);
+                parent.find('.sendynl-parcel-shop-picker-name').text(responseData.parcel_shop_name);
+                parent.find('.sendynl-parcel-shop-picker-address').text(responseData.parcel_shop_address);
             },
             function() {
                 alert('An error occurred while selecting a parcel shop.');

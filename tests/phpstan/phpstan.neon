@@ -3,7 +3,7 @@ includes:
 
 parameters:
   paths:
-    - ../../sendy.php
+    - ../../sendynl.php
     - ../../src
   reportUnmatchedIgnoredErrors: false
   level: 8

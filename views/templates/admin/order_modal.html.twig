@@ -1,5 +1,5 @@
 {% embed '@PrestaShop/Admin/Helpers/bootstrap_popup.html.twig' with {
-    id: 'sendyCreateShipmentModal',
+    id: 'sendynlCreateShipmentModal',
     title: 'Create shipment'|trans({}, 'Modules.Sendynl.Admin'),
     closable: true,
     actions: [{
@@ -11,7 +11,7 @@
     {% block content %}
         <div class="modal-body">
             {{ form_start(createShipmentFormView, {
-                action: path('sendy_orders_create_shipment'),
+                action: path('sendynl_orders_create_shipment'),
                 attr: {
                     'data-bulk-inputs-id': createShipmentFormView.order_ids.vars.id
                 }

@@ -20,26 +20,26 @@ $engine = _MYSQL_ENGINE_;
 $sql = [];
 
 $sql[] = <<<SQL
-CREATE TABLE IF NOT EXISTS `{$prefix}sendy_shipment` (
-    `id_sendy_shipment` CHAR(36) NOT NULL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `{$prefix}sendynl_shipment` (
+    `id_sendynl_shipment` CHAR(36) NOT NULL PRIMARY KEY,
     `id_order` INT UNSIGNED NOT NULL,
     INDEX `order` (`id_order`)
 ) ENGINE={$engine} DEFAULT CHARSET=utf8;
 SQL;
 
 $sql[] = <<<SQL
-CREATE TABLE IF NOT EXISTS `{$prefix}sendy_package` (
-    `id_sendy_package` CHAR(36) NOT NULL PRIMARY KEY,
-    `id_sendy_shipment` CHAR(36) NOT NULL,
+CREATE TABLE IF NOT EXISTS `{$prefix}sendynl_package` (
+    `id_sendynl_package` CHAR(36) NOT NULL PRIMARY KEY,
+    `id_sendynl_shipment` CHAR(36) NOT NULL,
     `tracking_number` VARCHAR(255) NOT NULL,
     `tracking_url` VARCHAR(255) NULL,
-    INDEX `shipment` (`id_sendy_shipment`)
+    INDEX `shipment` (`id_sendynl_shipment`)
 ) ENGINE={$engine} DEFAULT CHARSET=utf8;
 SQL;
 
 $sql[] = <<<SQL
-CREATE TABLE IF NOT EXISTS `{$prefix}sendy_carrier_config` (
-    `id_sendy_carrier_config` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `{$prefix}sendynl_carrier_config` (
+    `id_sendynl_carrier_config` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_reference` INT UNSIGNED NOT NULL,
     `parcel_shop_delivery_enabled` TINYINT(1) NOT NULL DEFAULT 1,
     `parcel_shop_carrier` VARCHAR(255) NULL,
@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `{$prefix}sendy_carrier_config` (
 SQL;
 
 $sql[] = <<<SQL
-CREATE TABLE IF NOT EXISTS `{$prefix}sendy_cart_parcel_shop` (
-    `id_sendy_cart_parcel_shop` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `{$prefix}sendynl_cart_parcel_shop` (
+    `id_sendynl_cart_parcel_shop` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_cart` INT UNSIGNED NOT NULL,
     `id_reference` INT UNSIGNED NOT NULL,
     `parcel_shop_id` VARCHAR(255) NOT NULL,

@@ -20,13 +20,13 @@ if (!defined('_PS_VERSION_')) {
  * but does not want to loose all of the data associated to the module.
  */
 
-// The 'sendy_carrier_config' table is intentionally not dropped to avoid confusion during module reset,
+// The 'sendynl_carrier_config' table is intentionally not dropped to avoid confusion during module reset,
 // since uninstalling the module does not remove carriers.
 
 $sql = [
-    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_shipment`',
-    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_package`',
-    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendy_cart_parcel_shop`',
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendynl_shipment`',
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendynl_package`',
+    'DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'sendynl_cart_parcel_shop`',
 ];
 
 foreach ($sql as $query) {

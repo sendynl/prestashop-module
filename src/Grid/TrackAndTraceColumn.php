@@ -34,8 +34,8 @@ class TrackAndTraceColumn extends AbstractColumn
         parent::configureOptions($resolver);
 
         $resolver->setDefaults([
-            'sendy_edit_shipment_url' => \Sendy::EDIT_SHIPMENT_URL,
-            'sendy_view_package_url' => \Sendy::VIEW_PACKAGE_URL,
+            'sendynl_edit_shipment_url' => \Sendynl::EDIT_SHIPMENT_URL,
+            'sendynl_view_package_url' => \Sendynl::VIEW_PACKAGE_URL,
         ]);
     }
 }

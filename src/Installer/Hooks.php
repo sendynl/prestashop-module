@@ -21,9 +21,9 @@ class Hooks
     /**
      * Registers all hooks defined as methods in the main module class.
      *
-     * @param \Sendy $module the Sendy module instance
+     * @param \Sendynl $module the Sendy module instance
      */
-    public static function install(\Sendy $module): bool
+    public static function install(\Sendynl $module): bool
     {
         \PrestaShopLogger::addLog('Sendy - Installing hooks');
 

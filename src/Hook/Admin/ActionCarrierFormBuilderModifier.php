@@ -47,13 +47,13 @@ final class ActionCarrierFormBuilderModifier
         $carrier = new \Carrier($params['id']);
 
         // Only display the Sendy tab if the carrier belongs to the Sendy module
-        if ($carrier->external_module_name !== 'sendy') {
+        if ($carrier->external_module_name !== 'sendynl') {
             return;
         }
 
         // Add a 'Sendy' tab to the carrier form
         $params['form_builder']->add(
-            'sendy',
+            'sendynl',
             FormType::class,
             [
                 'label' => 'Sendy',
@@ -62,6 +62,6 @@ final class ActionCarrierFormBuilderModifier
         );
 
         // Add fields to the 'Sendy' tab
-        $this->carrierForm->buildForm($params['form_builder']->get('sendy'), []);
+        $this->carrierForm->buildForm($params['form_builder']->get('sendynl'), []);
     }
 }

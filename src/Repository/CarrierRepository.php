@@ -29,7 +29,7 @@ class CarrierRepository
         $carrier->need_range = true;
         $carrier->shipping_external = true;
         $carrier->range_behavior = false;
-        $carrier->external_module_name = 'sendy';
+        $carrier->external_module_name = 'sendynl';
         $carrier->shipping_method = 2;
 
         foreach (\Language::getLanguages() as $lang) {

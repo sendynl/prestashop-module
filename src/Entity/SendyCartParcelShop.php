@@ -28,7 +28,7 @@ class SendyCartParcelShop
     /**
      * @ORM\Id
      *
-     * @ORM\Column(type="integer", name="id_sendy_cart_parcel_shop")
+     * @ORM\Column(type="integer", name="id_sendynl_cart_parcel_shop")
      *
      * @ORM\GeneratedValue
      */

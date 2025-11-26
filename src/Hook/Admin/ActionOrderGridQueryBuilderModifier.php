@@ -38,19 +38,19 @@ final class ActionOrderGridQueryBuilderModifier
         $queryBuilder
             ->leftJoin(
                 'o',
-                _DB_PREFIX_ . 'sendy_shipment',
+                _DB_PREFIX_ . 'sendynl_shipment',
                 'ss',
                 'ss.id_order = o.id_order'
             )
             ->leftJoin(
                 'ss',
-                _DB_PREFIX_ . 'sendy_package',
+                _DB_PREFIX_ . 'sendynl_package',
                 'sp',
-                'sp.id_sendy_shipment = ss.id_sendy_shipment'
+                'sp.id_sendynl_shipment = ss.id_sendynl_shipment'
             )
-            ->addSelect('ss.id_sendy_shipment AS sendy_shipment_id')
-            ->addSelect('GROUP_CONCAT(sp.id_sendy_package) AS sendy_package_ids')
-            ->addSelect('GROUP_CONCAT(sp.tracking_number) AS sendy_tracking_numbers')
+            ->addSelect('ss.id_sendynl_shipment AS sendynl_shipment_id')
+            ->addSelect('GROUP_CONCAT(sp.id_sendynl_package) AS sendynl_package_ids')
+            ->addSelect('GROUP_CONCAT(sp.tracking_number) AS sendynl_tracking_numbers')
             ->addGroupBy('o.id_order')
         ;
     }

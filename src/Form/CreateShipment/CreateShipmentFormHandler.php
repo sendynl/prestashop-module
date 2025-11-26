@@ -28,7 +28,7 @@ class CreateShipmentFormHandler extends Handler
         HookDispatcherInterface $hookDispatcher,
         FormDataProviderInterface $formDataProvider,
         string $form = CreateShipmentForm::class,
-        $hookName = 'SendyCreateShipment',
+        $hookName = 'SendynlCreateShipment',
         $formName = 'form'
     ) {
         parent::__construct($formFactory, $hookDispatcher, $formDataProvider, $form, $hookName, $formName);

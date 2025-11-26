@@ -23,7 +23,7 @@ services:
       - 8090:80
     volumes:
       - ./prestashop-9:/var/www/html
-      - ./:/var/www/html/modules/sendy
+      - ./:/var/www/html/modules/sendynl
     environment:
       DB_SERVER: sendy-prestashop-9-mysql
       DB_NAME: prestashop

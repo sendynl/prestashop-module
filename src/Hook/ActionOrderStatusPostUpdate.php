@@ -78,7 +78,7 @@ final class ActionOrderStatusPostUpdate
             );
 
             $shipment = new SendyShipment();
-            $shipment->id_sendy_shipment = $result['uuid'];
+            $shipment->id_sendynl_shipment = $result['uuid'];
             $shipment->id_order = (int) $params['id_order'];
             $shipment->save();
         } catch (SendyException|TokensMissingException $e) {

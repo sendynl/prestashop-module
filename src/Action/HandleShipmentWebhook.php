@@ -62,7 +62,7 @@ class HandleShipmentWebhook
         $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
 
         try {
-            $shipmentData = $sendy->shipment->get($shipment->id_sendy_shipment);
+            $shipmentData = $sendy->shipment->get($shipment->id_sendynl_shipment);
         } catch (SendyException $exception) {
             if ($exception->getCode() === 404) {
                 $shipmentData = null;
@@ -91,7 +91,7 @@ class HandleShipmentWebhook
     {
         foreach ($shipmentData['packages'] as $package) {
             SendyPackage::addPackageToShipment(
-                $shipment->id_sendy_shipment,
+                $shipment->id_sendynl_shipment,
                 $package['uuid'] ?? Str::uuidv4(),
                 $package['package_number'],
                 $package['tracking_url']
@@ -105,8 +105,8 @@ class HandleShipmentWebhook
 
     private function deleteShipment(SendyShipment $shipment): void
     {
-        SendyPackage::deleteByShipmentId($shipment->id_sendy_shipment);
-        SendyShipment::deleteByUuid($shipment->id_sendy_shipment);
+        SendyPackage::deleteByShipmentId($shipment->id_sendynl_shipment);
+        SendyShipment::deleteByUuid($shipment->id_sendynl_shipment);
     }
 
     private function handleDelivered(SendyShipment $shipment, \Order $order): void

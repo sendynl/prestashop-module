@@ -211,7 +211,7 @@ parameters:
 			path: ../../src/Form/Settings/AuthenticateForm.php
 
 		-
-			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\SettingsDataManager\:\:getConfiguration\(\) should return array\{sendy_processing_method\: string, sendy_processable_status\: string\|null, sendy_default_shop\: string\|null, sendy_import_products\: bool, sendy_import_weight\: bool, sendy_status_generated\: int\|null, sendy_status_printed\: int\|null, sendy_status_delivered\: int\|null\} but returns array\{sendy_processing_method\: ''prestashop''\|''sendy'', sendy_processable_status\: int\|null, sendy_default_shop\: string\|null, sendy_import_products\: bool, sendy_import_weight\: bool, sendy_status_generated\: int\|null, sendy_status_printed\: int\|null, sendy_status_delivered\: int\|null\}\.$#'
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\SettingsDataManager\:\:getConfiguration\(\) should return array\{sendynl_processing_method\: string, sendynl_processable_status\: string\|null, sendynl_default_shop\: string\|null, sendynl_import_products\: bool, sendynl_import_weight\: bool, sendynl_status_generated\: int\|null, sendynl_status_printed\: int\|null, sendynl_status_delivered\: int\|null\} but returns array\{sendynl_processing_method\: ''prestashop''\|''sendy'', sendynl_processable_status\: int\|null, sendynl_default_shop\: string\|null, sendynl_import_products\: bool, sendynl_import_weight\: bool, sendynl_status_generated\: int\|null, sendynl_status_printed\: int\|null, sendynl_status_delivered\: int\|null\}\.$#'
 			identifier: return.type
 			count: 1
 			path: ../../src/Form/Settings/SettingsDataManager.php

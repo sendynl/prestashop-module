@@ -37,12 +37,12 @@ class CarrierController extends FrameworkBundleAdminController
 
     public function store(Request $request): Response
     {
-        $carrierType = $request->get('carrier_form')['sendy_parcel_shop_carrier'];
+        $carrierType = $request->get('carrier_form')['sendynl_parcel_shop_carrier'];
 
         if (!in_array($carrierType, CarrierEnum::values())) {
             $this->addFlash('error', $this->trans('Invalid carrier.', 'Modules.Sendynl.Admin'));
 
-            return new RedirectResponse($this->generateUrl('sendy_settings'));
+            return new RedirectResponse($this->generateUrl('sendynl_settings'));
         }
 
         try {
@@ -55,7 +55,7 @@ class CarrierController extends FrameworkBundleAdminController
         } catch (\Throwable $e) {
             $this->addFlash('error', $this->trans('Failed to create carrier.', 'Modules.Sendynl.Admin'));
 
-            return new RedirectResponse($this->generateUrl('sendy_settings'));
+            return new RedirectResponse($this->generateUrl('sendynl_settings'));
         }
 
         return new RedirectResponse($this->generateUrl('admin_carriers_edit', ['carrierId' => $id]));
@@ -67,6 +67,6 @@ class CarrierController extends FrameworkBundleAdminController
 
         $this->carrierConfigRepository->saveSettings((int) $carrier->id_reference, true, $request->get('value'));
 
-        return new RedirectResponse($this->generateUrl('sendy_settings'));
+        return new RedirectResponse($this->generateUrl('sendynl_settings'));
     }
 }

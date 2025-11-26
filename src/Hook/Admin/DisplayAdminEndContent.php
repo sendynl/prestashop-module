@@ -42,7 +42,7 @@ final class DisplayAdminEndContent
     {
         if (\Context::getContext()->controller->php_self === 'AdminOrders') {
             return $this->twig->render(
-                '@Modules/sendy/views/templates/admin/order_modal.html.twig',
+                '@Modules/sendynl/views/templates/admin/order_modal.html.twig',
                 [
                     'createShipmentFormView' => $this->createShipmentFormHandler->getForm()->createView(),
                 ]

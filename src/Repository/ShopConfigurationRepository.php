@@ -41,7 +41,7 @@ class ShopConfigurationRepository
      */
     public function getProcessingMethod(?int $storeId = null): string
     {
-        return $this->configuration->get('SENDY_PROCESSING_METHOD', ProcessingMethod::PrestaShop, $this->getShopConstraint($storeId))
+        return $this->configuration->get('SENDYNL_PROCESSING_METHOD', ProcessingMethod::PrestaShop, $this->getShopConstraint($storeId))
             ?: ProcessingMethod::PrestaShop;
     }
 
@@ -51,12 +51,12 @@ class ShopConfigurationRepository
             throw new \InvalidArgumentException(sprintf('Invalid processing method: %s', $processingMethod));
         }
 
-        $this->configuration->set('SENDY_PROCESSING_METHOD', $processingMethod, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_PROCESSING_METHOD', $processingMethod, $this->getShopConstraint());
     }
 
     public function anyShopsUsingSendyProcessingMethod(): bool
     {
-        $shops = \Configuration::getMultiShopValues('SENDY_PROCESSING_METHOD');
+        $shops = \Configuration::getMultiShopValues('SENDYNL_PROCESSING_METHOD');
         foreach ($shops as $shopId => $processingMethod) {
             if ($processingMethod === ProcessingMethod::Sendy) {
                 return true;
@@ -68,12 +68,12 @@ class ShopConfigurationRepository
 
     public function getProcessableStatus(?int $storeId = null): ?int
     {
-        return $this->configuration->getInt('SENDY_PROCESSABLE_STATUS', 0, $this->getShopConstraint($storeId)) ?: null;
+        return $this->configuration->getInt('SENDYNL_PROCESSABLE_STATUS', 0, $this->getShopConstraint($storeId)) ?: null;
     }
 
     public function setProcessableStatus(?int $processableStatus): void
     {
-        $this->configuration->set('SENDY_PROCESSABLE_STATUS', $processableStatus, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_PROCESSABLE_STATUS', $processableStatus, $this->getShopConstraint());
     }
 
     /**
@@ -81,62 +81,62 @@ class ShopConfigurationRepository
      */
     public function getDefaultShop(?int $storeId = null): ?string
     {
-        return $this->configuration->get('SENDY_DEFAULT_SHOP', null, $this->getShopConstraint($storeId)) ?: null;
+        return $this->configuration->get('SENDYNL_DEFAULT_SHOP', null, $this->getShopConstraint($storeId)) ?: null;
     }
 
     public function setDefaultShop(?string $sendyShopId): void
     {
-        $this->configuration->set('SENDY_DEFAULT_SHOP', $sendyShopId, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_DEFAULT_SHOP', $sendyShopId, $this->getShopConstraint());
     }
 
     public function getImportProducts(?int $storeId = null): bool
     {
-        return $this->configuration->getBoolean('SENDY_IMPORT_PRODUCTS', false, $this->getShopConstraint($storeId));
+        return $this->configuration->getBoolean('SENDYNL_IMPORT_PRODUCTS', false, $this->getShopConstraint($storeId));
     }
 
     public function setImportProducts(bool $importProducts): void
     {
-        $this->configuration->set('SENDY_IMPORT_PRODUCTS', $importProducts, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_IMPORT_PRODUCTS', $importProducts, $this->getShopConstraint());
     }
 
     public function getImportWeight(?int $storeId = null): bool
     {
-        return $this->configuration->getBoolean('SENDY_IMPORT_WEIGHT', false, $this->getShopConstraint($storeId));
+        return $this->configuration->getBoolean('SENDYNL_IMPORT_WEIGHT', false, $this->getShopConstraint($storeId));
     }
 
     public function setImportWeight(bool $importWeight): void
     {
-        $this->configuration->set('SENDY_IMPORT_WEIGHT', $importWeight, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_IMPORT_WEIGHT', $importWeight, $this->getShopConstraint());
     }
 
     public function getStatusGenerated(): ?int
     {
-        return $this->configuration->getInt('SENDY_STATUS_GENERATED', 0, $this->getShopConstraint()) ?: null;
+        return $this->configuration->getInt('SENDYNL_STATUS_GENERATED', 0, $this->getShopConstraint()) ?: null;
     }
 
     public function setStatusGenerated(?int $statusId): void
     {
-        $this->configuration->set('SENDY_STATUS_GENERATED', $statusId, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_STATUS_GENERATED', $statusId, $this->getShopConstraint());
     }
 
     public function getStatusPrinted(): ?int
     {
-        return $this->configuration->getInt('SENDY_STATUS_PRINTED', 0, $this->getShopConstraint()) ?: null;
+        return $this->configuration->getInt('SENDYNL_STATUS_PRINTED', 0, $this->getShopConstraint()) ?: null;
     }
 
     public function setStatusPrinted(?int $statusId): void
     {
-        $this->configuration->set('SENDY_STATUS_PRINTED', $statusId, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_STATUS_PRINTED', $statusId, $this->getShopConstraint());
     }
 
     public function getStatusDelivered(): ?int
     {
-        return $this->configuration->getInt('SENDY_STATUS_DELIVERED', 0, $this->getShopConstraint()) ?: null;
+        return $this->configuration->getInt('SENDYNL_STATUS_DELIVERED', 0, $this->getShopConstraint()) ?: null;
     }
 
     public function setStatusDelivered(?int $statusId): void
     {
-        $this->configuration->set('SENDY_STATUS_DELIVERED', $statusId, $this->getShopConstraint());
+        $this->configuration->set('SENDYNL_STATUS_DELIVERED', $statusId, $this->getShopConstraint());
     }
 
     private function getShopConstraint(?int $storeId = null): ShopConstraint

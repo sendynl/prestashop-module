@@ -18,17 +18,17 @@ if (!defined('_PS_VERSION_')) {
 
 class SendyPackage extends \ObjectModel
 {
-    public $id_sendy_package;
-    public $id_sendy_shipment;
+    public $id_sendynl_package;
+    public $id_sendynl_shipment;
     public $tracking_number;
     public $tracking_url;
 
     public static $definition = [
-        'table' => 'sendy_package',
-        'primary' => 'id_sendy_package',
+        'table' => 'sendynl_package',
+        'primary' => 'id_sendynl_package',
         'fields' => [
-            'id_sendy_package' => ['type' => self::TYPE_STRING, 'required' => true],
-            'id_sendy_shipment' => ['type' => self::TYPE_STRING, 'required' => true],
+            'id_sendynl_package' => ['type' => self::TYPE_STRING, 'required' => true],
+            'id_sendynl_shipment' => ['type' => self::TYPE_STRING, 'required' => true],
             'tracking_number' => ['type' => self::TYPE_STRING, 'validate' => 'isString', 'required' => true],
             'tracking_url' => ['type' => self::TYPE_STRING, 'validate' => 'isUrl', 'required' => false],
         ],
@@ -38,7 +38,7 @@ class SendyPackage extends \ObjectModel
     {
         $package = new self($uuid);
 
-        if (is_null($package->id_sendy_package)) {
+        if (is_null($package->id_sendynl_package)) {
             return null;
         }
 
@@ -48,7 +48,7 @@ class SendyPackage extends \ObjectModel
     public static function uuidExists(string $uuid): bool
     {
         return (bool) \Db::getInstance()->getValue(
-            'select 1 from `' . _DB_PREFIX_ . "sendy_package` where `id_sendy_package` = '" . pSQL($uuid) . "'"
+            'select 1 from `' . _DB_PREFIX_ . "sendynl_package` where `id_sendynl_package` = '" . pSQL($uuid) . "'"
         );
     }
 
@@ -64,15 +64,15 @@ class SendyPackage extends \ObjectModel
         string $trackingUrl
     ): void {
         if (self::uuidExists($packageId)) {
-            \Db::getInstance()->update('sendy_package', [
-                'id_sendy_shipment' => pSQL($shipmentId),
+            \Db::getInstance()->update('sendynl_package', [
+                'id_sendynl_shipment' => pSQL($shipmentId),
                 'tracking_number' => pSQL($packageNumber),
                 'tracking_url' => pSQL($trackingUrl),
-            ], '`id_sendy_package` = \'' . pSQL($packageId) . '\'');
+            ], '`id_sendynl_package` = \'' . pSQL($packageId) . '\'');
         } else {
-            \Db::getInstance()->insert('sendy_package', [
-                'id_sendy_package' => pSQL($packageId),
-                'id_sendy_shipment' => pSQL($shipmentId),
+            \Db::getInstance()->insert('sendynl_package', [
+                'id_sendynl_package' => pSQL($packageId),
+                'id_sendynl_shipment' => pSQL($shipmentId),
                 'tracking_number' => pSQL($packageNumber),
                 'tracking_url' => pSQL($trackingUrl),
             ]);
@@ -84,6 +84,6 @@ class SendyPackage extends \ObjectModel
      */
     public static function deleteByShipmentId(string $shipmentId): void
     {
-        \Db::getInstance()->delete('sendy_package', '`id_sendy_shipment` = \'' . pSQL($shipmentId) . '\'');
+        \Db::getInstance()->delete('sendynl_package', '`id_sendynl_shipment` = \'' . pSQL($shipmentId) . '\'');
     }
 }

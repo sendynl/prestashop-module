@@ -49,7 +49,7 @@ class InstallWebhook
 
         $sendy = $this->apiConnectionFactory->buildConnectionUsingTokens();
         $currentWebhookId = $this->configurationRepository->getWebhookId();
-        $url = \Context::getContext()->link->getModuleLink('sendy', 'webhook');
+        $url = \Context::getContext()->link->getModuleLink('sendynl', 'webhook');
 
         $payload = [
             'url' => $url,

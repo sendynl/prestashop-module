@@ -88,13 +88,13 @@ final class DisplayAdminOrderSide
             $this->shopConfigurationRepository->getDefaultShop((int) $order->id_shop)
         );
 
-        return $this->twig->render('@Modules/sendy/views/templates/admin/order_side.html.twig', [
+        return $this->twig->render('@Modules/sendynl/views/templates/admin/order_side.html.twig', [
             'order' => $order,
             'shipment' => $shipment,
             'packages' => $packages,
             'createShipmentFormView' => $form->createView(),
-            'editShipmentUrl' => \Sendy::EDIT_SHIPMENT_URL,
-            'viewPackageUrl' => \Sendy::VIEW_PACKAGE_URL,
+            'editShipmentUrl' => \Sendynl::EDIT_SHIPMENT_URL,
+            'viewPackageUrl' => \Sendynl::VIEW_PACKAGE_URL,
         ]);
     }
 }

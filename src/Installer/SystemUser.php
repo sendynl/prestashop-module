@@ -43,7 +43,7 @@ class SystemUser
 
         $employee->save();
 
-        \Configuration::updateGlobalValue('SENDY_SYSTEM_USER_ID', $employee->id);
+        \Configuration::updateGlobalValue('SENDYNL_SYSTEM_USER_ID', $employee->id);
 
         \PrestaShopLogger::addLog("Sendy - Installed system user {$employee->id}");
 
@@ -52,7 +52,7 @@ class SystemUser
 
     public static function exists(): bool
     {
-        $id = \Configuration::get('SENDY_SYSTEM_USER_ID');
+        $id = \Configuration::get('SENDYNL_SYSTEM_USER_ID');
 
         if (!$id) {
             return false;
@@ -74,7 +74,7 @@ class SystemUser
 
     public static function uninstall(): bool
     {
-        $id = \Configuration::get('SENDY_SYSTEM_USER_ID');
+        $id = \Configuration::get('SENDYNL_SYSTEM_USER_ID');
 
         if (!$id) {
             return true;
@@ -83,7 +83,7 @@ class SystemUser
         $employee = new \Employee((int) $id);
         $employee->delete();
 
-        \Configuration::deleteByName('SENDY_SYSTEM_USER_ID');
+        \Configuration::deleteByName('SENDYNL_SYSTEM_USER_ID');
 
         return true;
     }

@@ -18,15 +18,15 @@ if (!defined('_PS_VERSION_')) {
 
 class SendyShipment extends \ObjectModel
 {
-    public $id_sendy_shipment;
+    public $id_sendynl_shipment;
 
     public $id_order;
 
     public static $definition = [
-        'table' => 'sendy_shipment',
-        'primary' => 'id_sendy_shipment',
+        'table' => 'sendynl_shipment',
+        'primary' => 'id_sendynl_shipment',
         'fields' => [
-            'id_sendy_shipment' => ['type' => self::TYPE_STRING, 'required' => true],
+            'id_sendynl_shipment' => ['type' => self::TYPE_STRING, 'required' => true],
             'id_order' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true],
         ],
     ];
@@ -37,7 +37,7 @@ class SendyShipment extends \ObjectModel
     public static function existsForOrderId(int $orderId): bool
     {
         return (bool) \Db::getInstance()->getValue(
-            'SELECT 1 FROM `' . _DB_PREFIX_ . 'sendy_shipment` WHERE `id_order` = ' . $orderId
+            'SELECT 1 FROM `' . _DB_PREFIX_ . 'sendynl_shipment` WHERE `id_order` = ' . $orderId
         );
     }
 
@@ -45,18 +45,18 @@ class SendyShipment extends \ObjectModel
     {
         $shipment = new self($uuid);
 
-        if (is_null($shipment->id_sendy_shipment)) {
+        if (is_null($shipment->id_sendynl_shipment)) {
             return null;
         }
 
         return $shipment;
     }
 
-    public static function deleteByUuid(string $id_sendy_shipment): void
+    public static function deleteByUuid(string $id_sendynl_shipment): void
     {
         \Db::getInstance()->delete(
-            'sendy_shipment',
-            '`id_sendy_shipment` = \'' . pSQL($id_sendy_shipment) . '\''
+            'sendynl_shipment',
+            '`id_sendynl_shipment` = \'' . pSQL($id_sendynl_shipment) . '\''
         );
     }
 }

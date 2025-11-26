@@ -45,7 +45,7 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
 
     protected function getId(): string
     {
-        return 'sendy_carrier';
+        return 'sendynl_carrier';
     }
 
     protected function getName(): string
@@ -72,7 +72,7 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
                     ->setOptions([
                         'field' => 'parcel_shop_carrier',
                         'choice_provider' => $this->carrierChoiceProvider,
-                        'route' => 'sendy_carriers_update',
+                        'route' => 'sendynl_carriers_update',
                         'record_route_params' => [
                             'id_carrier' => 'carrierId',
                         ],

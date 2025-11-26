@@ -35,7 +35,7 @@ final class ActionAdminControllerSetMedia
         $this->runScheduledTasks = $runScheduledTasks;
     }
 
-    public function __invoke(\Sendy $module): void
+    public function __invoke(\Sendynl $module): void
     {
         $controller = \Context::getContext()->controller;
 
@@ -43,8 +43,8 @@ final class ActionAdminControllerSetMedia
             $controller->addJS($module->getPathUri() . 'views/js/admin/orders.js');
 
             \Media::addJsDef([
-                'sendyRoutes' => [
-                    'sendy_orders_print_label' => $this->router->generate('sendy_orders_print_label'),
+                'sendynlRoutes' => [
+                    'sendynl_orders_print_label' => $this->router->generate('sendynl_orders_print_label'),
                 ],
             ]);
         }

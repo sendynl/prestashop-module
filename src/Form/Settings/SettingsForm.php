@@ -57,7 +57,7 @@ class SettingsForm extends AbstractType
         }
 
         $builder
-            ->add('sendy_processing_method', ChoiceType::class, [
+            ->add('sendynl_processing_method', ChoiceType::class, [
                 'label' => $this->translator->trans('Processing method', [], 'Modules.Sendynl.Admin'),
                 'choices' => ProcessingMethod::choices(),
                 'help' => $this->translator->trans(
@@ -66,31 +66,31 @@ class SettingsForm extends AbstractType
                     'Modules.Sendynl.Admin'
                 ),
             ])
-            ->add('sendy_processable_status', ChoiceType::class, [
+            ->add('sendynl_processable_status', ChoiceType::class, [
                 'label' => $this->translator->trans('Processable Order Status', [], 'Modules.Sendynl.Admin'),
                 'choices' => $orderStatuses,
                 'choice_attr' => $orderStatusAttributes,
-                'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
+                'attr' => ['data-conditional' => 'sendynl_processing_method=' . ProcessingMethod::Sendy],
                 'help' => $this->translator->trans(
                     'Create a shipment in Sendy when an order transitions to this status.',
                     [],
                     'Modules.Sendynl.Admin'
                 ),
             ])
-            ->add('sendy_default_shop', ChoiceType::class, [
+            ->add('sendynl_default_shop', ChoiceType::class, [
                 'label' => $this->translator->trans('Default Sendy shop', [], 'Modules.Sendynl.Admin'),
                 'choices' => $shops,
                 'required' => false,
             ])
-            ->add('sendy_import_products', SwitchType::class, [
+            ->add('sendynl_import_products', SwitchType::class, [
                 'label' => $this->translator->trans('Import products', [], 'Modules.Sendynl.Admin'),
                 'required' => false,
             ])
-            ->add('sendy_import_weight', SwitchType::class, [
+            ->add('sendynl_import_weight', SwitchType::class, [
                 'label' => $this->translator->trans('Import weight', [], 'Modules.Sendynl.Admin'),
                 'required' => false,
             ])
-            ->add('sendy_status_generated', ChoiceType::class, [
+            ->add('sendynl_status_generated', ChoiceType::class, [
                 'label' => $this->translator->trans('Status after shipment is generated', [], 'Modules.Sendynl.Admin'),
                 'choices' => $orderStatuses,
                 'required' => false,
@@ -100,9 +100,9 @@ class SettingsForm extends AbstractType
                     [],
                     'Modules.Sendynl.Admin'
                 ),
-                'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
+                'attr' => ['data-conditional' => 'sendynl_processing_method=' . ProcessingMethod::Sendy],
             ])
-            ->add('sendy_status_printed', ChoiceType::class, [
+            ->add('sendynl_status_printed', ChoiceType::class, [
                 'label' => $this->translator->trans('Status after label is printed', [], 'Modules.Sendynl.Admin'),
                 'choices' => $orderStatuses,
                 'required' => false,
@@ -113,7 +113,7 @@ class SettingsForm extends AbstractType
                     'Modules.Sendynl.Admin'
                 ),
             ])
-            ->add('sendy_status_delivered', ChoiceType::class, [
+            ->add('sendynl_status_delivered', ChoiceType::class, [
                 'label' => $this->translator->trans('Status after shipment is delivered', [], 'Modules.Sendynl.Admin'),
                 'choices' => $orderStatuses,
                 'required' => false,
@@ -123,7 +123,7 @@ class SettingsForm extends AbstractType
                     [],
                     'Modules.Sendynl.Admin'
                 ),
-                'attr' => ['data-conditional' => 'sendy_processing_method=' . ProcessingMethod::Sendy],
+                'attr' => ['data-conditional' => 'sendynl_processing_method=' . ProcessingMethod::Sendy],
             ])
         ;
     }

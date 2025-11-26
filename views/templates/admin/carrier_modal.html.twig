@@ -1,4 +1,4 @@
-<div class="modal fade" id="sendyCreateCarrierModal" tabindex="-1">
+<div class="modal fade" id="sendynlCreateCarrierModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,9 +14,9 @@
                 </p>
 
                 {{ form_start(carrierFormView, {
-                    action: path('sendy_carriers_store'),
+                    action: path('sendynl_carriers_store'),
                     attr: {
-                        id: 'sendyCreateCarrierForm',
+                        id: 'sendynlCreateCarrierForm',
                     }
                 }) }}
 
@@ -28,7 +28,7 @@
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
                     {{ 'Cancel'|trans({}, 'Admin.Actions') }}
                 </button>
-                <button type="submit" class="btn btn-primary js-submit-modal-form-btn" form="sendyCreateCarrierForm">
+                <button type="submit" class="btn btn-primary js-submit-modal-form-btn" form="sendynlCreateCarrierForm">
                     {{ 'Create'|trans({}, 'Admin.Actions') }}
                 </button>
             </div>

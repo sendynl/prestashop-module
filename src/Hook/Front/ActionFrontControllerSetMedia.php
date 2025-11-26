@@ -23,15 +23,15 @@ if (!defined('_PS_VERSION_')) {
  */
 final class ActionFrontControllerSetMedia
 {
-    public function __invoke(\Sendy $module): void
+    public function __invoke(\Sendynl $module): void
     {
         $controller = \Context::getContext()->controller;
 
         if ($controller->php_self === 'order') {
-            $controller->registerJavascript('sendy_checkout', 'modules/sendy/views/js/front/checkout.js');
-            $controller->registerStylesheet('sendy_styles', 'modules/sendy/views/css/front.css');
+            $controller->registerJavascript('sendynl_checkout', 'modules/sendynl/views/js/front/checkout.js');
+            $controller->registerStylesheet('sendynl_styles', 'modules/sendynl/views/css/front.css');
 
-            $controller->registerJavascript('sendy_api', 'https://app.sendy.nl/embed/api.js', [
+            $controller->registerJavascript('sendynl_api', 'https://app.sendy.nl/embed/api.js', [
                 'server' => 'remote',
             ]);
         }

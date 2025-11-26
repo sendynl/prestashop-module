@@ -74,6 +74,12 @@ class Sendynl extends CarrierModule
             return false;
         }
 
+        if (Module::isInstalled('sendy')) {
+            $this->_errors[] = $this->trans('Please uninstall the old "sendy" module before installing this module', [], 'Modules.Sendynl.Admin');
+
+            return false;
+        }
+
         include dirname(__FILE__) . '/sql/install.php';
 
         return parent::install()

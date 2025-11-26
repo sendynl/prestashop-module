@@ -238,6 +238,10 @@
                 <source>No shipment created yet</source>
                 <target>Nog geen zending aangemaakt</target>
             </trans-unit>
+            <trans-unit id="60">
+                <source>Please uninstall the old "sendy" module before installing this module</source>
+                <target>Verwijder eerst de oude "sendy"-module voordat je deze module installeert</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

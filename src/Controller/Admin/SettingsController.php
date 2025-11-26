@@ -81,7 +81,7 @@ class SettingsController extends FrameworkBundleAdminController
                         $this->shopConfigurationRepository->setProcessingMethod($oldProcessingMethod);
                         $this->addFlash('error', $this->trans(
                             'An error occurred while changing the processing method: %error%',
-                            'Modules.Sendy.Admin',
+                            'Modules.Sendynl.Admin',
                             ['%error%' => $e->getMessage()]
                         ));
 
@@ -97,7 +97,7 @@ class SettingsController extends FrameworkBundleAdminController
 
                 $this->addFlash('success', $this->trans('Settings updated.', 'Admin.Notifications.Success'));
 
-                return $this->redirectToRoute('sendy_settings');
+                return $this->redirectToRoute('sendynl_settings');
             }
 
             $this->flashErrors($errors);
@@ -105,7 +105,7 @@ class SettingsController extends FrameworkBundleAdminController
 
         $carrierGrid = $this->carrierGridFactory->getGrid(new SearchCriteria());
 
-        return $this->render('@Modules/sendy/views/templates/admin/settings.html.twig', [
+        return $this->render('@Modules/sendynl/views/templates/admin/settings.html.twig', [
             'settingsFormView' => $settingsForm->createView(),
             'authenticateFormView' => $this->createForm(AuthenticateForm::class)->createView(),
             'carrierFormView' => $this->createForm(CarrierForm::class)->createView(),

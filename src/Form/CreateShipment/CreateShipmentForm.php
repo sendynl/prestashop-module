@@ -53,15 +53,15 @@ class CreateShipmentForm extends AbstractType
 
         $builder
             ->add('shop_id', ChoiceType::class, [
-                'label' => $this->translator->trans('Shop', [], 'Modules.Sendy.Admin'),
+                'label' => $this->translator->trans('Shop', [], 'Modules.Sendynl.Admin'),
                 'choices' => array_column($shops, 'uuid', 'name'),
             ])
             ->add('preference_id', ChoiceType::class, [
-                'label' => $this->translator->trans('Shipping profile', [], 'Modules.Sendy.Admin'),
+                'label' => $this->translator->trans('Shipping profile', [], 'Modules.Sendynl.Admin'),
                 'choices' => array_column($preferences, 'uuid', 'name'),
             ])
             ->add('amount', NumberType::class, [
-                'label' => $this->translator->trans('Amount of packages', [], 'Modules.Sendy.Admin'),
+                'label' => $this->translator->trans('Amount of packages', [], 'Modules.Sendynl.Admin'),
             ])
             ->add('order_ids', CollectionType::class, [
                 'allow_add' => true,

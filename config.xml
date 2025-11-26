@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-    <name>sendy</name>
+    <name>sendynl</name>
     <displayName><![CDATA[Sendy]]></displayName>
-    <version><![CDATA[2.0.1]]></version>
+    <version><![CDATA[3.0.0a1]]></version>
     <description><![CDATA[A PrestaShop module that connects your store to the Sendy platform]]></description>
     <author><![CDATA[Sendy B.V.]]></author>
     <tab><![CDATA[shipping_logistics]]></tab>

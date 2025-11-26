@@ -30,7 +30,7 @@ class CarrierGridDataFactory implements GridDataFactoryInterface
             SELECT c.id_carrier, c.name, scc.parcel_shop_carrier
             FROM {$prefix}carrier c
             LEFT JOIN {$prefix}sendy_carrier_config scc ON c.id_reference = scc.id_reference
-            WHERE c.active = 1 AND c.external_module_name = 'sendy' AND c.deleted = 0
+            WHERE c.active = 1 AND c.external_module_name = 'sendynl' AND c.deleted = 0
             ORDER BY c.name ASC
             SQL;
         $rows = \Db::getInstance()->executeS($query);

@@ -20,13 +20,13 @@ if (!defined('_PS_VERSION_')) {
 }
 
 /**
- * @see views/PrestaShop/Admin/Common/Grid/Columns/Content/sendy_track_and_trace.html.twig
+ * @see views/PrestaShop/Admin/Common/Grid/Columns/Content/sendynl_track_and_trace.html.twig
  */
 class TrackAndTraceColumn extends AbstractColumn
 {
     public function getType(): string
     {
-        return 'sendy_track_and_trace';
+        return 'sendynl_track_and_trace';
     }
 
     protected function configureOptions(OptionsResolver $resolver): void

@@ -56,7 +56,7 @@ class CreateShipmentController extends FrameworkBundleAdminController
                 $order = new \Order((int) $orderId);
 
                 if ($this->shipmentRepository->findShipmentByOrderId((int) $orderId)) {
-                    $this->addFlash('warning', $this->trans('Shipment already exists for order %order%.', 'Modules.Sendy.Admin', [
+                    $this->addFlash('warning', $this->trans('Shipment already exists for order %order%.', 'Modules.Sendynl.Admin', [
                         '%order%' => $order->reference,
                     ]));
 
@@ -86,13 +86,13 @@ class CreateShipmentController extends FrameworkBundleAdminController
 
             $this->addFlash(
                 'success',
-                $this->trans('Shipments created successfully.', 'Modules.Sendy.Admin')
+                $this->trans('Shipments created successfully.', 'Modules.Sendynl.Admin')
             );
         } catch (SendyException|TokensMissingException $exception) {
             if (isset($order)) {
                 $this->addFlash(
                     'error',
-                    $this->trans('Error creating shipment for order %order%: %message%', 'Modules.Sendy.Admin', [
+                    $this->trans('Error creating shipment for order %order%: %message%', 'Modules.Sendynl.Admin', [
                         '%order%' => $order->reference,
                         '%message%' => $exception->getMessage(),
                     ]),

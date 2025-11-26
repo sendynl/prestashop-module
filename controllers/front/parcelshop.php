@@ -16,7 +16,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class SendyParcelshopModuleFrontController extends ModuleFrontController
+class SendynlParcelshopModuleFrontController extends ModuleFrontController
 {
     public function postProcess()
     {
@@ -28,13 +28,13 @@ class SendyParcelshopModuleFrontController extends ModuleFrontController
             $body = json_decode(Tools::file_get_contents('php://input'), true);
 
             if (!$carrierReferenceId) {
-                $this->clientError($this->trans('Carrier ID is required.', [], 'Modules.Sendy.Front'));
+                $this->clientError($this->trans('Carrier ID is required.', [], 'Modules.Sendynl.Front'));
 
                 return;
             }
 
             if (!isset($body['parcel_shop_id'])) {
-                $this->clientError($this->trans('Parcel shop ID is required.', [], 'Modules.Sendy.Front'));
+                $this->clientError($this->trans('Parcel shop ID is required.', [], 'Modules.Sendynl.Front'));
 
                 return;
             }
@@ -42,7 +42,7 @@ class SendyParcelshopModuleFrontController extends ModuleFrontController
             $cart = Context::getContext()->cart;
 
             if (!$cart || !$cart->id) {
-                $this->clientError($this->trans('Cart not found.', [], 'Modules.Sendy.Front'));
+                $this->clientError($this->trans('Cart not found.', [], 'Modules.Sendynl.Front'));
 
                 return;
             }

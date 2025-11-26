@@ -3,16 +3,16 @@
 
 composer install --no-dev --no-interaction --optimize-autoloader
 
-# Create git archive with sendy/ prefix
-git archive HEAD --format=zip --prefix=sendy/ > sendy.zip
+# Create git archive with sendynl/ prefix
+git archive HEAD --format=zip --prefix=sendynl/ > sendynl.zip
 
 # Create temporary directory to match the prefix structure
-mkdir -p temp/sendy
-cp -r vendor temp/sendy/
+mkdir -p temp/sendynl
+cp -r vendor temp/sendynl/
 
 # Add vendor directory with proper prefix to the zip
 cd temp
-zip -ur ../sendy.zip sendy/vendor
+zip -ur ../sendynl.zip sendynl/vendor
 
 # Clean up temporary directory
 cd ..

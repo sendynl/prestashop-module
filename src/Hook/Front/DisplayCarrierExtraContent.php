@@ -50,7 +50,7 @@ final class DisplayCarrierExtraContent
             return '';
         }
 
-        $text = \Context::getContext()->getTranslator()->trans('Select a pick up point', [], 'Modules.Sendy.Front');
+        $text = \Context::getContext()->getTranslator()->trans('Select a pick up point', [], 'Modules.Sendynl.Front');
         $parcelShopName = '';
         $parcelShopAddress = '';
         $cartParcelShop = SendyCartParcelShop::getByCartId($params['cart']->id);

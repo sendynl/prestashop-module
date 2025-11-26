@@ -15,10 +15,10 @@
         </ul>
     {% else %}
         <a href="{{ column.options.sendy_edit_shipment_url|format(record.sendy_shipment_id) }}" target="_blank" style="text-decoration: underline;">
-            {{ 'Edit shipment'|trans({}, 'Modules.Sendy.Admin') }}
+            {{ 'Edit shipment'|trans({}, 'Modules.Sendynl.Admin') }}
         </a>
     {% endif %}
 {% else %}
-    {{ 'No shipment created yet'|trans({}, 'Modules.Sendy.Admin') }}
+    {{ 'No shipment created yet'|trans({}, 'Modules.Sendynl.Admin') }}
 {% endif %}
 </div>

@@ -31,7 +31,7 @@ if (!defined('_PS_VERSION_')) {
  *
  * @see https://github.com/sendynl/prestashop-module
  */
-class SendyWebhookModuleFrontController extends ModuleFrontController
+class SendynlWebhookModuleFrontController extends ModuleFrontController
 {
     public function postProcess()
     {

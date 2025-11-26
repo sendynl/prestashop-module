@@ -24,7 +24,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class Sendy extends CarrierModule
+class Sendynl extends CarrierModule
 {
     public const EDIT_SHIPMENT_URL = 'https://app.sendy.nl/shipment/%s/edit';
     public const VIEW_PACKAGE_URL = 'https://app.sendy.nl/packages/%s';
@@ -33,9 +33,9 @@ class Sendy extends CarrierModule
 
     public function __construct()
     {
-        $this->name = 'sendy';
+        $this->name = 'sendynl';
         $this->tab = 'shipping_logistics';
-        $this->version = '2.0.1';
+        $this->version = '3.0.0a1';
         $this->author = 'Sendy B.V.';
         $this->need_instance = 1;
         $this->module_key = 'c4f781164993281f1b2e1e3147b96348';
@@ -47,15 +47,15 @@ class Sendy extends CarrierModule
 
         parent::__construct();
 
-        $this->displayName = $this->trans('Sendy', [], 'Modules.Sendy.Admin');
-        $this->description = $this->trans('A PrestaShop module that connects your store to the Sendy platform', [], 'Modules.Sendy.Admin');
+        $this->displayName = $this->trans('Sendy', [], 'Modules.Sendynl.Admin');
+        $this->description = $this->trans('A PrestaShop module that connects your store to the Sendy platform', [], 'Modules.Sendynl.Admin');
 
         $this->ps_versions_compliancy = ['min' => '1.7.8', 'max' => _PS_VERSION_];
 
         $this->tabs = [
             [
                 'name' => 'Sendy',
-                'class_name' => 'AdminSendySettings',
+                'class_name' => 'AdminSendynlSettings',
                 'visible' => true,
                 'parent_class_name' => 'AdminParentShipping',
             ],
@@ -69,7 +69,7 @@ class Sendy extends CarrierModule
     public function install(): bool
     {
         if (!extension_loaded('curl')) {
-            $this->_errors[] = $this->trans('You have to enable the cURL extension on your server to install this module', [], 'Modules.Sendy.Admin');
+            $this->_errors[] = $this->trans('You have to enable the cURL extension on your server to install this module', [], 'Modules.Sendynl.Admin');
 
             return false;
         }
@@ -101,7 +101,7 @@ class Sendy extends CarrierModule
     {
         /** @var Symfony\Component\Routing\Router $router */
         $router = $this->get('router');
-        $route = $router->generate('sendy_settings');
+        $route = $router->generate('sendynl_settings');
         Tools::redirectAdmin($route);
     }
 

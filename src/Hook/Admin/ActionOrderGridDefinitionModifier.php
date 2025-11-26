@@ -56,7 +56,7 @@ final class ActionOrderGridDefinitionModifier
         $definition->getBulkActions()
             ->add(
                 (new ModalFormSubmitBulkAction('sendy_create_shipment'))
-                    ->setName($this->translator->trans('Sendy - Create shipment', [], 'Modules.Sendy.Admin'))
+                    ->setName($this->translator->trans('Sendy - Create shipment', [], 'Modules.Sendynl.Admin'))
                     ->setOptions([
                         'submit_route' => 'sendy_orders_create_shipment',
                         'modal_id' => 'sendyCreateShipmentModal',
@@ -64,7 +64,7 @@ final class ActionOrderGridDefinitionModifier
             )
             ->add(
                 (new ButtonBulkAction('sendy_print_label'))
-                    ->setName($this->translator->trans('Sendy - Print label', [], 'Modules.Sendy.Admin'))
+                    ->setName($this->translator->trans('Sendy - Print label', [], 'Modules.Sendynl.Admin'))
                     ->setOptions([
                         'class' => 'sendy-print-label-bulk-action-submit-btn',
                     ])
@@ -74,16 +74,16 @@ final class ActionOrderGridDefinitionModifier
         if ($displayTrackAndTraceColumn) {
             $definition->getColumns()->addBefore(
                 'actions',
-                (new TrackAndTraceColumn('sendy_track_and_trace'))
-                    ->setName($this->translator->trans('Track and trace', [], 'Modules.Sendy.Admin'))
+                (new TrackAndTraceColumn('sendynl_track_and_trace'))
+                    ->setName($this->translator->trans('Track and trace', [], 'Modules.Sendynl.Admin'))
             );
         }
 
         // Grid actions. Toggling the visibility only seems to work in PS 8.0.0 and later.
         if (version_compare(_PS_VERSION_, '8.0.0', '>=')) {
             $trackAndTraceColumnLabel = $displayTrackAndTraceColumn
-                ? $this->translator->trans('Sendy - Hide track and trace column', [], 'Modules.Sendy.Admin')
-                : $this->translator->trans('Sendy - Show track and trace column', [], 'Modules.Sendy.Admin');
+                ? $this->translator->trans('Sendy - Hide track and trace column', [], 'Modules.Sendynl.Admin')
+                : $this->translator->trans('Sendy - Show track and trace column', [], 'Modules.Sendynl.Admin');
             $trackAndTraceColumnIcon = $displayTrackAndTraceColumn ? 'visibility_off' : 'visibility';
             $definition->getGridActions()
                 ->add(

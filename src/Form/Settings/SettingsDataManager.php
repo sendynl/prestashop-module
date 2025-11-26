@@ -138,15 +138,15 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
         $errors = [];
 
         if (!isset($configuration['sendy_processing_method'])) {
-            $errors[] = $this->translator->trans('Processing method is required.', [], 'Modules.Sendy.Admin');
+            $errors[] = $this->translator->trans('Processing method is required.', [], 'Modules.Sendynl.Admin');
         } elseif (!in_array($configuration['sendy_processing_method'], ProcessingMethod::values(), true)) {
-            $errors[] = $this->translator->trans('Invalid processing method.', [], 'Modules.Sendy.Admin');
+            $errors[] = $this->translator->trans('Invalid processing method.', [], 'Modules.Sendynl.Admin');
         } elseif ($configuration['sendy_processing_method'] === ProcessingMethod::Sendy) {
             if (!isset($configuration['sendy_processable_status']) || !is_numeric($configuration['sendy_processable_status'])) {
                 $errors[] = $this->translator->trans(
                     'Processable status is required when processing method is Sendy.',
                     [],
-                    'Modules.Sendy.Admin'
+                    'Modules.Sendynl.Admin'
                 );
             }
 
@@ -154,21 +154,21 @@ class SettingsDataManager implements DataConfigurationInterface, FormDataProvide
                 $errors[] = $this->translator->trans(
                     'Default shop is required when processing method is Sendy.',
                     [],
-                    'Modules.Sendy.Admin'
+                    'Modules.Sendynl.Admin'
                 );
             }
         }
 
         if (!isset($configuration['sendy_import_products'])) {
-            $errors[] = $this->translator->trans('Import products setting is required.', [], 'Modules.Sendy.Admin');
+            $errors[] = $this->translator->trans('Import products setting is required.', [], 'Modules.Sendynl.Admin');
         } elseif (!is_bool($configuration['sendy_import_products'])) {
-            $errors[] = $this->translator->trans('Invalid value for import products.', [], 'Modules.Sendy.Admin');
+            $errors[] = $this->translator->trans('Invalid value for import products.', [], 'Modules.Sendynl.Admin');
         }
 
         if (!isset($configuration['sendy_import_weight'])) {
-            $errors[] = $this->translator->trans('Import weight setting is required.', [], 'Modules.Sendy.Admin');
+            $errors[] = $this->translator->trans('Import weight setting is required.', [], 'Modules.Sendynl.Admin');
         } elseif (!is_bool($configuration['sendy_import_weight'])) {
-            $errors[] = $this->translator->trans('Invalid value for import weight.', [], 'Modules.Sendy.Admin');
+            $errors[] = $this->translator->trans('Invalid value for import weight.', [], 'Modules.Sendynl.Admin');
         }
 
         return $errors;

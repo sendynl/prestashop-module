@@ -48,7 +48,7 @@ class PrintLabelController extends FrameworkBundleAdminController
 
         if ($shipmentIds === []) {
             return new JsonResponse(
-                ['message' => $this->trans('No shipments found for the selected orders.', 'Modules.Sendy.Admin')],
+                ['message' => $this->trans('No shipments found for the selected orders.', 'Modules.Sendynl.Admin')],
                 400,
             );
         }
@@ -59,7 +59,7 @@ class PrintLabelController extends FrameworkBundleAdminController
         } catch (SendyException|TokensMissingException $e) {
             return new JsonResponse(
                 [
-                    'message' => $this->trans('Error while fetching labels: %error%', 'Modules.Sendy.Admin', [
+                    'message' => $this->trans('Error while fetching labels: %error%', 'Modules.Sendynl.Admin', [
                         '%error%' => $e->getMessage(),
                     ]),
                 ],

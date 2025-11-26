@@ -57,7 +57,7 @@ final class ActionValidateStepComplete
             \Context::getContext()->controller->errors[] = \Context::getContext()->getTranslator()->trans(
                 'This shipping method requires a parcel shop to be selected.',
                 [],
-                'Modules.Sendy.Front'
+                'Modules.Sendynl.Front'
             );
         }
     }

@@ -50,7 +50,7 @@ class CarrierGridDefinitionFactory extends AbstractGridDefinitionFactory
 
     protected function getName(): string
     {
-        return $this->trans('Parcelshop carriers', [], 'Modules.Sendy.Admin');
+        return $this->trans('Parcelshop carriers', [], 'Modules.Sendynl.Admin');
     }
 
     protected function getColumns(): ColumnCollectionInterface

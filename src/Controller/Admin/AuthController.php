@@ -53,9 +53,9 @@ class AuthController extends FrameworkBundleAdminController
     public function login(Request $request): Response
     {
         if (\Shop::isFeatureActive() && !$this->shopContext->isAllShopContext()) {
-            $this->addFlash('error', $this->trans("You can only log in to Sendy from the 'All stores' context.", 'Modules.Sendy.Admin'));
+            $this->addFlash('error', $this->trans("You can only log in to Sendy from the 'All stores' context.", 'Modules.Sendynl.Admin'));
 
-            return new RedirectResponse($this->router->generate('sendy_settings'));
+            return new RedirectResponse($this->router->generate('sendynl_settings'));
         }
 
         $this->configurationRepository->setOAuthState($state = Str::random(32));
@@ -73,9 +73,9 @@ class AuthController extends FrameworkBundleAdminController
     public function callback(Request $request): Response
     {
         if ($this->configurationRepository->pullOAuthState() !== $request->query->get('state')) {
-            $this->addFlash('error', $this->trans('Login failed. Please try again.', 'Modules.Sendy.Admin'));
+            $this->addFlash('error', $this->trans('Login failed. Please try again.', 'Modules.Sendynl.Admin'));
 
-            return new RedirectResponse($this->router->generate('sendy_settings'));
+            return new RedirectResponse($this->router->generate('sendynl_settings'));
         }
 
         try {
@@ -88,14 +88,14 @@ class AuthController extends FrameworkBundleAdminController
             // Install/uninstall the webhook as needed
             $this->synchronizeWebhook->execute();
 
-            $this->addFlash('success', $this->trans('Login successful.', 'Modules.Sendy.Admin'));
+            $this->addFlash('success', $this->trans('Login successful.', 'Modules.Sendynl.Admin'));
         } catch (SendyException $exception) {
-            $this->addFlash('error', $this->trans('Login failed: %error%', 'Modules.Sendy.Admin', [
+            $this->addFlash('error', $this->trans('Login failed: %error%', 'Modules.Sendynl.Admin', [
                 '%error%' => $exception->getMessage(),
             ]));
         }
 
-        return new RedirectResponse($this->router->generate('sendy_settings'));
+        return new RedirectResponse($this->router->generate('sendynl_settings'));
     }
 
     public function logout(Request $request): Response
@@ -104,6 +104,6 @@ class AuthController extends FrameworkBundleAdminController
 
         $this->configurationRepository->forgetAccessToken();
 
-        return new RedirectResponse($this->router->generate('sendy_settings'));
+        return new RedirectResponse($this->router->generate('sendynl_settings'));
     }
 }

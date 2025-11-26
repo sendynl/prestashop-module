@@ -1,54 +1,54 @@
-sendy_settings:
-  path: /sendy/settings
+sendynl_settings:
+  path: /sendynl/settings
   methods: [GET, POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\SettingsController::index'
     # Needed to work with tab system
-    _legacy_controller: 'AdminSendySettings'
-    _legacy_link: 'AdminSendySettings'
+    _legacy_controller: 'AdminSendynlSettings'
+    _legacy_link: 'AdminSendynlSettings'
 
-sendy_login:
-  path: /sendy/login
+sendynl_login:
+  path: /sendynl/login
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\AuthController::login'
-sendy_login_callback:
-  path: /sendy/login/callback
+sendynl_login_callback:
+  path: /sendynl/login/callback
   methods: [GET]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\AuthController::callback'
     _anonymous_controller: true
     _legacy_controller_anonymous: true
-sendy_logout:
-  path: /sendy/logout
+sendynl_logout:
+  path: /sendynl/logout
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\AuthController::logout'
 
-sendy_carriers_store:
-  path: /sendy/carriers
+sendynl_carriers_store:
+  path: /sendynl/carriers
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\CarrierController::store'
 
-sendy_carriers_update:
-  path: /sendy/carriers/{carrierId}/parcel-shop-carrier
+sendynl_carriers_update:
+  path: /sendynl/carriers/{carrierId}/parcel-shop-carrier
   methods: [POST]
   defaults:
       _controller: 'Sendy\PrestaShop\Controller\Admin\CarrierController::updateParcelShopCarrier'
 
-sendy_orders_create_shipment:
-  path: /sendy/orders/create-shipment
+sendynl_orders_create_shipment:
+  path: /sendynl/orders/create-shipment
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\Orders\CreateShipmentController::__invoke'
-sendy_orders_print_label:
-  path: /sendy/orders/print-label
+sendynl_orders_print_label:
+  path: /sendynl/orders/print-label
   methods: [GET]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\Orders\PrintLabelController::__invoke'
-sendy_orders_toggle_track_and_trace_column:
-  path: /sendy/orders/toggle-track-and-trace-column
+sendynl_orders_toggle_track_and_trace_column:
+  path: /sendynl/orders/toggle-track-and-trace-column
   methods: [POST]
   defaults:
     _controller: 'Sendy\PrestaShop\Controller\Admin\Orders\ColumnsController::toggleTrackAndTraceColumn'

@@ -57,7 +57,7 @@ class AuthenticateForm extends TranslatorAwareType
             $builder
                 ->setAction($this->router->generate('sendy_logout'))
                 ->add('unauthenticate', SubmitType::class, [
-                    'label' => $this->trans('Logout %name%', 'Modules.Sendy.Admin', [
+                    'label' => $this->trans('Logout %name%', 'Modules.Sendynl.Admin', [
                         '%name%' => $authenticatedAs,
                     ]),
                     'attr' => [
@@ -68,7 +68,7 @@ class AuthenticateForm extends TranslatorAwareType
             $builder
                 ->setAction($this->router->generate('sendy_login'))
                 ->add('authenticate', SubmitType::class, [
-                    'label' => $this->trans('Login with Sendy', 'Modules.Sendy.Admin'),
+                    'label' => $this->trans('Login with Sendy', 'Modules.Sendynl.Admin'),
                     'attr' => [
                         'class' => 'btn btn-primary',
                     ],

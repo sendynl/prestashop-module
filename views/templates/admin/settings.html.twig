@@ -5,7 +5,7 @@
     {{ form_start(authenticateFormView) }}
     <div class="card">
         <h3 class="card-header">
-            <i class="material-icons">lock</i> {{ 'Authentication'|trans({}, 'Modules.Sendy.Admin') }}
+            <i class="material-icons">lock</i> {{ 'Authentication'|trans({}, 'Modules.Sendynl.Admin') }}
         </h3>
         <div class="card-body">
             <div class="form-wrapper">
@@ -19,7 +19,7 @@
         {{ form_start(settingsFormView) }}
         <div class="card">
             <h3 class="card-header">
-                <i class="material-icons">settings</i> {{ 'Settings'|trans({}, 'Modules.Sendy.Admin') }}
+                <i class="material-icons">settings</i> {{ 'Settings'|trans({}, 'Modules.Sendynl.Admin') }}
             </h3>
             <div class="card-body">
                 <div class="form-wrapper">
@@ -28,7 +28,7 @@
                     {{ form_row(settingsFormView.sendy_import_products) }}
                     {{ form_row(settingsFormView.sendy_import_weight) }}
 
-                    <h4 class="mt-4 h2">{{ 'Statuses'|trans({}, 'Modules.Sendy.Admin') }}</h4>
+                    <h4 class="mt-4 h2">{{ 'Statuses'|trans({}, 'Modules.Sendynl.Admin') }}</h4>
                     {{ form_row(settingsFormView.sendy_processable_status) }}
                     {{ form_row(settingsFormView.sendy_status_generated) }}
                     {{ form_row(settingsFormView.sendy_status_printed) }}
@@ -49,7 +49,7 @@
             {% block grid_actions_block %}
                 <div class="d-inline-block float-right">
                     <a href="{{ path('admin_carriers_index') }}" class="btn btn-sm btn-outline-secondary">
-                        {{ 'View all carriers'|trans({}, 'Modules.Sendy.Admin') }}
+                        {{ 'View all carriers'|trans({}, 'Modules.Sendynl.Admin') }}
                     </a>
                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendyCreateCarrierModal">
                         <i class="material-icons">add_circle_outline</i>
@@ -60,7 +60,7 @@
         {% endembed %}
     {% endif %}
 
-    {% include '@Modules/sendy/views/templates/admin/carrier_modal.html.twig' %}
+    {% include '@Modules/sendynl/views/templates/admin/carrier_modal.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

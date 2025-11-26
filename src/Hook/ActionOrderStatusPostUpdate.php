@@ -17,7 +17,7 @@ use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Exception\TokensMissingException;
-use Sendy\PrestaShop\Legacy\SendyShipment;
+use Sendy\PrestaShop\Legacy\SendynlShipment;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
 if (!defined('_PS_VERSION_')) {
@@ -66,7 +66,7 @@ final class ActionOrderStatusPostUpdate
         }
 
         // Only proceed if there is no shipment for this order yet.
-        if (SendyShipment::existsForOrderId((int) $params['id_order'])) {
+        if (SendynlShipment::existsForOrderId((int) $params['id_order'])) {
             return;
         }
 
@@ -77,7 +77,7 @@ final class ActionOrderStatusPostUpdate
                 null
             );
 
-            $shipment = new SendyShipment();
+            $shipment = new SendynlShipment();
             $shipment->id_sendynl_shipment = $result['uuid'];
             $shipment->id_order = (int) $params['id_order'];
             $shipment->save();

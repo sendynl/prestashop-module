@@ -16,8 +16,8 @@ use PrestaShop\PrestaShop\Adapter\Shop\Context;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Enum\ProcessingMethod;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
-use Sendy\PrestaShop\Legacy\SendyPackage;
-use Sendy\PrestaShop\Legacy\SendyShipment;
+use Sendy\PrestaShop\Legacy\SendynlPackage;
+use Sendy\PrestaShop\Legacy\SendynlShipment;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Str;
 
@@ -41,7 +41,7 @@ class HandleShipmentWebhook
         $this->shopContext = $shopContext;
     }
 
-    public function execute(SendyShipment $shipment, string $event): void
+    public function execute(SendynlShipment $shipment, string $event): void
     {
         $order = new \Order((int) $shipment->id_order);
 
@@ -87,10 +87,10 @@ class HandleShipmentWebhook
     /**
      * @param array<string, mixed> $shipmentData
      */
-    private function handleGenerated(SendyShipment $shipment, \Order $order, array $shipmentData): void
+    private function handleGenerated(SendynlShipment $shipment, \Order $order, array $shipmentData): void
     {
         foreach ($shipmentData['packages'] as $package) {
-            SendyPackage::addPackageToShipment(
+            SendynlPackage::addPackageToShipment(
                 $shipment->id_sendynl_shipment,
                 $package['uuid'] ?? Str::uuidv4(),
                 $package['package_number'],
@@ -103,13 +103,13 @@ class HandleShipmentWebhook
         }
     }
 
-    private function deleteShipment(SendyShipment $shipment): void
+    private function deleteShipment(SendynlShipment $shipment): void
     {
-        SendyPackage::deleteByShipmentId($shipment->id_sendynl_shipment);
-        SendyShipment::deleteByUuid($shipment->id_sendynl_shipment);
+        SendynlPackage::deleteByShipmentId($shipment->id_sendynl_shipment);
+        SendynlShipment::deleteByUuid($shipment->id_sendynl_shipment);
     }
 
-    private function handleDelivered(SendyShipment $shipment, \Order $order): void
+    private function handleDelivered(SendynlShipment $shipment, \Order $order): void
     {
         if ($status = $this->shopConfigurationRepository->getStatusDelivered()) {
             $order->setCurrentState($status);

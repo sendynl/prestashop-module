@@ -14,7 +14,7 @@ use Sendy\PrestaShop\Action\HandleShipmentWebhook;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Installer\SystemUser;
 use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
-use Sendy\PrestaShop\Legacy\SendyShipment;
+use Sendy\PrestaShop\Legacy\SendynlShipment;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 
@@ -58,7 +58,7 @@ class SendynlWebhookModuleFrontController extends ModuleFrontController
             SystemUser::ensureInstalled();
             Context::getContext()->employee = new Employee($configurationRepository->getSendySystemUserId());
 
-            $shipment = SendyShipment::getByUuid($decoded['data']['id']);
+            $shipment = SendynlShipment::getByUuid($decoded['data']['id']);
 
             if ($shipment) {
                 $shopContext = new PrestaShop\PrestaShop\Adapter\Shop\Context();

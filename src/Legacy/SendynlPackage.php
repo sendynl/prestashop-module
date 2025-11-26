@@ -16,7 +16,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class SendyPackage extends \ObjectModel
+class SendynlPackage extends \ObjectModel
 {
     public $id_sendynl_package;
     public $id_sendynl_shipment;

@@ -23,7 +23,7 @@ if (!defined('_PS_VERSION_')) {
  *
  * @ORM\Table
  */
-class SendyShipment
+class SendynlShipment
 {
     /**
      * @ORM\Id

@@ -12,20 +12,20 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
-use Sendy\PrestaShop\Entity\SendyCarrierConfig;
+use Sendy\PrestaShop\Entity\SendynlCarrierConfig;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 /**
- * @extends AbstractEntityRepository<SendyCarrierConfig>
+ * @extends AbstractEntityRepository<SendynlCarrierConfig>
  */
 class CarrierConfigRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendyCarrierConfig::class;
+    protected const ENTITY_CLASS = SendynlCarrierConfig::class;
 
-    public function findByCarrierReferenceId(int $carrierReferenceId): ?SendyCarrierConfig
+    public function findByCarrierReferenceId(int $carrierReferenceId): ?SendynlCarrierConfig
     {
         return $this->repository->findOneBy(['carrierReferenceId' => $carrierReferenceId]);
     }
@@ -35,7 +35,7 @@ class CarrierConfigRepository extends AbstractEntityRepository
         bool $parcelShopDeliveryEnabled,
         ?string $parcelShopCarrier
     ): void {
-        $carrierConfig = $this->findByCarrierReferenceId($carrierReferenceId) ?? new SendyCarrierConfig();
+        $carrierConfig = $this->findByCarrierReferenceId($carrierReferenceId) ?? new SendynlCarrierConfig();
         $carrierConfig->setCarrierReferenceId($carrierReferenceId);
         $carrierConfig->setParcelShopDeliveryEnabled($parcelShopDeliveryEnabled);
         $carrierConfig->setParcelShopCarrier($parcelShopCarrier);

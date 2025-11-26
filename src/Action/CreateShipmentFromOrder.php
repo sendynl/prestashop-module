@@ -16,7 +16,7 @@ use Sendy\Api\Connection;
 use Sendy\Api\Exceptions\SendyException;
 use Sendy\PrestaShop\Exception\TokensMissingException;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
-use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
+use Sendy\PrestaShop\Legacy\SendynlCartParcelShop;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
 use Sendy\PrestaShop\Support\Addr;
 use Sendy\PrestaShop\Support\TypeTransformer;
@@ -79,7 +79,7 @@ class CreateShipmentFromOrder
             $data['products'] = $this->formatProducts($order);
         }
 
-        $cartParcelShop = SendyCartParcelShop::getForOrder($order);
+        $cartParcelShop = SendynlCartParcelShop::getForOrder($order);
 
         if ($cartParcelShop) {
             $data['options']['parcel_shop_id'] = $cartParcelShop->parcel_shop_id;

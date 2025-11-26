@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Front;
 
-use Sendy\PrestaShop\Legacy\SendyCarrierConfig;
-use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
+use Sendy\PrestaShop\Legacy\SendynlCarrierConfig;
+use Sendy\PrestaShop\Legacy\SendynlCartParcelShop;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -40,7 +40,7 @@ final class DisplayCarrierExtraContent
      */
     public function __invoke($params): string
     {
-        $carrierConfig = SendyCarrierConfig::getByReferenceId((int) $params['carrier']['id_reference']);
+        $carrierConfig = SendynlCarrierConfig::getByReferenceId((int) $params['carrier']['id_reference']);
 
         if ($carrierConfig === null) {
             return '';
@@ -53,7 +53,7 @@ final class DisplayCarrierExtraContent
         $text = \Context::getContext()->getTranslator()->trans('Select a pick up point', [], 'Modules.Sendynl.Front');
         $parcelShopName = '';
         $parcelShopAddress = '';
-        $cartParcelShop = SendyCartParcelShop::getByCartId($params['cart']->id);
+        $cartParcelShop = SendynlCartParcelShop::getByCartId($params['cart']->id);
         if ($cartParcelShop !== null && $cartParcelShop->id_reference === $params['carrier']['id_reference']) {
             $parcelShopName = htmlspecialchars($cartParcelShop->parcel_shop_name ?? '');
             $parcelShopAddress = htmlspecialchars($cartParcelShop->parcel_shop_address ?? '');

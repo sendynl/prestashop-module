@@ -10,7 +10,7 @@
  */
 declare(strict_types=1);
 
-use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
+use Sendy\PrestaShop\Legacy\SendynlCartParcelShop;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -47,7 +47,7 @@ class SendynlParcelshopModuleFrontController extends ModuleFrontController
                 return;
             }
 
-            $cartParcelShop = SendyCartParcelShop::getOrNewByCartId($cart->id);
+            $cartParcelShop = SendynlCartParcelShop::getOrNewByCartId($cart->id);
             $cartParcelShop->id_reference = $carrierReferenceId;
             $cartParcelShop->parcel_shop_id = (string) $body['parcel_shop_id'];
             $cartParcelShop->parcel_shop_name = $body['parcel_shop_name'];

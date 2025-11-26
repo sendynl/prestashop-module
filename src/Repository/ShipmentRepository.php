@@ -12,25 +12,25 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
-use Sendy\PrestaShop\Entity\SendyShipment;
+use Sendy\PrestaShop\Entity\SendynlShipment;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 /**
- * @extends AbstractEntityRepository<SendyShipment>
+ * @extends AbstractEntityRepository<SendynlShipment>
  */
 class ShipmentRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendyShipment::class;
+    protected const ENTITY_CLASS = SendynlShipment::class;
 
     public function addShipmentToOrder(int $orderId, string $shipmentId): void
     {
-        $this->save(new SendyShipment($shipmentId, $orderId));
+        $this->save(new SendynlShipment($shipmentId, $orderId));
     }
 
-    public function findShipmentByOrderId(int $orderId): ?SendyShipment
+    public function findShipmentByOrderId(int $orderId): ?SendynlShipment
     {
         return $this->repository->findOneBy(['orderId' => $orderId]);
     }

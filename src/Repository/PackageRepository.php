@@ -12,21 +12,21 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
-use Sendy\PrestaShop\Entity\SendyPackage;
+use Sendy\PrestaShop\Entity\SendynlPackage;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 /**
- * @extends AbstractEntityRepository<SendyPackage>
+ * @extends AbstractEntityRepository<SendynlPackage>
  */
 class PackageRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendyPackage::class;
+    protected const ENTITY_CLASS = SendynlPackage::class;
 
     /**
-     * @return list<SendyPackage>
+     * @return list<SendynlPackage>
      */
     public function findPackagesByShipmentId(string $shipmentId): array
     {
@@ -47,7 +47,7 @@ class PackageRepository extends AbstractEntityRepository
             $existingPackage->setTrackingUrl($trackingUrl);
             $this->save($existingPackage);
         } else {
-            $this->save(new SendyPackage($packageId, $shipmentId, $packageNumber, $trackingUrl));
+            $this->save(new SendynlPackage($packageId, $shipmentId, $packageNumber, $trackingUrl));
         }
     }
 

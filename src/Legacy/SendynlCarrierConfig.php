@@ -16,7 +16,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class SendyCarrierConfig extends \ObjectModel
+class SendynlCarrierConfig extends \ObjectModel
 {
     public $id_sendynl_carrier_config;
     public $id_reference;
@@ -39,9 +39,9 @@ class SendyCarrierConfig extends \ObjectModel
      *
      * @param int $id_reference
      *
-     * @return SendyCarrierConfig|null
+     * @return SendynlCarrierConfig|null
      */
-    public static function getByReferenceId(int $id_reference): ?SendyCarrierConfig
+    public static function getByReferenceId(int $id_reference): ?SendynlCarrierConfig
     {
         $prefix = _DB_PREFIX_;
         $sql = "SELECT * FROM `{$prefix}sendynl_carrier_config` WHERE `id_reference` = {$id_reference}";

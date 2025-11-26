@@ -12,16 +12,16 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Repository;
 
-use Sendy\PrestaShop\Entity\SendyCartParcelShop;
+use Sendy\PrestaShop\Entity\SendynlCartParcelShop;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 /**
- * @extends AbstractEntityRepository<SendyCartParcelShop>
+ * @extends AbstractEntityRepository<SendynlCartParcelShop>
  */
 class CartParcelShopRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendyCartParcelShop::class;
+    protected const ENTITY_CLASS = SendynlCartParcelShop::class;
 }

@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Hook\Front;
 
-use Sendy\PrestaShop\Legacy\SendyCarrierConfig;
-use Sendy\PrestaShop\Legacy\SendyCartParcelShop;
+use Sendy\PrestaShop\Legacy\SendynlCarrierConfig;
+use Sendy\PrestaShop\Legacy\SendynlCartParcelShop;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -44,13 +44,13 @@ final class ActionValidateStepComplete
 
         $carrier = new \Carrier($params['cart']->id_carrier);
 
-        $carrierConfig = SendyCarrierConfig::getByReferenceId((int) $carrier->id_reference);
+        $carrierConfig = SendynlCarrierConfig::getByReferenceId((int) $carrier->id_reference);
 
         if ($carrierConfig === null || !$carrierConfig->carrierRequiresParcelShop()) {
             return;
         }
 
-        $cartParcelShop = SendyCartParcelShop::getByCartId($params['cart']->id);
+        $cartParcelShop = SendynlCartParcelShop::getByCartId($params['cart']->id);
 
         if ($cartParcelShop === null || $cartParcelShop->id_reference !== $carrier->id_reference) {
             $params['completed'] = false;

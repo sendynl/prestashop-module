@@ -16,7 +16,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class SendyCartParcelShop extends \ObjectModel
+class SendynlCartParcelShop extends \ObjectModel
 {
     public $id_cart;
     public $id_reference;
@@ -41,9 +41,9 @@ class SendyCartParcelShop extends \ObjectModel
      *
      * @param int $id_cart
      *
-     * @return SendyCartParcelShop|null
+     * @return SendynlCartParcelShop|null
      */
-    public static function getByCartId(int $id_cart): ?SendyCartParcelShop
+    public static function getByCartId(int $id_cart): ?SendynlCartParcelShop
     {
         $prefix = _DB_PREFIX_;
         $sql = "SELECT id_sendynl_cart_parcel_shop FROM `{$prefix}sendynl_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
@@ -58,7 +58,7 @@ class SendyCartParcelShop extends \ObjectModel
         return null;
     }
 
-    public static function getByCartIdAndCarrierReferenceId(int $id_cart, int $id_reference): ?SendyCartParcelShop
+    public static function getByCartIdAndCarrierReferenceId(int $id_cart, int $id_reference): ?SendynlCartParcelShop
     {
         $prefix = _DB_PREFIX_;
         $sql = "SELECT id_sendynl_cart_parcel_shop FROM `{$prefix}sendynl_cart_parcel_shop` WHERE `id_cart` = {$id_cart} AND `id_reference` = {$id_reference}";
@@ -73,7 +73,7 @@ class SendyCartParcelShop extends \ObjectModel
         return null;
     }
 
-    public static function getForOrder(\Order $order): ?SendyCartParcelShop
+    public static function getForOrder(\Order $order): ?SendynlCartParcelShop
     {
         if (!$order->id_cart) {
             return null;
@@ -84,7 +84,7 @@ class SendyCartParcelShop extends \ObjectModel
         return self::getByCartIdAndCarrierReferenceId((int) $order->id_cart, (int) $carrier->id_reference);
     }
 
-    public static function getOrNewByCartId(int $id_cart): SendyCartParcelShop
+    public static function getOrNewByCartId(int $id_cart): SendynlCartParcelShop
     {
         $instance = self::getByCartId($id_cart) ?? new self();
 

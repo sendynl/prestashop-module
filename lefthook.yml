@@ -1,14 +1,9 @@
 pre-commit:
   commands:
+    autoindex:
+      run: composer run fix:index && git add "**/index.php"
     php-cs-fixer:
-      run: composer run fix:cs -- {staged_files}
+      files: git diff --name-only --cached --diff-filter=ACMR
+      run: composer run fix:cs -- {files}
       glob: "*.php"
       stage_fixed: true
-post-commit:
-  commands:
-    # This command cannot run on pre-commit because it creates new files which
-    # have to be fixed by php-cs-fixer
-    autoindex:
-      run: |
-        composer run fix:index
-        git ls-files --others --exclude-standard "**/index.php"

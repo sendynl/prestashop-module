@@ -23,7 +23,8 @@
         "prestashop/php-dev-tools": "^5.0",
         "friendsofphp/php-cs-fixer": "^3.75",
         "phpstan/phpstan": "^2.1",
-        "prestashop/autoindex": "^2.1"
+        "prestashop/autoindex": "^2.1",
+        "rector/rector": "^2.2"
     },
     "scripts": {
         "post-install-cmd": [
@@ -65,10 +66,11 @@
         "cache:clear": "rm -rf prestashop-{1.7,8,9}/var/cache/dev",
         "fix": [
             "@fix:index",
-            "@fix:headers",
+            "@fix:rector",
             "@fix:cs"
         ],
         "fix:index": "vendor/bin/autoindex --exclude=vendor,prestashop-1.7,prestashop-8,prestashop-9 --quiet",
+        "fix:rector": "vendor/bin/rector",
         "fix:cs": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "analyse": [
             "@analyse:1.7",

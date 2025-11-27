@@ -50,7 +50,7 @@ final class DisplayCarrierExtraContent
             return '';
         }
 
-        $text = \Context::getContext()->getTranslator()->trans('Select a pick up point', [], 'Modules.Sendynl.Front');
+        $text = htmlspecialchars(\Context::getContext()->getTranslator()->trans('Select a pick up point', [], 'Modules.Sendynl.Front'));
         $parcelShopName = '';
         $parcelShopAddress = '';
         $cartParcelShop = SendynlCartParcelShop::getByCartId($params['cart']->id);
@@ -58,25 +58,33 @@ final class DisplayCarrierExtraContent
             $parcelShopName = htmlspecialchars($cartParcelShop->parcel_shop_name ?? '');
             $parcelShopAddress = htmlspecialchars($cartParcelShop->parcel_shop_address ?? '');
         }
-        $parcelShopUrl = \Context::getContext()->link->getModuleLink(
+        $parcelShopUrl = htmlspecialchars(\Context::getContext()->link->getModuleLink(
             'sendynl',
             'parcelshop',
             [
                 'carrier_reference_id' => $params['carrier']['id_reference'],
             ]
-        );
+        ));
 
-        return <<<HTML
-        <div
-            data-sendynl-parcel-shop-picker-carrier="{$carrierConfig->parcel_shop_carrier}"
-            data-sendynl-id-address-delivery="{$params['cart']->id_address_delivery}"
-            data-sendynl-parcel-shop-url="{$parcelShopUrl}"
-            class="sendynl-parcel-shop-picker col-xs-12"
-        >
-            <button type="button" class="btn btn-secondary sendynl-parcel-shop-picker-button">{$text}</button>
-            <div class="sendynl-parcel-shop-picker-name">{$parcelShopName}</div>
-            <div class="sendynl-parcel-shop-picker-address">{$parcelShopAddress}</div>
-        </div>
-        HTML;
+        return sprintf(
+            <<<'HTML'
+            <div
+                data-sendynl-parcel-shop-picker-carrier="%s"
+                data-sendynl-id-address-delivery="%s"
+                data-sendynl-parcel-shop-url="%s"
+                class="sendynl-parcel-shop-picker col-xs-12"
+            >
+                <button type="button" class="btn btn-secondary sendynl-parcel-shop-picker-button">%s</button>
+                <div class="sendynl-parcel-shop-picker-name">%s</div>
+                <div class="sendynl-parcel-shop-picker-address">%s</div>
+            </div>
+            HTML,
+            $carrierConfig->parcel_shop_carrier,
+            $params['cart']->id_address_delivery,
+            $parcelShopUrl,
+            $text,
+            $parcelShopName,
+            $parcelShopAddress
+        );
     }
 }

@@ -53,7 +53,7 @@ abstract class StringBackedEnum
 
         foreach ($constants as $name => $constantValue) {
             if ($constantValue === $value) {
-                $key = "{$reflection->getShortName()}::{$name}";
+                $key = sprintf('%s::%s', $reflection->getShortName(), $name);
                 $translated = SymfonyContainer::getInstance()->get('translator')->trans($key, [], 'Modules.Sendynl.Enum');
 
                 if ($translated !== $key) {

@@ -87,7 +87,7 @@ class SettingsController extends FrameworkBundleAdminController
 
                         if ($e instanceof HttpException) {
                             \PrestaShopLogger::addLog(
-                                "Sendy - Processing method change failed: {$e->getMessage()} - {$e->getRequest()->getBody()}",
+                                sprintf('Sendy - Processing method change failed: %s - %s', $e->getMessage(), $e->getRequest()->getBody()),
                                 \PrestaShopLogger::LOG_SEVERITY_LEVEL_ERROR,
                                 $e->getCode(),
                             );

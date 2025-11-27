@@ -45,7 +45,7 @@ class SystemUser
 
         \Configuration::updateGlobalValue('SENDYNL_SYSTEM_USER_ID', $employee->id);
 
-        \PrestaShopLogger::addLog("Sendy - Installed system user {$employee->id}");
+        \PrestaShopLogger::addLog(sprintf('Sendy - Installed system user %s', $employee->id));
 
         return true;
     }

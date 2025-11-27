@@ -6,3 +6,4 @@ CONTRIBUTING.md export-ignore
 /*.sh export-ignore
 /*.yml export-ignore
 /.github export-ignore
+/rector.php export-ignore

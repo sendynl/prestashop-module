@@ -2,6 +2,9 @@ pre-commit:
   commands:
     autoindex:
       run: composer run fix:index && git add "**/index.php"
+    # Fix for index.php in Entity folder which occasionally gets removed
+    fix-entity-index:
+      run: cp index.php src/Entity/index.php && git add src/Entity/index.php
     php-cs-fixer:
       files: git diff --name-only --cached --diff-filter=ACMR
       run: composer run fix:cs -- {files}

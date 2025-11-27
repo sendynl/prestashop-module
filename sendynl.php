@@ -105,10 +105,7 @@ class Sendynl extends CarrierModule
      */
     public function getContent()
     {
-        /** @var Symfony\Component\Routing\Router $router */
-        $router = $this->get('router');
-        $route = $router->generate('sendynl_settings');
-        Tools::redirectAdmin($route);
+        Tools::redirectAdmin($this->context->link->getAdminLink('SettingsController', true, ['route' => 'sendynl_settings']));
     }
 
     /**

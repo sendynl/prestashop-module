@@ -45,8 +45,7 @@ class SendynlCartParcelShop extends \ObjectModel
      */
     public static function getByCartId(int $id_cart): ?SendynlCartParcelShop
     {
-        $prefix = _DB_PREFIX_;
-        $sql = "SELECT id_sendynl_cart_parcel_shop FROM `{$prefix}sendynl_cart_parcel_shop` WHERE `id_cart` = {$id_cart}";
+        $sql = 'SELECT id_sendynl_cart_parcel_shop FROM `' . _DB_PREFIX_ . 'sendynl_cart_parcel_shop` WHERE `id_cart` = ' . (int) $id_cart;
         $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {
@@ -60,8 +59,7 @@ class SendynlCartParcelShop extends \ObjectModel
 
     public static function getByCartIdAndCarrierReferenceId(int $id_cart, int $id_reference): ?SendynlCartParcelShop
     {
-        $prefix = _DB_PREFIX_;
-        $sql = "SELECT id_sendynl_cart_parcel_shop FROM `{$prefix}sendynl_cart_parcel_shop` WHERE `id_cart` = {$id_cart} AND `id_reference` = {$id_reference}";
+        $sql = 'SELECT id_sendynl_cart_parcel_shop FROM `' . _DB_PREFIX_ . 'sendynl_cart_parcel_shop` WHERE `id_cart` = ' . (int) $id_cart . ' AND `id_reference` = ' . (int) $id_reference;
         $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {

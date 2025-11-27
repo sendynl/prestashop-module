@@ -43,8 +43,7 @@ class SendynlCarrierConfig extends \ObjectModel
      */
     public static function getByReferenceId(int $id_reference): ?SendynlCarrierConfig
     {
-        $prefix = _DB_PREFIX_;
-        $sql = "SELECT * FROM `{$prefix}sendynl_carrier_config` WHERE `id_reference` = {$id_reference}";
+        $sql = 'SELECT * FROM `' . _DB_PREFIX_ . 'sendynl_carrier_config` WHERE `id_reference` = ' . (int) $id_reference;
         $result = \Db::getInstance()->getRow($sql);
 
         if ($result) {

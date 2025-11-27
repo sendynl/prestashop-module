@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en-US" target-language="en-US" datatype="plaintext" original="Modules.Sendynl.Front.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>Select a pick up point</source>
+                <target>Select a pick up point</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>This shipping method requires a parcel shop to be selected.</source>
+                <target>This shipping method requires a parcel shop to be selected.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Cart not found.</source>
+                <target>Cart not found.</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Parcel shop ID is required.</source>
+                <target>Parcel shop ID is required.</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Carrier ID is required.</source>
+                <target>Carrier ID is required.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

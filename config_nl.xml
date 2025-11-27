@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>sendynl</name>
+    <displayName><![CDATA[Sendy]]></displayName>
+    <version><![CDATA[3.0.0]]></version>
+    <description><![CDATA[Een PrestaShop-module die je webshop verbindt met het Sendy-platform]]></description>
+    <author><![CDATA[Sendy B.V.]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+</module>

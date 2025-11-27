@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en-US" target-language="en-US" datatype="plaintext" original="Modules.Sendynl.Admin.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>Parcelshop carriers</source>
+                <target>Parcelshop carriers</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Shipment already exists for order %order%.</source>
+                <target>Shipment already exists for order %order%.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Shipments created successfully.</source>
+                <target>Shipments created successfully.</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Error creating shipment for order %order%: %message%</source>
+                <target>Error creating shipment for order %order%: %message%</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Authentication</source>
+                <target>Authentication</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Settings</source>
+                <target>Settings</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Statuses</source>
+                <target>Statuses</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>This is used to determine which carrier to use when displaying parcelshops in the parcel shop picker.</source>
+                <target>This is used to determine which carrier to use when displaying parcelshops in the parcel shop picker.</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Edit shipment</source>
+                <target>Edit shipment</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Print label</source>
+                <target>Print label</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Shop</source>
+                <target>Shop</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Shipping profile</source>
+                <target>Shipping profile</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Amount</source>
+                <target>Amount</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Create shipment</source>
+                <target>Create shipment</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>An error occurred while changing the processing method: %error%</source>
+                <target>An error occurred while changing the processing method: %error%</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Invalid carrier.</source>
+                <target>Invalid carrier.</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Pick up at parcelshop</source>
+                <target>Pick up at parcelshop</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Failed to create carrier.</source>
+                <target>Failed to create carrier.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Logout %name%</source>
+                <target>Logout %name%</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Login with Sendy</source>
+                <target>Login with Sendy</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Processing method</source>
+                <target>Processing method</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>You can choose to push orders to Sendy and process them in the Sendy app, or process them directly in PrestaShop.</source>
+                <target>You can choose to push orders to Sendy and process them in the Sendy app, or process them directly in PrestaShop.</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Processable Order Status</source>
+                <target>Processable Order Status</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Create a shipment in Sendy when an order transitions to this status.</source>
+                <target>Create a shipment in Sendy when an order transitions to this status.</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Default Sendy shop</source>
+                <target>Default Sendy shop</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>Import products</source>
+                <target>Import products</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Import weight</source>
+                <target>Import weight</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Status after shipment is generated</source>
+                <target>Status after shipment is generated</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>None (do not update the order status)</source>
+                <target>None (do not update the order status)</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>When a shipping label is generated in Sendy, the order will be updated to this status.</source>
+                <target>When a shipping label is generated in Sendy, the order will be updated to this status.</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>Status after label is printed</source>
+                <target>Status after label is printed</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>When pressing the &quot;Print label&quot; button in your PrestaShop back office, the order will be updated to this status.</source>
+                <target>When pressing the &quot;Print label&quot; button in your PrestaShop back office, the order will be updated to this status.</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>Status after shipment is delivered</source>
+                <target>Status after shipment is delivered</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>When a shipment is delivered, the order will be updated to this status.</source>
+                <target>When a shipment is delivered, the order will be updated to this status.</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>Login failed. Please try again.</source>
+                <target>Login failed. Please try again.</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>Login successful.</source>
+                <target>Login successful.</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Login failed: %error%</source>
+                <target>Login failed: %error%</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>Sendy - Create shipment</source>
+                <target>Sendy - Create shipment</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Sendy - Print label</source>
+                <target>Sendy - Print label</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Track and trace</source>
+                <target>Track and trace</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>Sendy - Hide track and trace column</source>
+                <target>Sendy - Hide track and trace column</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>Sendy - Show track and trace column</source>
+                <target>Sendy - Show track and trace column</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>Sendy</source>
+                <target>Sendy</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>A PrestaShop module that connects your store to the Sendy platform</source>
+                <target>A PrestaShop module that connects your store to the Sendy platform</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>You have to enable the cURL extension on your server to install this module</source>
+                <target>You have to enable the cURL extension on your server to install this module</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>Create shipment</source>
+                <target>Create shipment</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>View all carriers</source>
+                <target>View all carriers</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Carriers you create here will have a parcelshop picker button available at checkout. If you are looking to create a regular carrier, please use the "Add new carrier" button on the %link_start%Carriers page%link_end%.</source>
+                <target>Carriers you create here will have a parcelshop picker button available at checkout. If you are looking to create a regular carrier, please use the "Add new carrier" button on the %link_start%Carriers page%link_end%.</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Select a carrier</source>
+                <target>Select a carrier</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Amount of packages</source>
+                <target>Amount of packages</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>Processing method is required.</source>
+                <target>Processing method is required.</target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>Invalid processing method.</source>
+                <target>Invalid processing method.</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>Processable status is required when processing method is Sendy.</source>
+                <target>Processable status is required when processing method is Sendy.</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>Default shop is required when processing method is Sendy.</source>
+                <target>Default shop is required when processing method is Sendy.</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>Import products setting is required.</source>
+                <target>Import products setting is required.</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>Invalid value for import products.</source>
+                <target>Invalid value for import products.</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>Import weight setting is required.</source>
+                <target>Import weight setting is required.</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>Invalid value for import weight.</source>
+                <target>Invalid value for import weight.</target>
+            </trans-unit>
+            <trans-unit id="59">
+                <source>No shipment created yet</source>
+                <target>No shipment created yet</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>Please uninstall the old "sendy" module before installing this module</source>
+                <target>Please uninstall the old "sendy" module before installing this module</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

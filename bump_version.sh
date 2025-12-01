@@ -31,7 +31,7 @@ fi
 
 echo "Bumping version to: $new_version"
 
-perl -pi -e "s/<version><!\[CDATA\[.+\]\]><\/version>/<version><![CDATA[$new_version]]><\/version>/" config.xml config_nl.xml
+perl -pi -e "s/<version><!\[CDATA\[.+\]\]><\/version>/<version><![CDATA[$new_version]]><\/version>/" config.xml
 perl -pi -e "s/\$this->version = '.+';$/\$this->version = '$new_version';/" sendynl.php
 
 echo

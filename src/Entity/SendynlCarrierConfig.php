@@ -31,6 +31,8 @@ class SendynlCarrierConfig
      * @ORM\GeneratedValue
      *
      * @ORM\Column(name="id_sendynl_carrier_config", type="integer")
+     *
+     * @phpstan-ignore property.unused
      */
     private int $id;
 

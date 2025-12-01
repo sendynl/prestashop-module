@@ -31,17 +31,10 @@ abstract class AbstractEntityRepository
      */
     protected EntityRepository $repository;
 
-    /**
-     * @var class-string<T>
-     *
-     * @abstract
-     */
-    protected const ENTITY_CLASS = '';
-
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $this->entityManager->getRepository(static::ENTITY_CLASS);
+        $this->repository = $this->entityManager->getRepository(static::getEntityClass());
     }
 
     /**
@@ -71,4 +64,9 @@ abstract class AbstractEntityRepository
         $this->entityManager->remove($entity);
         $this->entityManager->flush();
     }
+
+    /**
+     * @return class-string<T>
+     */
+    abstract protected static function getEntityClass(): string;
 }

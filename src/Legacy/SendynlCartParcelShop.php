@@ -49,7 +49,7 @@ class SendynlCartParcelShop extends \ObjectModel
         $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {
-            $parcelShop = new self($id);
+            $parcelShop = new self((int) $id);
 
             return $parcelShop;
         }
@@ -63,7 +63,7 @@ class SendynlCartParcelShop extends \ObjectModel
         $id = \Db::getInstance()->getValue($sql);
 
         if ($id) {
-            $parcelShop = new self($id);
+            $parcelShop = new self((int) $id);
 
             return $parcelShop;
         }

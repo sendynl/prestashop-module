@@ -36,6 +36,7 @@ class SendynlPackage extends \ObjectModel
 
     public static function getByUuid(string $uuid): ?self
     {
+        // @phpstan-ignore argument.type (The primary key is a string UUID)
         $package = new self($uuid);
 
         if (is_null($package->id_sendynl_package)) {

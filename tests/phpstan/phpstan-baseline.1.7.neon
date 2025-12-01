@@ -1,127 +1,577 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
+			message: '#^Method Sendynl\:\:hookActionAfterCreateCarrierFormHandler\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Call to an undefined method AdminController\|FrontController\:\:getLanguages\(\)\.$#'
+			message: '#^Method Sendynl\:\:hookActionAfterUpdateCarrierFormHandler\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionCarrierFormBuilderModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionCarrierFormDataProviderData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionObjectCarrierAddAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionObjectCarrierDeleteAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionObjectCarrierUpdateAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionOrderGridDefinitionModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionOrderGridQueryBuilderModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionOrderStatusPostUpdate\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionValidateStepComplete\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookDisplayAdminEndContent\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookDisplayAdminOrderSide\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookDisplayCarrierExtraContent\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Parameter \#1 \$params of callable Sendy\\PrestaShop\\Hook\\Admin\\ActionOrderGridQueryBuilderModifier expects array\{search_query_builder\: Doctrine\\DBAL\\Query\\QueryBuilder, count_query_builder\: Doctrine\\DBAL\\Query\\QueryBuilder, search_criteria\: PrestaShop\\PrestaShop\\Core\\Grid\\Search\\SearchCriteriaInterface\}, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Trying to invoke object\|false but it might not be a callable\.$#'
+			identifier: callable.nonCallable
+			count: 11
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Action\\CreateShipmentFromOrder\:\:formatProducts\(\) should return list\<array\{description\: string, quantity\: int, sku\: string, unit_price\: float\|string, unit_weight\: float\|string, description_en\?\: string\}\> but returns array\<array\{description\: mixed, quantity\: mixed, sku\: mixed, unit_price\: mixed, unit_weight\: mixed, description_en\?\: string\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../src/Action/CreateShipmentFromOrder.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Action\\HandleShipmentWebhook\:\:verifyStatus\(\) has parameter \$shipmentData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Action/HandleShipmentWebhook.php
+
+		-
+			message: '#^Parameter \#3 \$shipmentData of method Sendy\\PrestaShop\\Action\\HandleShipmentWebhook\:\:handleGenerated\(\) expects array\<string, mixed\>, array\<string, mixed\>\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Action/HandleShipmentWebhook.php
+
+		-
+			message: '#^Cannot access property \$link on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Action/InstallWebhook.php
+
+		-
+			message: '#^Cannot access property \$shop on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Controller/Admin/AuthController.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''PrestaShopBundle\\\\Controller\\\\Admin\\\\FrameworkBundleAdminController'' and ''__construct'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: ../../src/Controller/Admin/Orders/ColumnsController.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''PrestaShopBundle\\\\Controller\\\\Admin\\\\FrameworkBundleAdminController'' and ''__construct'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: ../../src/Controller/Admin/Orders/CreateShipmentController.php
+
+		-
+			message: '#^Parameter \#1 \$orderId of method Sendy\\PrestaShop\\Repository\\ShipmentRepository\:\:addShipmentToOrder\(\) expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Controller/Admin/Orders/CreateShipmentController.php
+
+		-
+			message: '#^Parameter \#1 \$url of class Symfony\\Component\\HttpFoundation\\RedirectResponse constructor expects string, array\<string\>\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Controller/Admin/Orders/CreateShipmentController.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''PrestaShopBundle\\\\Controller\\\\Admin\\\\FrameworkBundleAdminController'' and ''__construct'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: ../../src/Controller/Admin/SettingsController.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Carrier\\CarrierForm\:\:buildForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../src/Form/Carrier/CarrierForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Carrier\\CarrierForm\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/Carrier/CarrierForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Carrier\\CarrierForm\:\:buildForm\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/Carrier/CarrierForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\CreateShipment\\CreateShipmentForm\:\:buildForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../src/Form/CreateShipment/CreateShipmentForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\CreateShipment\\CreateShipmentForm\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/CreateShipment/CreateShipmentForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\CreateShipment\\CreateShipmentForm\:\:buildForm\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/CreateShipment/CreateShipmentForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\AuthenticateForm\:\:__construct\(\) has parameter \$locales with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/Settings/AuthenticateForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\AuthenticateForm\:\:buildForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../src/Form/Settings/AuthenticateForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\AuthenticateForm\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/Settings/AuthenticateForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\SettingsDataManager\:\:getConfiguration\(\) should return array\{sendynl_processing_method\: string, sendynl_processable_status\: string\|null, sendynl_default_shop\: string\|null, sendynl_import_products\: bool, sendynl_import_weight\: bool, sendynl_status_generated\: int\|null, sendynl_status_printed\: int\|null, sendynl_status_delivered\: int\|null\} but returns array\{sendynl_processing_method\: ''prestashop''\|''sendy'', sendynl_processable_status\: int\|null, sendynl_default_shop\: string\|null, sendynl_import_products\: bool, sendynl_import_weight\: bool, sendynl_status_generated\: int\|null, sendynl_status_printed\: int\|null, sendynl_status_delivered\: int\|null\}\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../src/Form/Settings/SettingsDataManager.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\SettingsForm\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/Settings/SettingsForm.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Form\\Settings\\SettingsForm\:\:buildForm\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Form/Settings/SettingsForm.php
+
+		-
+			message: '#^Parameter \#1 \$records of class PrestaShop\\PrestaShop\\Core\\Grid\\Record\\RecordCollection constructor expects array, array\|mysqli_result\|PDOStatement\|resource\|false\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Grid/Carrier/CarrierGridDataFactory.php
+
+		-
+			message: '#^Parameter \#1 \$var of function count expects array\|Countable, array\|mysqli_result\|PDOStatement\|resource\|false\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Grid/Carrier/CarrierGridDataFactory.php
+
+		-
+			message: '#^Parameter \#2 \$sendyShopId of method Sendy\\PrestaShop\\Action\\CreateShipmentFromOrder\:\:execute\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Hook/ActionOrderStatusPostUpdate.php
+
+		-
+			message: '#^Cannot access property \$controller on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Hook/Admin/ActionAdminControllerSetMedia.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Hook\\Admin\\ActionCarrierFormBuilderModifier\:\:__invoke\(\) has parameter \$params with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Hook/Admin/ActionCarrierFormBuilderModifier.php
+
+		-
+			message: '#^Cannot access property \$controller on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Hook/Admin/DisplayAdminEndContent.php
+
+		-
+			message: '#^Call to an undefined method AdminController\|FrontController\:\:registerJavascript\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: ../../src/Hook/Front/ActionFrontControllerSetMedia.php
+
+		-
+			message: '#^Call to an undefined method AdminController\|FrontController\:\:registerStylesheet\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Hook/Front/ActionFrontControllerSetMedia.php
 
 		-
-			message: '#^Cannot access offset ''id_group'' on mixed\.$#'
+			message: '#^Cannot access property \$controller on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Hook/Front/ActionFrontControllerSetMedia.php
+
+		-
+			message: '#^Cannot access property \$controller on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Hook/Front/ActionValidateStepComplete.php
+
+		-
+			message: '#^Cannot call method getTranslator\(\) on Context\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../src/Hook/Front/ActionValidateStepComplete.php
+
+		-
+			message: '#^Parameter \#1 \$id_cart of static method Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:getByCartId\(\) expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Hook/Front/ActionValidateStepComplete.php
+
+		-
+			message: '#^Cannot access property \$link on Context\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: ../../src/Hook/Front/DisplayCarrierExtraContent.php
+
+		-
+			message: '#^Cannot call method getTranslator\(\) on Context\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../src/Hook/Front/DisplayCarrierExtraContent.php
+
+		-
+			message: '#^Parameter \#1 \$id_cart of static method Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:getByCartId\(\) expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Hook/Front/DisplayCarrierExtraContent.php
+
+		-
+			message: '#^Parameter \#1 \$passwd of method EmployeeCore\:\:setWsPasswd\(\) expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Installer/SystemUser.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Legacy\\DummyUrlGenerator\:\:setContext\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../src/Legacy/DummyUrlGenerator.php
+
+		-
+			message: '#^Cannot access offset ''id_reference'' on non\-empty\-array\|object\|true\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Cannot access offset ''id_sendynl_carrier_config'' on non\-empty\-array\|object\|true\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Cannot access offset ''parcel_shop_carrier'' on non\-empty\-array\|object\|true\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Cannot access offset ''parcel_shop_delivery_enabled'' on non\-empty\-array\|object\|true\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$definition type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$id_reference has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$id_sendynl_carrier_config has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$parcel_shop_carrier has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$parcel_shop_delivery_enabled has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCarrierConfig.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$definition type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$id_cart has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$id_reference has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$parcel_shop_address has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$parcel_shop_id has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$parcel_shop_name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlCartParcelShop.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$definition type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Legacy/SendynlPackage.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$id_sendynl_package has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlPackage.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$id_sendynl_shipment has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlPackage.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$tracking_number has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlPackage.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$tracking_url has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlPackage.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlShipment\:\:\$definition type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../src/Legacy/SendynlShipment.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlShipment\:\:\$id_order has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlShipment.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlShipment\:\:\$id_sendynl_shipment has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../src/Legacy/SendynlShipment.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Repository\\AbstractEntityRepository\:\:find\(\) should return \(T of object\)\|null but returns object\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../src/Repository/AbstractEntityRepository.php
+
+		-
+			message: '#^PHPDoc tag @var for property Sendy\\PrestaShop\\Repository\\AbstractEntityRepository\:\:\$repository contains generic type Doctrine\\ORM\\EntityRepository\<object\> but class Doctrine\\ORM\\EntityRepository is not generic\.$#'
+			identifier: generics.notGeneric
+			count: 1
+			path: ../../src/Repository/AbstractEntityRepository.php
+
+		-
+			message: '#^Property Sendy\\PrestaShop\\Repository\\AbstractEntityRepository\<T of object\>\:\:\$repository \(Doctrine\\ORM\\EntityRepository\<T of object\>\) does not accept Doctrine\\Persistence\\ObjectRepository\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../src/Repository/AbstractEntityRepository.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Repository\\CarrierConfigRepository\:\:findByCarrierReferenceId\(\) should return Sendy\\PrestaShop\\Entity\\SendynlCarrierConfig\|null but returns object\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../src/Repository/CarrierConfigRepository.php
 
 		-
 			message: '#^Cannot access offset ''id_lang'' on array\|int\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Cannot access offset ''id_zone'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Repository/CarrierRepository.php
 
 		-
 			message: '#^Cannot access property \$language on Context\|null\.$#'
 			identifier: property.nonObject
-			count: 1
-			path: ../../sendynl.php
+			count: 2
+			path: ../../src/Repository/CarrierRepository.php
 
 		-
-			message: '#^Cannot assign offset mixed to string\.$#'
-			identifier: offsetAssign.dimType
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Method Sendy\:\:renderForm\(\) should return string but returns mixed\.$#'
+			message: '#^Method Sendy\\PrestaShop\\Repository\\CarrierRepository\:\:all\(\) should return list\<array\{id_carrier\: int, id_reference\: int, name\: string, url\: string, active\: int\<0, 1\>, deleted\: int\<0, 1\>, shipping_handling\: int, range_behavior\: int, \.\.\.\}\> but returns array\.$#'
 			identifier: return.type
 			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Repository/CarrierRepository.php
 
 		-
-			message: '#^Parameter \#1 \$carrier of method Sendy\:\:addGroups\(\) expects Carrier, Carrier\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Parameter \#1 \$carrier of method Sendy\:\:addRanges\(\) expects Carrier, Carrier\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Parameter \#1 \$carrier of method Sendy\:\:addZones\(\) expects Carrier, Carrier\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Parameter \#2 \$idLang of static method ConfigurationCore\:\:get\(\) expects int\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Parameter \#2 \$idLang of static method ConfigurationCore\:\:get\(\) expects int\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Property CarrierCore\:\:\$active \(bool\) does not accept int\.$#'
+			message: '#^Property CarrierCore\:\:\$range_behavior \(int\) does not accept false\.$#'
 			identifier: assign.propertyType
 			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Property CarrierCore\:\:\$need_range \(bool\) does not accept int\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Property RangePriceCore\:\:\$delimiter1 \(float\) does not accept string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Property RangePriceCore\:\:\$delimiter2 \(float\) does not accept string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Repository/CarrierRepository.php
 
 		-
 			message: '#^Property RangePriceCore\:\:\$id_carrier \(int\) does not accept int\|null\.$#'
 			identifier: assign.propertyType
 			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Property RangeWeightCore\:\:\$delimiter1 \(float\) does not accept string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../sendynl.php
-
-		-
-			message: '#^Property RangeWeightCore\:\:\$delimiter2 \(float\) does not accept string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Repository/CarrierRepository.php
 
 		-
 			message: '#^Property RangeWeightCore\:\:\$id_carrier \(int\) does not accept int\|null\.$#'
 			identifier: assign.propertyType
 			count: 1
-			path: ../../sendynl.php
+			path: ../../src/Repository/CarrierRepository.php
+
+		-
+			message: '#^Call to an undefined method PrestaShop\\PrestaShop\\Core\\Domain\\Configuration\\ShopConfigurationInterface\:\:getBoolean\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../../src/Repository/ConfigurationRepository.php
+
+		-
+			message: '#^Call to an undefined method PrestaShop\\PrestaShop\\Core\\Domain\\Configuration\\ShopConfigurationInterface\:\:getInt\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: ../../src/Repository/ConfigurationRepository.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Repository\\PackageRepository\:\:findPackagesByShipmentId\(\) should return list\<Sendy\\PrestaShop\\Entity\\SendynlPackage\> but returns array\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../src/Repository/PackageRepository.php
+
+		-
+			message: '#^Method Sendy\\PrestaShop\\Repository\\ShipmentRepository\:\:findShipmentByOrderId\(\) should return Sendy\\PrestaShop\\Entity\\SendynlShipment\|null but returns object\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../src/Repository/ShipmentRepository.php
+
+		-
+			message: '#^Call to an undefined method PrestaShop\\PrestaShop\\Core\\Domain\\Configuration\\ShopConfigurationInterface\:\:getBoolean\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: ../../src/Repository/ShopConfigurationRepository.php
+
+		-
+			message: '#^Call to an undefined method PrestaShop\\PrestaShop\\Core\\Domain\\Configuration\\ShopConfigurationInterface\:\:getInt\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: ../../src/Repository/ShopConfigurationRepository.php
+
+		-
+			message: '#^Parameter \#1 \$length of function random_bytes expects int\<1, max\>, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../src/Support/Str.php

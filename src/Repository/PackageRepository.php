@@ -23,7 +23,10 @@ if (!defined('_PS_VERSION_')) {
  */
 class PackageRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendynlPackage::class;
+    protected static function getEntityClass(): string
+    {
+        return SendynlPackage::class;
+    }
 
     /**
      * @return list<SendynlPackage>

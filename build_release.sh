@@ -17,3 +17,5 @@ zip -ur ../sendynl.zip sendynl/vendor
 # Clean up temporary directory
 cd ..
 rm -rf temp
+
+echo "Release package created: sendynl.zip"

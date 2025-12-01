@@ -23,7 +23,10 @@ if (!defined('_PS_VERSION_')) {
  */
 class CarrierConfigRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendynlCarrierConfig::class;
+    protected static function getEntityClass(): string
+    {
+        return SendynlCarrierConfig::class;
+    }
 
     public function findByCarrierReferenceId(int $carrierReferenceId): ?SendynlCarrierConfig
     {

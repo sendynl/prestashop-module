@@ -1,85 +1,91 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Sendy\:\:hookActionAfterCreateCarrierFormHandler\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Cannot call method getAdminLink\(\) on Link\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../sendynl.php
+
+		-
+			message: '#^Method Sendynl\:\:hookActionAfterCreateCarrierFormHandler\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionAfterUpdateCarrierFormHandler\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionAfterUpdateCarrierFormHandler\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionCarrierFormBuilderModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionCarrierFormBuilderModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionCarrierFormDataProviderData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionCarrierFormDataProviderData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionObjectCarrierAddAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionObjectCarrierAddAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionObjectCarrierDeleteAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionObjectCarrierDeleteAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionObjectCarrierUpdateAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionObjectCarrierUpdateAfter\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionOrderGridDefinitionModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionOrderGridDefinitionModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionOrderGridQueryBuilderModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			message: '#^Method Sendynl\:\:hookActionOrderGridQueryBuilderModifier\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionOrderStatusPostUpdate\(\) has parameter \$params with no type specified\.$#'
+			message: '#^Method Sendynl\:\:hookActionOrderStatusPostUpdate\(\) has parameter \$params with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookActionValidateStepComplete\(\) has parameter \$params with no type specified\.$#'
+			message: '#^Method Sendynl\:\:hookActionValidateStepComplete\(\) has parameter \$params with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookDisplayAdminEndContent\(\) has parameter \$params with no type specified\.$#'
+			message: '#^Method Sendynl\:\:hookDisplayAdminEndContent\(\) has parameter \$params with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookDisplayAdminOrderSide\(\) has parameter \$params with no type specified\.$#'
+			message: '#^Method Sendynl\:\:hookDisplayAdminOrderSide\(\) has parameter \$params with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\:\:hookDisplayCarrierExtraContent\(\) has parameter \$params with no type specified\.$#'
+			message: '#^Method Sendynl\:\:hookDisplayCarrierExtraContent\(\) has parameter \$params with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../../sendynl.php
@@ -149,48 +155,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../../src/Controller/Admin/Orders/CreateShipmentController.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCarrierConfig\:\:\$id is unused\.$#'
-			identifier: property.unused
-			count: 1
-			path: ../../src/Entity/SendyCarrierConfig.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCartParcelShop\:\:\$cartId is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../../src/Entity/SendyCartParcelShop.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCartParcelShop\:\:\$id is unused\.$#'
-			identifier: property.unused
-			count: 1
-			path: ../../src/Entity/SendyCartParcelShop.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCartParcelShop\:\:\$parcelShopAddress is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../../src/Entity/SendyCartParcelShop.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCartParcelShop\:\:\$parcelShopId is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../../src/Entity/SendyCartParcelShop.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCartParcelShop\:\:\$parcelShopName is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../../src/Entity/SendyCartParcelShop.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Entity\\SendyCartParcelShop\:\:\$referenceId is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: ../../src/Entity/SendyCartParcelShop.php
 
 		-
 			message: '#^Call to an undefined method object\:\:trans\(\)\.$#'
@@ -307,7 +271,7 @@ parameters:
 			path: ../../src/Hook/Front/ActionValidateStepComplete.php
 
 		-
-			message: '#^Parameter \#1 \$id_cart of static method Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:getByCartId\(\) expects int, int\|null given\.$#'
+			message: '#^Parameter \#1 \$id_cart of static method Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:getByCartId\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../src/Hook/Front/ActionValidateStepComplete.php
@@ -331,7 +295,7 @@ parameters:
 			path: ../../src/Hook/Front/DisplayCarrierExtraContent.php
 
 		-
-			message: '#^Parameter \#1 \$id_cart of static method Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:getByCartId\(\) expects int, int\|null given\.$#'
+			message: '#^Parameter \#1 \$id_cart of static method Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:getByCartId\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../src/Hook/Front/DisplayCarrierExtraContent.php
@@ -364,169 +328,145 @@ parameters:
 			message: '#^Cannot access offset ''id_reference'' on non\-empty\-array\|object\|true\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Cannot access offset ''id_sendy_carrier_config'' on non\-empty\-array\|object\|true\.$#'
+			message: '#^Cannot access offset ''id_sendynl_carrier_config'' on non\-empty\-array\|object\|true\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
 			message: '#^Cannot access offset ''parcel_shop_carrier'' on non\-empty\-array\|object\|true\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
 			message: '#^Cannot access offset ''parcel_shop_delivery_enabled'' on non\-empty\-array\|object\|true\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCarrierConfig\:\:\$definition type has no value type specified in iterable type array\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$definition type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCarrierConfig\:\:\$id_reference has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$id_reference has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCarrierConfig\:\:\$id_sendy_carrier_config has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$id_sendynl_carrier_config has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCarrierConfig\:\:\$parcel_shop_carrier has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$parcel_shop_carrier has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCarrierConfig\:\:\$parcel_shop_delivery_enabled has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCarrierConfig\:\:\$parcel_shop_delivery_enabled has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCarrierConfig.php
+			path: ../../src/Legacy/SendynlCarrierConfig.php
 
 		-
-			message: '#^Method Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Parameter \#1 \$id of class Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop constructor expects int\|null, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../../src/Legacy/SendyCartParcelShop.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:\$definition type has no value type specified in iterable type array\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$definition type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:\$id_cart has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$id_cart has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:\$id_reference has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$id_reference has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:\$parcel_shop_address has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$parcel_shop_address has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:\$parcel_shop_id has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$parcel_shop_id has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyCartParcelShop\:\:\$parcel_shop_name has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlCartParcelShop\:\:\$parcel_shop_name has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyCartParcelShop.php
+			path: ../../src/Legacy/SendynlCartParcelShop.php
 
 		-
-			message: '#^Parameter \#1 \$id of class Sendy\\PrestaShop\\Legacy\\SendyPackage constructor expects int\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../src/Legacy/SendyPackage.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyPackage\:\:\$definition type has no value type specified in iterable type array\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$definition type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: ../../src/Legacy/SendyPackage.php
+			path: ../../src/Legacy/SendynlPackage.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyPackage\:\:\$id_sendy_package has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$id_sendynl_package has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyPackage.php
+			path: ../../src/Legacy/SendynlPackage.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyPackage\:\:\$id_sendy_shipment has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$id_sendynl_shipment has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyPackage.php
+			path: ../../src/Legacy/SendynlPackage.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyPackage\:\:\$tracking_number has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$tracking_number has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyPackage.php
+			path: ../../src/Legacy/SendynlPackage.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyPackage\:\:\$tracking_url has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlPackage\:\:\$tracking_url has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyPackage.php
+			path: ../../src/Legacy/SendynlPackage.php
 
 		-
-			message: '#^Parameter \#1 \$id of class Sendy\\PrestaShop\\Legacy\\SendyShipment constructor expects int\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../src/Legacy/SendyShipment.php
-
-		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyShipment\:\:\$definition type has no value type specified in iterable type array\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlShipment\:\:\$definition type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: ../../src/Legacy/SendyShipment.php
+			path: ../../src/Legacy/SendynlShipment.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyShipment\:\:\$id_order has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlShipment\:\:\$id_order has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyShipment.php
+			path: ../../src/Legacy/SendynlShipment.php
 
 		-
-			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendyShipment\:\:\$id_sendy_shipment has no type specified\.$#'
+			message: '#^Property Sendy\\PrestaShop\\Legacy\\SendynlShipment\:\:\$id_sendynl_shipment has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
-			path: ../../src/Legacy/SendyShipment.php
-
-		-
-			message: '#^PHPDoc tag @var for constant Sendy\\PrestaShop\\Repository\\AbstractEntityRepository\:\:ENTITY_CLASS with type class\-string\<T of object\> is incompatible with value ''''\.$#'
-			identifier: classConstant.phpDocType
-			count: 1
-			path: ../../src/Repository/AbstractEntityRepository.php
+			path: ../../src/Legacy/SendynlShipment.php
 
 		-
 			message: '#^Cannot access offset ''id_lang'' on array\|int\.$#'

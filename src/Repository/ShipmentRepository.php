@@ -23,7 +23,10 @@ if (!defined('_PS_VERSION_')) {
  */
 class ShipmentRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendynlShipment::class;
+    protected static function getEntityClass(): string
+    {
+        return SendynlShipment::class;
+    }
 
     public function addShipmentToOrder(int $orderId, string $shipmentId): void
     {

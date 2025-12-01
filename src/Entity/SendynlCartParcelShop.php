@@ -31,11 +31,15 @@ class SendynlCartParcelShop
      * @ORM\Column(type="integer", name="id_sendynl_cart_parcel_shop")
      *
      * @ORM\GeneratedValue
+     *
+     * @phpstan-ignore property.unused
      */
     private int $id;
 
     /**
      * @ORM\Column(type="integer", name="id_cart")
+     *
+     * @phpstan-ignore property.onlyWritten
      */
     private int $cartId;
 
@@ -43,6 +47,8 @@ class SendynlCartParcelShop
      * The reference ID of the carrier.
      *
      * @ORM\Column(type="integer", name="id_reference")
+     *
+     * @phpstan-ignore property.onlyWritten
      */
     private int $referenceId;
 
@@ -50,16 +56,22 @@ class SendynlCartParcelShop
      * The external ID of the parcel shop.
      *
      * @ORM\Column(type="string", name="parcel_shop_id")
+     *
+     * @phpstan-ignore property.onlyWritten
      */
     private string $parcelShopId;
 
     /**
      * @ORM\Column(type="string", name="parcel_shop_name")
+     *
+     * @phpstan-ignore property.onlyWritten
      */
     private string $parcelShopName;
 
     /**
      * @ORM\Column(type="text", name="parcel_shop_address")
+     *
+     * @phpstan-ignore property.onlyWritten
      */
     private string $parcelShopAddress;
 

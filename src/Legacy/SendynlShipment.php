@@ -43,6 +43,7 @@ class SendynlShipment extends \ObjectModel
 
     public static function getByUuid(string $uuid): ?self
     {
+        // @phpstan-ignore argument.type (The primary key is a string UUID)
         $shipment = new self($uuid);
 
         if (is_null($shipment->id_sendynl_shipment)) {

@@ -23,5 +23,8 @@ if (!defined('_PS_VERSION_')) {
  */
 class CartParcelShopRepository extends AbstractEntityRepository
 {
-    protected const ENTITY_CLASS = SendynlCartParcelShop::class;
+    protected static function getEntityClass(): string
+    {
+        return SendynlCartParcelShop::class;
+    }
 }

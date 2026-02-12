@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
+use Prestashop\ModuleLibMboInstaller\DependencyBuilder;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\HttpException;
@@ -62,6 +63,13 @@ class SettingsController extends FrameworkBundleAdminController
 
     public function index(Request $request): Response
     {
+        $mboInstaller = new DependencyBuilder(\Module::getInstanceByName('sendynl'));
+        if (!$mboInstaller->areDependenciesMet()) {
+            return $this->redirect(
+                $this->getAdminLink('AdminModules', ['configure' => 'sendynl'])
+            );
+        }
+
         $settingsForm = $this->settingsFormHandler->getForm();
         $settingsForm->handleRequest($request);
 

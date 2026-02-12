@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Prestashop\ModuleLibMboInstaller\DependencyBuilder;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Hook;
@@ -99,12 +100,19 @@ class Sendynl extends CarrierModule
     /**
      * Load the configuration form
      *
-     * @return void
+     * @return void|string
      *
      * @throws Exception
      */
     public function getContent()
     {
+        $mboInstaller = new DependencyBuilder($this);
+        if (!$mboInstaller->areDependenciesMet()) {
+            $this->smarty->assign('dependencies', $mboInstaller->handleDependencies());
+
+            return $this->display(__FILE__, 'views/templates/admin/dependency_builder.tpl');
+        }
+
         Tools::redirectAdmin($this->context->link->getAdminLink('SettingsController', true, ['route' => 'sendynl_settings']));
     }
 

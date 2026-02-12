@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Prestashop\ModuleLibMboInstaller\DependencyBuilder;
 use Sendy\PrestaShop\Action\CreateShipmentFromOrder;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Hook;
@@ -19,6 +20,7 @@ use Sendy\PrestaShop\Installer;
 use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+use Sendy\PrestaShop\Service\PrestashopModuleTracking;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -85,7 +87,8 @@ class Sendynl extends CarrierModule
         return parent::install()
             && Installer\ConfigurationDefaults::install()
             && Installer\SystemUser::install()
-            && Installer\Hooks::install($this);
+            && Installer\Hooks::install($this)
+            && $this->trackModuleEvent('Module Installed');
     }
 
     public function uninstall(): bool
@@ -93,18 +96,44 @@ class Sendynl extends CarrierModule
         include dirname(__FILE__) . '/sql/uninstall.php';
 
         return parent::uninstall()
-            && Installer\SystemUser::uninstall();
+            && Installer\SystemUser::uninstall()
+            && $this->trackModuleEvent('Module Uninstalled');
+    }
+
+    public function enable($force_all = false)
+    {
+        return parent::enable($force_all)
+            && $this->trackModuleEvent('Module Enabled');
+    }
+
+    public function disable($force_all = false)
+    {
+        return parent::disable($force_all)
+            && $this->trackModuleEvent('Module Disabled');
+    }
+
+    public function runUpgradeModule()
+    {
+        return parent::runUpgradeModule()
+            && $this->trackModuleEvent('Module Upgraded');
     }
 
     /**
      * Load the configuration form
      *
-     * @return void
+     * @return void|string
      *
      * @throws Exception
      */
     public function getContent()
     {
+        $mboInstaller = new DependencyBuilder($this);
+        if (!$mboInstaller->areDependenciesMet()) {
+            $this->smarty->assign('dependencies', $mboInstaller->handleDependencies());
+
+            return $this->display(__FILE__, 'views/templates/admin/dependency_builder.tpl');
+        }
+
         Tools::redirectAdmin($this->context->link->getAdminLink('SettingsController', true, ['route' => 'sendynl_settings']));
     }
 
@@ -129,6 +158,23 @@ class Sendynl extends CarrierModule
 
     public function isUsingNewTranslationSystem(): bool
     {
+        return true;
+    }
+
+    /**
+     * @param $eventName
+     * @param array<string, string> $properties
+     *
+     * @return true
+     */
+    public function trackModuleEvent($eventName, array $properties = [])
+    {
+        PrestashopModuleTracking::track(
+            $this,
+            $eventName,
+            $properties
+        );
+
         return true;
     }
 

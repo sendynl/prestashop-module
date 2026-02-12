@@ -26,6 +26,7 @@ use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
 use Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+use Sendy\PrestaShop\Service\PrestashopModuleTracking;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -63,7 +64,8 @@ class SettingsController extends FrameworkBundleAdminController
 
     public function index(Request $request): Response
     {
-        $mboInstaller = new DependencyBuilder(\Module::getInstanceByName('sendynl'));
+        $module = \Module::getInstanceByName('sendynl');
+        $mboInstaller = new DependencyBuilder($module);
         if (!$mboInstaller->areDependenciesMet()) {
             return $this->redirect(
                 $this->getAdminLink('AdminModules', ['configure' => 'sendynl'])
@@ -104,6 +106,8 @@ class SettingsController extends FrameworkBundleAdminController
                 }
 
                 $this->addFlash('success', $this->trans('Settings updated.', 'Admin.Notifications.Success'));
+
+                PrestashopModuleTracking::track($module, 'Module Configured');
 
                 return $this->redirectToRoute('sendynl_settings');
             }

@@ -4,8 +4,122 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f90406eefebff34fbbe504ce8380df05",
+    "content-hash": "4ac6cdaeff1bb21cd6d6c22dd2dc640d",
     "packages": [
+        {
+            "name": "prestashop/module-lib-mbo-installer",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PrestaShopCorp/module-lib-mbo-installer.git",
+                "reference": "46fbb457e9241b4f8b0c3f9fdabcb9feba0d0303"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PrestaShopCorp/module-lib-mbo-installer/zipball/46fbb457e9241b4f8b0c3f9fdabcb9feba0d0303",
+                "reference": "46fbb457e9241b4f8b0c3f9fdabcb9feba0d0303",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5|^8.5|^5.7",
+                "prestashop/php-dev-tools": "^4.2|^3.16"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Prestashop\\ModuleLibMboInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AFL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "PrestaShop SA",
+                    "email": "contact@prestashop.com"
+                },
+                {
+                    "name": "Mikatux",
+                    "email": "mickael@mayeur.eu"
+                }
+            ],
+            "description": "A helper to ease the download PS MBO from the Addons Marketplace",
+            "support": {
+                "issues": "https://github.com/PrestaShopCorp/module-lib-mbo-installer/issues",
+                "source": "https://github.com/PrestaShopCorp/module-lib-mbo-installer/tree/v3.0.0"
+            },
+            "time": "2025-02-24T15:19:05+00:00"
+        },
+        {
+            "name": "segmentio/analytics-php",
+            "version": "3.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/segmentio/analytics-php.git",
+                "reference": "195f7a37fcc8cb5210119840863f0a0baa703bdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/segmentio/analytics-php/zipball/195f7a37fcc8cb5210119840863f0a0baa703bdf",
+                "reference": "195f7a37fcc8cb5210119840863f0a0baa703bdf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+                "overtrue/phplint": "^3.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpunit/phpunit": "~9.5",
+                "roave/security-advisories": "dev-latest",
+                "slevomat/coding-standard": "^7.0",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "suggest": {
+                "ext-curl": "For using the curl HTTP client",
+                "ext-zlib": "For using compression"
+            },
+            "bin": [
+                "bin/analytics"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Segment\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Segment.io <friends@segment.com>",
+                    "homepage": "https://segment.com/"
+                }
+            ],
+            "description": "Segment Analytics PHP Library",
+            "homepage": "https://segment.com/libraries/php",
+            "keywords": [
+                "analytics",
+                "analytics.js",
+                "segment",
+                "segmentio"
+            ],
+            "support": {
+                "issues": "https://github.com/segmentio/analytics-php/issues",
+                "source": "https://github.com/segmentio/analytics-php/tree/3.8.1"
+            },
+            "time": "2025-01-27T17:32:51+00:00"
+        },
         {
             "name": "sendynl/php-sdk",
             "version": "v3.0",

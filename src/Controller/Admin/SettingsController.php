@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Controller\Admin;
 
+use Prestashop\ModuleLibMboInstaller\DependencyBuilder;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\HttpException;
@@ -25,6 +26,7 @@ use Sendy\PrestaShop\Form\Settings\SettingsFormHandler;
 use Sendy\PrestaShop\Grid\Carrier\CarrierGridFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
 use Sendy\PrestaShop\Repository\ShopConfigurationRepository;
+use Sendy\PrestaShop\Service\PrestashopModuleTracking;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -62,6 +64,14 @@ class SettingsController extends FrameworkBundleAdminController
 
     public function index(Request $request): Response
     {
+        $module = \Module::getInstanceByName('sendynl');
+        $mboInstaller = new DependencyBuilder($module);
+        if (!$mboInstaller->areDependenciesMet()) {
+            return $this->redirect(
+                $this->getAdminLink('AdminModules', ['configure' => 'sendynl'])
+            );
+        }
+
         $settingsForm = $this->settingsFormHandler->getForm();
         $settingsForm->handleRequest($request);
 
@@ -96,6 +106,8 @@ class SettingsController extends FrameworkBundleAdminController
                 }
 
                 $this->addFlash('success', $this->trans('Settings updated.', 'Admin.Notifications.Success'));
+
+                PrestashopModuleTracking::track($module, 'Module Configured');
 
                 return $this->redirectToRoute('sendynl_settings');
             }

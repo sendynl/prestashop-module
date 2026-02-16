@@ -10,7 +10,9 @@
     },
     "require": {
         "php": ">=7.4",
-        "sendynl/php-sdk": "^3.0"
+        "sendynl/php-sdk": "^3.0",
+        "prestashop/module-lib-mbo-installer": "^3.0",
+        "segmentio/analytics-php": "^3.8"
     },
     "config": {
         "preferred-install": "dist",

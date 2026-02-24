@@ -1,0 +1,53 @@
+name: Analysis
+on:
+  push:
+  pull_request:
+
+jobs:
+  php-linter:
+    name: PHP Syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: PHP syntax checker 7.4
+        uses: prestashop/github-action-php-lint/7.4@master
+
+      - name: PHP syntax checker 8.1
+        uses: prestashop/github-action-php-lint/8.1@master
+
+      - name: PHP syntax checker 8.4
+        uses: prestashop/github-action-php-lint/8.4@master
+
+  phpstan:
+    name: PHPStan (PS ${{ matrix.presta-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - presta-version: '1.7'
+            docker-tag: '1.7.8'
+          - presta-version: '8'
+            docker-tag: '8'
+          - presta-version: '9'
+            docker-tag: '9.0.0-1.0-classic'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Cache composer folder
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: php-composer-cache
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Pull PrestaShop files
+        run: docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:${{ matrix.docker-tag }}
+
+      - name: Run PHPStan
+        run: docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/phpstan.${{ matrix.presta-version }}.neon

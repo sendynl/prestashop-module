@@ -112,10 +112,13 @@ class Sendynl extends CarrierModule
             && $this->trackModuleEvent('Module Disabled');
     }
 
-    public function runUpgradeModule()
+    /** @return array<mixed> */
+    public function runUpgradeModule(): array
     {
-        return parent::runUpgradeModule()
-            && $this->trackModuleEvent('Module Upgraded');
+        $result = parent::runUpgradeModule();
+        $this->trackModuleEvent('Module Upgraded');
+
+        return $result;
     }
 
     /**
@@ -162,12 +165,9 @@ class Sendynl extends CarrierModule
     }
 
     /**
-     * @param $eventName
      * @param array<string, string> $properties
-     *
-     * @return true
      */
-    public function trackModuleEvent($eventName, array $properties = [])
+    public function trackModuleEvent(string $eventName, array $properties = []): bool
     {
         PrestashopModuleTracking::track(
             $this,

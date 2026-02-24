@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace Sendy\PrestaShop\Service;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class PrestashopModuleTracking
 {
     private const SEGMENT_WRITE_KEY = 'AgqeWVEItnROTHgQHvOKnAa3Bso7w0nj';
@@ -21,17 +25,17 @@ class PrestashopModuleTracking
      *
      * @param \Module $module
      * @param string $eventName
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return void
      */
-    public static function track(\Module $module, $eventName, array $properties = [])
+    public static function track(\Module $module, string $eventName, array $properties = []): void
     {
         $baseProperties = [
             'shop_url' => defined('_PS_BASE_URL_SSL_') ? _PS_BASE_URL_SSL_ : (defined('_PS_BASE_URL_') ? _PS_BASE_URL_ : ''),
             'ps_version' => defined('_PS_VERSION_') ? _PS_VERSION_ : '',
             'php_version' => PHP_VERSION,
-            'module_version' => property_exists($module, 'version') ? $module->version : '',
+            'module_version' => $module->version,
         ];
 
         if (!empty($properties)) {
@@ -44,7 +48,7 @@ class PrestashopModuleTracking
             if (method_exists($module, 'getService')) {
                 $serviceName = sprintf('%s.ps_accounts_facade', $module->name);
                 $accountsFacade = $module->getService($serviceName);
-                if ($accountsFacade && method_exists($accountsFacade, 'getPsAccountsService')) {
+                if (is_object($accountsFacade) && method_exists($accountsFacade, 'getPsAccountsService')) {
                     $psAccountsService = $accountsFacade->getPsAccountsService();
                     $baseProperties = array_merge($baseProperties, [
                         'user_id' => $psAccountsService->getUserUuid(),
@@ -55,7 +59,7 @@ class PrestashopModuleTracking
             }
         } catch (\Throwable $e) {
             if (class_exists('PrestaShopLogger')) {
-                \PrestaShopLogger::addLog($e->getMessage(), 3, null, $module->name);
+                \PrestaShopLogger::addLog($e->getMessage(), 3, null, (string) $module->name);
             }
         }
 
@@ -83,12 +87,13 @@ class PrestashopModuleTracking
             self::log($module, sprintf('Track "%s" sent.', $eventName));
         } catch (\Throwable $e) {
             if (class_exists('PrestaShopLogger')) {
-                \PrestaShopLogger::addLog($e->getMessage(), 3, null, $module->name);
+                \PrestaShopLogger::addLog($e->getMessage(), 3, null, (string) $module->name);
             }
         }
     }
 
-    protected static function log(\Module $module, $message, array $context = [])
+    /** @param array<string, mixed> $context */
+    protected static function log(\Module $module, string $message, array $context = []): void
     {
         if (!class_exists('PrestaShopLogger')) {
             return;
@@ -102,7 +107,7 @@ class PrestashopModuleTracking
             sprintf('[Tracking][%s] %s | Context: %s', $module->name, $message, json_encode($context)),
             1,
             null,
-            $module->name
+            (string) $module->name
         );
     }
 }

@@ -97,7 +97,7 @@ parameters:
 			path: ../../sendynl.php
 
 		-
-			message: '#^Method Sendy\\PrestaShop\\Action\\CreateShipmentFromOrder\:\:formatProducts\(\) should return list\<array\{description\: string, quantity\: int, sku\: string, unit_price\: float\|string, unit_weight\: float\|string, description_en\?\: string\}\> but returns array\<array\{description\: mixed, quantity\: mixed, sku\: mixed, unit_price\: mixed, unit_weight\: mixed, description_en\?\: string\}\>\.$#'
+			message: '#^Method Sendy\\PrestaShop\\Action\\CreateShipmentFromOrder\:\:formatProducts\(\) should return list\<array\{description\: string, quantity\: int, sku\: string, unit_price\: float\|string, unit_weight\: float\|string, description_en\?\: string\}\> but returns array\<array\{description\: mixed, quantity\: mixed, sku\: mixed, unit_price\: mixed, unit_weight\: mixed, description_en\?\: non\-empty\-string\}\>\.$#'
 			identifier: return.type
 			count: 1
 			path: ../../src/Action/CreateShipmentFromOrder.php

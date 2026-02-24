@@ -65,6 +65,8 @@ class SettingsController extends FrameworkBundleAdminController
     public function index(Request $request): Response
     {
         $module = \Module::getInstanceByName('sendynl');
+        assert($module instanceof \Module);
+
         $mboInstaller = new DependencyBuilder($module);
         if (!$mboInstaller->areDependenciesMet()) {
             return $this->redirect(

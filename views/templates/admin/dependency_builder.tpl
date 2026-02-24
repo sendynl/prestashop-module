@@ -1,3 +1,12 @@
+{**
+ * This file is part of the Sendy PrestaShop module - https://sendy.nl
+ *
+ * @author Sendy B.V.
+ * @copyright Sendy B.V.
+ * @license https://github.com/sendynl/prestashop-module/blob/master/LICENSE MIT
+ *
+ * @see https://github.com/sendynl/prestashop-module
+ *}
 <!-- Load cdc library -->
 <script src="https://assets.prestashop3.com/dst/mbo/v1/mbo-cdc-dependencies-resolver.umd.js"></script>
 

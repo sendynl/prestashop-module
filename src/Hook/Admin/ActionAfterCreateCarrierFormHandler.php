@@ -50,7 +50,7 @@ final class ActionAfterCreateCarrierFormHandler
         $this->carrierConfigRepository->saveSettings(
             $carrier->id_reference,
             true,
-            $params['form_data']['sendynl_parcel_shop_carrier'] ?? ''
+            $params['form_data']['sendynl']['sendynl_parcel_shop_carrier'] ?? ''
         );
     }
 }

@@ -8,11 +8,25 @@
  * @see https://github.com/sendynl/prestashop-module
  */
 
-.sendynl-parcel-shop-picker {
-    margin-bottom: .9375rem;
+/* Classic theme */
+.carrier-extra-content  {
+    .sendynl-parcel-shop-picker {
+        padding-bottom: .9375rem;
+    }
+}
+
+/* Hummingbird theme */
+.carrier__extra-content {
+    .sendynl-parcel-shop-picker {
+        padding-top: 1rem;
+    }
 }
 
 .sendynl-parcel-shop-picker-name:not(:empty) {
     font-weight: 500;
     margin-top: 0.5rem;
+}
+
+.sendynl-parcel-shop-picker-address {
+    font-size: 0.875rem;
 }

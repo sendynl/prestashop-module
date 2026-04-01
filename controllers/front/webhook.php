@@ -11,6 +11,7 @@
 declare(strict_types=1);
 
 use Sendy\PrestaShop\Action\HandleShipmentWebhook;
+use Sendy\PrestaShop\Action\RegenerateWebhookSecret;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Installer\SystemUser;
 use Sendy\PrestaShop\Legacy\DummyUrlGenerator;
@@ -43,6 +44,11 @@ class SendynlWebhookModuleFrontController extends ModuleFrontController
             $this->ajax = true;
 
             $body = Tools::file_get_contents('php://input');
+
+            if (!$this->verifyWebhookSignature($configurationRepository, $body)) {
+                return;
+            }
+
             $decoded = json_decode($body, true);
 
             if (!isset($decoded['data'], $decoded['data']['event'], $decoded['data']['id'], $decoded['data']['resource'])) {
@@ -77,5 +83,49 @@ class SendynlWebhookModuleFrontController extends ModuleFrontController
             http_response_code(500);
             throw $e;
         }
+    }
+
+    private function verifyWebhookSignature(ConfigurationRepository $configurationRepository, string $body): bool
+    {
+        $signature = $_SERVER['HTTP_X_SIGNATURE'] ?? null;
+        $timestamp = $_SERVER['HTTP_X_TIMESTAMP'] ?? null;
+
+        if (!$signature || !$timestamp) {
+            http_response_code(401);
+            $this->ajaxRender(json_encode(['error' => 'Missing signature headers']));
+
+            return false;
+        }
+
+        $secret = $configurationRepository->getWebhookSecret();
+
+        if (!$secret) {
+            try {
+                $apiConnectionFactory = new ApiConnectionFactory($configurationRepository, new DummyUrlGenerator());
+                $regenerateWebhookSecret = new RegenerateWebhookSecret($configurationRepository, $apiConnectionFactory);
+                $regenerateWebhookSecret->execute();
+            } catch (Exception $e) {
+                http_response_code(500);
+                $this->ajaxRender(json_encode(['error' => 'Failed to regenerate webhook secret']));
+
+                return false;
+            }
+
+            http_response_code(401);
+            $this->ajaxRender(json_encode(['error' => 'Webhook secret not configured']));
+
+            return false;
+        }
+
+        $expected = hash_hmac('sha256', $timestamp . $body, $secret);
+
+        if (!hash_equals($expected, $signature)) {
+            http_response_code(401);
+            $this->ajaxRender(json_encode(['error' => 'Invalid signature']));
+
+            return false;
+        }
+
+        return true;
     }
 }

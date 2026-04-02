@@ -107,7 +107,7 @@ class ConfigurationRepository
         $this->configuration->set('SENDYNL_ACCESS_TOKEN', null, ShopConstraint::allShops());
         $this->configuration->set('SENDYNL_REFRESH_TOKEN', null, ShopConstraint::allShops());
         $this->configuration->set('SENDYNL_TOKEN_EXPIRES', null, ShopConstraint::allShops());
-        $this->configuration->set('SENDY_WEBHOOK_SECRET', null, ShopConstraint::allShops());
+        $this->configuration->set('SENDYNL_WEBHOOK_SECRET', null, ShopConstraint::allShops());
     }
 
     public function getDisplayTrackAndTraceColumn(): bool
@@ -137,17 +137,17 @@ class ConfigurationRepository
 
     public function getWebhookSecret(): ?string
     {
-        return $this->configuration->get('SENDY_WEBHOOK_SECRET') ?: null;
+        return $this->configuration->get('SENDYNL_WEBHOOK_SECRET') ?: null;
     }
 
     public function setWebhookSecret(string $secret): void
     {
-        $this->configuration->set('SENDY_WEBHOOK_SECRET', $secret, ShopConstraint::allShops());
+        $this->configuration->set('SENDYNL_WEBHOOK_SECRET', $secret, ShopConstraint::allShops());
     }
 
     public function deleteWebhookSecret(): void
     {
-        $this->configuration->set('SENDY_WEBHOOK_SECRET', null, ShopConstraint::allShops());
+        $this->configuration->set('SENDYNL_WEBHOOK_SECRET', null, ShopConstraint::allShops());
     }
 
     public function getLastCronRun(): ?int

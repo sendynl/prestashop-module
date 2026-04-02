@@ -9,6 +9,7 @@ services:
       - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
       - '@router'
       - '@Sendy\PrestaShop\Action\SynchronizeWebhook'
+      - '@Sendy\PrestaShop\Action\RegenerateWebhookSecret'
       - '@prestashop.adapter.shop.context'
     parent: 'PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController'
     public: true

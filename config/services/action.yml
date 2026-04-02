@@ -27,6 +27,11 @@ services:
       - '@Sendy\PrestaShop\Action\InstallWebhook'
       - '@Sendy\PrestaShop\Action\UninstallWebhook'
       - '@Sendy\PrestaShop\Repository\ShopConfigurationRepository'
+  Sendy\PrestaShop\Action\RegenerateWebhookSecret:
+    class: 'Sendy\PrestaShop\Action\RegenerateWebhookSecret'
+    arguments:
+      - '@Sendy\PrestaShop\Repository\ConfigurationRepository'
+      - '@Sendy\PrestaShop\Factory\ApiConnectionFactory'
   Sendy\PrestaShop\Action\UninstallWebhook:
     class: 'Sendy\PrestaShop\Action\UninstallWebhook'
     arguments:

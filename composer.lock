@@ -58,16 +58,16 @@
         },
         {
             "name": "segmentio/analytics-php",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/segmentio/analytics-php.git",
-                "reference": "195f7a37fcc8cb5210119840863f0a0baa703bdf"
+                "reference": "6199b9887e53e11dfdfb590beba79577c120efed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/segmentio/analytics-php/zipball/195f7a37fcc8cb5210119840863f0a0baa703bdf",
-                "reference": "195f7a37fcc8cb5210119840863f0a0baa703bdf",
+                "url": "https://api.github.com/repos/segmentio/analytics-php/zipball/6199b9887e53e11dfdfb590beba79577c120efed",
+                "reference": "6199b9887e53e11dfdfb590beba79577c120efed",
                 "shasum": ""
             },
             "require": {
@@ -116,9 +116,9 @@
             ],
             "support": {
                 "issues": "https://github.com/segmentio/analytics-php/issues",
-                "source": "https://github.com/segmentio/analytics-php/tree/3.8.1"
+                "source": "https://github.com/segmentio/analytics-php/tree/3.8.2"
             },
-            "time": "2025-01-27T17:32:51+00:00"
+            "time": "2026-03-11T18:19:46+00:00"
         },
         {
             "name": "sendynl/php-sdk",

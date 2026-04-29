@@ -15,6 +15,7 @@ namespace Sendy\PrestaShop\Controller\Admin;
 use PrestaShop\PrestaShop\Adapter\Shop\Context as ShopContext;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Sendy\Api\Exceptions\SendyException;
+use Sendy\PrestaShop\Action\RegenerateWebhookSecret;
 use Sendy\PrestaShop\Action\SynchronizeWebhook;
 use Sendy\PrestaShop\Factory\ApiConnectionFactory;
 use Sendy\PrestaShop\Repository\ConfigurationRepository;
@@ -34,6 +35,7 @@ class AuthController extends FrameworkBundleAdminController
     private ApiConnectionFactory $apiConnectionFactory;
     private UrlGeneratorInterface $router;
     private SynchronizeWebhook $synchronizeWebhook;
+    private RegenerateWebhookSecret $regenerateWebhookSecret;
     private ShopContext $shopContext;
 
     public function __construct(
@@ -41,12 +43,14 @@ class AuthController extends FrameworkBundleAdminController
         ApiConnectionFactory $apiConnectionFactory,
         UrlGeneratorInterface $router,
         SynchronizeWebhook $synchronizeWebhook,
+        RegenerateWebhookSecret $regenerateWebhookSecret,
         ShopContext $shopContext
     ) {
         $this->configurationRepository = $configurationRepository;
         $this->apiConnectionFactory = $apiConnectionFactory;
         $this->router = $router;
         $this->synchronizeWebhook = $synchronizeWebhook;
+        $this->regenerateWebhookSecret = $regenerateWebhookSecret;
         $this->shopContext = $shopContext;
     }
 
@@ -87,6 +91,9 @@ class AuthController extends FrameworkBundleAdminController
 
             // Install/uninstall the webhook as needed
             $this->synchronizeWebhook->execute();
+
+            // Fetch and store the webhook secret for signature verification
+            $this->regenerateWebhookSecret->execute();
 
             $this->addFlash('success', $this->trans('Login successful.', 'Modules.Sendynl.Admin'));
         } catch (SendyException $exception) {

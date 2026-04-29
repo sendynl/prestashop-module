@@ -148,7 +148,7 @@ class Sendynl extends CarrierModule
      */
     public function getOrderShippingCost($params, $shipping_cost): float
     {
-        return 0.0;
+        return (float) $shipping_cost;
     }
 
     /**

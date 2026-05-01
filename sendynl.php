@@ -37,7 +37,7 @@ class Sendynl extends CarrierModule
     {
         $this->name = 'sendynl';
         $this->tab = 'shipping_logistics';
-        $this->version = '3.0.4';
+        $this->version = '3.1.0';
         $this->author = 'Sendy B.V.';
         $this->need_instance = 1;
         $this->module_key = 'c4f781164993281f1b2e1e3147b96348';
@@ -148,7 +148,7 @@ class Sendynl extends CarrierModule
      */
     public function getOrderShippingCost($params, $shipping_cost): float
     {
-        return 0.0;
+        return (float) $shipping_cost;
     }
 
     /**

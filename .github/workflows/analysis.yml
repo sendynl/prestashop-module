@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: PHP syntax checker 7.4
         uses: prestashop/github-action-php-lint/7.4@master
@@ -35,10 +35,10 @@ jobs:
             docker-tag: '9.0.0-1.0-classic'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Cache composer folder
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.composer/cache
           key: php-composer-cache

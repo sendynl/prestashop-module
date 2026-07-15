@@ -3,7 +3,6 @@ services:
   mysql:
     container_name: sendy-prestashop-9-mysql
     image: mysql:latest
-    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: prestashop
@@ -15,8 +14,7 @@ services:
       - db_data:/var/lib/mysql
   prestashop:
     container_name: sendy-prestashop-9-prestashop
-    image: prestashop/prestashop:9.0.0-1.0-classic
-    restart: unless-stopped
+    image: prestashop/prestashop:9.1.1
     depends_on:
       - mysql
     ports:
@@ -31,7 +29,7 @@ services:
       DB_PASSWD: admin
       PS_INSTALL_AUTO: 1
       PS_DOMAIN: localhost:8090
-      PS_FOLDER_ADMIN: admin7639
+      PS_FOLDER_ADMIN: admin-dev
       PS_DEV_MODE: 1
       PS_LANGUAGE: nl
       PS_COUNTRY: NL

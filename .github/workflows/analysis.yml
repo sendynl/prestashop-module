@@ -32,7 +32,7 @@ jobs:
           - presta-version: '8'
             docker-tag: '8'
           - presta-version: '9'
-            docker-tag: '9.0.0-1.0-classic'
+            docker-tag: '9.1.1'
     steps:
       - name: Checkout
         uses: actions/checkout@v7
